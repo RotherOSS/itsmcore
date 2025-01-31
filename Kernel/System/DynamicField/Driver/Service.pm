@@ -2,7 +2,7 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
+# Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -41,6 +41,7 @@ our @ObjectDependencies = (
     'Kernel::System::DynamicField::Backend',
     'Kernel::System::Group',
     'Kernel::System::Log',
+    'Kernel::System::Service',
     'Kernel::System::User',
 );
 
@@ -192,7 +193,7 @@ sub ObjectDescriptionGet {
     my $UserID = $Param{LayoutObject}{UserID} || 1;
 
     my %ServiceData = $Kernel::OM->Get('Kernel::System::Service')->ServiceGet(
-        UserID => $UserID,
+        UserID    => $UserID,
         ServiceID => $Param{ObjectID},
     );
 
@@ -253,7 +254,7 @@ sub SearchObjects {
     if ( $Param{ObjectID} ) {
 
         my %ServiceData = $Kernel::OM->Get('Kernel::System::Service')->ServiceGet(
-            UserID => $Self->{UserID},
+            UserID    => $Self->{UserID},
             ServiceID => $Param{ObjectID},
         );
 
