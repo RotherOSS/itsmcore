@@ -88,6 +88,7 @@
         <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/AgentITSMSLA.tt" />
         <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/AgentITSMSLAZoom.tt" />
         <File Permission="660" Location="Kernel/System/Console/Command/Admin/Service/Add.pm" />
+        <File Permission="660" Location="Kernel/System/DynamicField/Driver/Service.pm" />
         <File Permission="660" Location="Kernel/System/LinkObject/Service.pm" />
         <File Permission="660" Location="Kernel/System/ITSMCIPAllocate.pm" />
         <File Permission="660" Location="Kernel/System/Service.pm" />
