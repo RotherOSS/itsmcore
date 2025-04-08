@@ -966,7 +966,7 @@ sub Run {
                             # if we enforce CIPAllocation in any case delete all other priority options
                             if ( $GetParam{PriorityID} && $CIPCalculate == 2 ) {
                                 $StdFieldValues{PriorityID} = {
-                                    $GetParam{PriorityID} => $StdFieldValues{PriorityID}{ $PriorityID },
+                                    $GetParam{PriorityID} => $StdFieldValues{PriorityID}{ $GetParam{PriorityID} },
                                 };
                             }
                         }
@@ -2236,7 +2236,7 @@ sub Run {
                             # if we enforce CIPAllocation in any case delete all other priority options
                             if ( $GetParam{PriorityID} && $CIPCalculate == 2 ) {
                                 $StdFieldValues{PriorityID} = {
-                                    $GetParam{PriorityID} => $StdFieldValues{PriorityID}{ $PriorityID },
+                                    $GetParam{PriorityID} => $StdFieldValues{PriorityID}{ $GetParam{PriorityID} },
                                 };
                             }
                         }
