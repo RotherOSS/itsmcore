@@ -825,8 +825,8 @@ sub Run {
         my %ChangedStdFields;
 
 # Rother OSS / ITSMCore - calculate Priority via CIP matrix
-        if ( $CIPCalculate && $GetParam{DynamicField_ITSMImpact}
-            && ( $GetParam{DynamicField_ITSMCriticality} || $GetParam{ServiceID} ) ) {
+        if ( $CIPCalculate && $GetParam{DynamicField}{DynamicField_ITSMImpact}
+            && ( $GetParam{DynamicField}{DynamicField_ITSMCriticality} || $GetParam{ServiceID} ) ) {
 
             # if we have an initial criticality and impact, trigger priority calculation
             $ChangedElements{DynamicField_ITSMImpact} = 1;
@@ -933,7 +933,7 @@ sub Run {
                     }
 
 # Rother OSS / ITSMCore - calculate Priority via CIP matrix
-                    if ( $Field->{FieldID} eq 'PriorityID' && $CIPCalculate && $GetParam{DynamicField_ITSMImpact} ) {
+                    elsif ( $Field->{FieldID} eq 'PriorityID' && $CIPCalculate && $GetParam{DynamicField}{DynamicField_ITSMImpact} ) {
 
                         # get the criticality either from the manually set dynamic field, or the service
                         my $Criticality = $GetParam{DynamicField_ITSMCriticality};
@@ -953,7 +953,7 @@ sub Run {
                             if ( $ChangedElements{DynamicField_ITSMImpact} || $ChangedElements{ServiceID} || $ChangedElements{DynamicField_ITSMCriticality} ) {
                                 my $PriorityID = $CIPAllocateObject->PriorityAllocationGet(
                                     Criticality => $Criticality,
-                                    Impact      => $GetParam{DynamicField_ITSMImpact},
+                                    Impact      => $GetParam{DynamicField}{DynamicField_ITSMImpact},
                                 );
 
                                 if ( $StdFieldValues{PriorityID}{ $PriorityID } && $PriorityID ne $GetParam{PriorityID} ) {
@@ -2203,7 +2203,7 @@ sub Run {
                     }
 
 # Rother OSS / ITSMCore - calculate Priority via CIP matrix
-                    if ( $Field->{FieldID} eq 'PriorityID' && $CIPCalculate && $GetParam{DynamicField_ITSMImpact} ) {
+                    elsif ( $Field->{FieldID} eq 'PriorityID' && $CIPCalculate && $GetParam{DynamicField}{DynamicField_ITSMImpact} ) {
 
                         # get the criticality either from the manually set dynamic field, or the service
                         my $Criticality = $GetParam{DynamicField_ITSMCriticality};
@@ -2223,7 +2223,7 @@ sub Run {
                             if ( $ChangedElements{DynamicField_ITSMImpact} || $ChangedElements{ServiceID} || $ChangedElements{DynamicField_ITSMCriticality} ) {
                                 my $PriorityID = $CIPAllocateObject->PriorityAllocationGet(
                                     Criticality => $Criticality,
-                                    Impact      => $GetParam{DynamicField_ITSMImpact},
+                                    Impact      => $GetParam{DynamicField}{DynamicField_ITSMImpact},
                                 );
 
                                 if ( $StdFieldValues{PriorityID}{ $PriorityID } && $PriorityID ne $GetParam{PriorityID} ) {
