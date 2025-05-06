@@ -76,7 +76,7 @@ sub Run {
             if ( $Kernel::OM->Get('Kernel::System::Main')->Require( $Menus{$Menu}->{Module} ) ) {
                 my $Object = $Menus{$Menu}->{Module}->new(
                     %{$Self},
-                    ServiceID => $Self->{ServiceID},
+                    ServiceID => $Service{ServiceID},
                 );
 
                 # set classes
