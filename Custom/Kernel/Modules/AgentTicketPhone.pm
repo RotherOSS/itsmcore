@@ -941,7 +941,7 @@ sub Run {
                         if ( !$Criticality && $GetParam{ServiceID} ) {
                             my %Service = $ServiceObject->ServiceGet(
                                 ServiceID => $GetParam{ServiceID},
-                                UserID    => $Self->{UserID},
+                                UserID    => 1,
                             );
 
                             $Criticality = $Service{Criticality};
@@ -2211,7 +2211,7 @@ sub Run {
                         if ( !$Criticality && $GetParam{ServiceID} ) {
                             my %Service = $ServiceObject->ServiceGet(
                                 ServiceID => $GetParam{ServiceID},
-                                UserID    => $Self->{UserID},
+                                UserID    => 1,
                             );
 
                             $Criticality = $Service{Criticality};
