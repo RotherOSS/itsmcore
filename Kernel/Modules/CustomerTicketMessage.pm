@@ -235,7 +235,7 @@ sub Run {
             );
 
             # check if we really should use ServiceCatalog functionality
-            if ( exists $ServiceData{DestQueueID} ) {
+            if ( exists $Service{DestQueueID} ) {
                 $ServiceData{ServiceID} = $GetParam{ServiceID};
                 $ServiceData{TypeID}    = $GetParam{TypeID};
             }

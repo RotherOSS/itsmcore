@@ -410,6 +410,20 @@ sub Run {
     # frontend specific config
     my $Config = $ConfigObject->Get("Ticket::Frontend::$Self->{Action}");
 
+# Rother OSS / ITSMCore - calculate Priority via CIP matrix
+    my $CIPCalculate = $Config->{PriorityByCIP} // $ConfigObject->Get('ITSM::Frontend::CIPAllocationDefault');
+    my $ServiceObject;
+    my $CIPAllocateObject;
+    if ( $CIPCalculate ) {
+        $ServiceObject     = $Kernel::OM->Get('Kernel::System::Service');
+        $CIPAllocateObject = $Kernel::OM->Get('Kernel::System::ITSMCIPAllocate');
+
+        $Self->{InternalDependancy}{ServiceID}{PriorityID}                    = 1;
+        $Self->{InternalDependancy}{DynamicField_ITSMImpact}{PriorityID}      = 1;
+        $Self->{InternalDependancy}{DynamicField_ITSMCriticality}{PriorityID} = 1;
+    }
+# EO ITSMCore
+
     # cycle through the activated Dynamic Fields for this screen
     DYNAMICFIELD:
     for my $DynamicFieldConfig ( values $Self->{DynamicField}->%* ) {
@@ -919,6 +933,15 @@ sub Run {
         my %ChangedElementsDFStart;
         my %ChangedStdFields;
 
+# Rother OSS / ITSMCore - calculate Priority via CIP matrix
+        if ( $CIPCalculate && $GetParam{DynamicField}{DynamicField_ITSMImpact}
+            && ( $GetParam{DynamicField}{DynamicField_ITSMCriticality} || $GetParam{ServiceID} ) ) {
+
+            # if we have an initial criticality and impact, trigger priority calculation
+            $ChangedElements{DynamicField_ITSMImpact} = 1;
+        }
+# EO ITSMCore
+
         my $LoopProtection = 100;
         my %StdFieldValues;
         my %DynFieldStates = (
@@ -1017,6 +1040,47 @@ sub Run {
                             ) || '';
                         }
                     }
+
+# Rother OSS / ITSMCore - calculate Priority via CIP matrix
+                    elsif ( $Field->{FieldID} eq 'PriorityID' && $CIPCalculate && $GetParam{DynamicField}{DynamicField_ITSMImpact} ) {
+
+                        # get the criticality either from the manually set dynamic field, or the service
+                        my $Criticality = $GetParam{DynamicField_ITSMCriticality};
+
+                        if ( !$Criticality && $GetParam{ServiceID} ) {
+                            my %Service = $ServiceObject->ServiceGet(
+                                ServiceID => $GetParam{ServiceID},
+                                UserID    => 1,
+                            );
+
+                            $Criticality = $Service{Criticality};
+                        }
+
+                        if ( $Criticality ) { 
+
+                            # recalculate the priority if any of the impacting elements changed
+                            if ( $ChangedElements{DynamicField_ITSMImpact} || $ChangedElements{ServiceID} || $ChangedElements{DynamicField_ITSMCriticality} ) {
+                                my $PriorityID = $CIPAllocateObject->PriorityAllocationGet(
+                                    Criticality => $Criticality,
+                                    Impact      => $GetParam{DynamicField}{DynamicField_ITSMImpact},
+                                );
+
+                                if ( $StdFieldValues{PriorityID}{ $PriorityID } && $PriorityID ne $GetParam{PriorityID} ) {
+                                    $GetParam{PriorityID}           = $PriorityID;
+                                    $NewChangedElements{PriorityID} = 1;
+                                    $ChangedStdFields{PriorityID}   = 1;
+                                }
+                            }
+
+                            # if we enforce CIPAllocation in any case delete all other priority options
+                            if ( $GetParam{PriorityID} && $CIPCalculate == 2 ) {
+                                $StdFieldValues{PriorityID} = {
+                                    $GetParam{PriorityID} => $StdFieldValues{PriorityID}{ $GetParam{PriorityID} },
+                                };
+                            }
+                        }
+                    }
+# EO ITSMCore
 
                     # check whether current selected value is still valid for the field
                     if (
@@ -2335,6 +2399,47 @@ sub Run {
                             ) || '';
                         }
                     }
+
+# Rother OSS / ITSMCore - calculate Priority via CIP matrix
+                    elsif ( $Field->{FieldID} eq 'PriorityID' && $CIPCalculate && $GetParam{DynamicField}{DynamicField_ITSMImpact} ) {
+
+                        # get the criticality either from the manually set dynamic field, or the service
+                        my $Criticality = $GetParam{DynamicField_ITSMCriticality};
+
+                        if ( !$Criticality && $GetParam{ServiceID} ) {
+                            my %Service = $ServiceObject->ServiceGet(
+                                ServiceID => $GetParam{ServiceID},
+                                UserID    => 1,
+                            );
+
+                            $Criticality = $Service{Criticality};
+                        }
+
+                        if ( $Criticality ) { 
+
+                            # recalculate the priority if any of the impacting elements changed
+                            if ( $ChangedElements{DynamicField_ITSMImpact} || $ChangedElements{ServiceID} || $ChangedElements{DynamicField_ITSMCriticality} ) {
+                                my $PriorityID = $CIPAllocateObject->PriorityAllocationGet(
+                                    Criticality => $Criticality,
+                                    Impact      => $GetParam{DynamicField}{DynamicField_ITSMImpact},
+                                );
+
+                                if ( $StdFieldValues{PriorityID}{ $PriorityID } && $PriorityID ne $GetParam{PriorityID} ) {
+                                    $GetParam{PriorityID}           = $PriorityID;
+                                    $NewChangedElements{PriorityID} = 1;
+                                    $ChangedStdFields{PriorityID}   = 1;
+                                }
+                            }
+
+                            # if we enforce CIPAllocation in any case delete all other priority options
+                            if ( $GetParam{PriorityID} && $CIPCalculate == 2 ) {
+                                $StdFieldValues{PriorityID} = {
+                                    $GetParam{PriorityID} => $StdFieldValues{PriorityID}{ $GetParam{PriorityID} },
+                                };
+                            }
+                        }
+                    }
+# EO ITSMCore
 
                     # check whether current selected value is still valid for the field
                     if (

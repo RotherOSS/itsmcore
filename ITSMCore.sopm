@@ -69,7 +69,10 @@
         <File Permission="660" Location="Kernel/Modules/AdminITSMCIPAllocate.pm" />
         <File Permission="660" Location="Kernel/Modules/AdminService.pm" />
         <File Permission="660" Location="Kernel/Modules/AdminSLA.pm" />
+        <File Permission="660" Location="Kernel/Modules/AgentTicketActionCommon.pm" />
+        <File Permission="660" Location="Kernel/Modules/AgentTicketEmail.pm" />
         <File Permission="660" Location="Kernel/Modules/AgentTicketPhone.pm" />
+        <File Permission="660" Location="Kernel/Modules/AgentTicketProcess.pm" />
         <File Permission="660" Location="Kernel/Modules/AgentITSMService.pm" />
         <File Permission="660" Location="Kernel/Modules/AgentITSMServicePrint.pm" />
         <File Permission="660" Location="Kernel/Modules/AgentITSMServiceZoom.pm" />
@@ -77,6 +80,7 @@
         <File Permission="660" Location="Kernel/Modules/AgentITSMSLAPrint.pm" />
         <File Permission="660" Location="Kernel/Modules/AgentITSMSLAZoom.pm" />
         <File Permission="660" Location="Kernel/Modules/CustomerTicketMessage.pm" />
+        <File Permission="660" Location="Kernel/Modules/CustomerTicketProcess.pm" />
         <File Permission="660" Location="Kernel/Output/HTML/ITSMServiceMenu/Generic.pm" />
         <File Permission="660" Location="Kernel/Output/HTML/ITSMServiceMenu/Link.pm" />
         <File Permission="660" Location="Kernel/Output/HTML/ITSMSLAMenu/Generic.pm" />
