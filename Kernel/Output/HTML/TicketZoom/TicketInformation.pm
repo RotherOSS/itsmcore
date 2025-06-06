@@ -80,6 +80,11 @@ sub Run {
 
     # ticket service
     if ( $ConfigObject->Get('Ticket::Service') && $Ticket{Service} ) {
+        $LayoutObject->Block(
+            Name => 'Service',
+            Data => { %Ticket, %AclAction },
+        );
+
 # Rother OSS / ITSMCore
         # get service data
         my %Service = $Kernel::OM->Get('Kernel::System::Service')->ServiceGet(
@@ -105,7 +110,7 @@ sub Run {
             );
         }
 
-        if ( $Service{Critiality} ) {
+        if ( $Service{Criticality} ) {
             $LayoutObject->Block(
                 Name => 'ServiceCriticality',
                 Data => {
@@ -115,10 +120,6 @@ sub Run {
         }
 # EO ITSMCore
 
-        $LayoutObject->Block(
-            Name => 'Service',
-            Data => { %Ticket, %AclAction },
-        );
         if ( $Ticket{SLA} ) {
             $LayoutObject->Block(
                 Name => 'SLA',

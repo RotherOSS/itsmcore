@@ -82,6 +82,7 @@
                         <p class="Value" title="[% Translate(Data.Service) | html %]"><a href="[% Env("Baselink") %]Action=AgentITSMServiceZoom;ServiceID=[% Data.ServiceID | uri %];"
                             target="_blank">[% Translate(Data.Service) | html | replace('::', '<wbr>::<wbr>') %]</a></p>
 [% RenderBlockStart("ServiceInciSignal") %]
+                        <div class="Clear"></div>
                         <label>[% Translate("Service Incident State") | html %]:</label>
                         <div class="Value">
                             <div class="Flag Small">
@@ -89,9 +90,9 @@
                             </div>
                             <span>[% Translate(Data.CurInciState) | html %]</span>
                         </div>
-                        <div class="Clear"></div>
 [% RenderBlockEnd("ServiceInciSignal") %]
 [% RenderBlockStart("ServiceCriticality") %]
+                        <div class="Clear"></div>
                         <label>[% Translate("Service Criticality") | html %]:</label>
                         <p class="Value" title="[% Translate( Data.Criticality ) | html %]">[% Translate( Data.Criticality ) | html %]</p>
 [% RenderBlockEnd("ServiceCriticality") %]
