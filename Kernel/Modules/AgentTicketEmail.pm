@@ -1433,7 +1433,7 @@ sub Run {
         }
 
 # Rother OSS / ITSMCore - calculate Priority via CIP matrix
-        if ( $CIPCalculate && $CIPCalculate == 2 ) {
+        if ( $CIPCalculate && $CIPCalculate == 2 && $GetParam{DynamicField}{DynamicField_ITSMImpact} ) {
 
             # get the criticality either from the manually set dynamic field, or the service
             my $Criticality = $GetParam{DynamicField_ITSMCriticality};

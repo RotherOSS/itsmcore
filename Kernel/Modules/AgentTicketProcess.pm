@@ -4847,7 +4847,7 @@ sub _StoreActivityDialog {
                 my $Config       = $ConfigObject->Get("Ticket::Frontend::$Self->{Action}") // {};
                 my $CIPCalculate = $Config->{PriorityByCIP} // $ConfigObject->Get('ITSM::Frontend::CIPAllocationDefault');
 
-                if ( $CIPCalculate && $CIPCalculate == 2 ) {
+                if ( $CIPCalculate && $CIPCalculate == 2 && $Param{GetParam}{DynamicField}{DynamicField_ITSMImpact} ) {
 
                     # get the criticality either from the manually set dynamic field, or the service
                     my $Criticality = $Param{GetParam}{DynamicField_ITSMCriticality};
