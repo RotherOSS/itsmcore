@@ -90,11 +90,11 @@
                             <span>[% Translate(Data.CurInciState) | html %]</span>
                         </div>
                         <div class="Clear"></div>
-[% RenderBlockStop("ServiceInciSignal") %]
+[% RenderBlockEnd("ServiceInciSignal") %]
 [% RenderBlockStart("ServiceCriticality") %]
                         <label>[% Translate("Service Criticality") | html %]:</label>
                         <p class="Value" title="[% Translate( Data.Criticality ) | html %]">[% Translate( Data.Criticality ) | html %]</p>
-[% RenderBlockStop("ServiceCriticality") %]
+[% RenderBlockEnd("ServiceCriticality") %]
 # EO Rother OSS
                         <div class="Clear"></div>
 [% RenderBlockEnd("Service") %]
