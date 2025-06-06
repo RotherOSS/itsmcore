@@ -79,7 +79,7 @@
             </Hash>
         </Value>
     </Setting>
-    <Setting Name="Frontend::CIPAllocationDefault" Required="0" Valid="1">
+    <Setting Name="ITSM::Frontend::CIPAllocationDefault" Required="0" Valid="1">
         <Description Translatable="1">Default behavior of priority allocation in the frontends based on Criticality and Impact. Can be overruled by frontend specific PriorityByCIP settings.</Description>
         <Navigation>Core::ITSMCore</Navigation>
         <Value>

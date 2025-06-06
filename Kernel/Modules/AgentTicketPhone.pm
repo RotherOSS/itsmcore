@@ -1243,6 +1243,41 @@ sub Run {
             }
         }
 
+# Rother OSS / ITSMCore - calculate Priority via CIP matrix
+        if ( $CIPCalculate && $CIPCalculate == 2 ) {
+
+            # get the criticality either from the manually set dynamic field, or the service
+            my $Criticality = $GetParam{DynamicField_ITSMCriticality};
+
+            if ( !$Criticality && $GetParam{ServiceID} ) {
+                my %Service = $ServiceObject->ServiceGet(
+                    ServiceID => $GetParam{ServiceID},
+                    UserID    => 1,
+                );
+
+                $Criticality = $Service{Criticality};
+            }
+
+            if ( $Criticality ) { 
+                my $PriorityID = $CIPAllocateObject->PriorityAllocationGet(
+                    Criticality => $Criticality,
+                    Impact      => $GetParam{DynamicField}{DynamicField_ITSMImpact},
+                );
+ 
+                if ( $PriorityID ne $GetParam{PriorityID} ) {
+
+                    # this should never happen; we just enforce the prio and write an error to the log file here
+                    $Kernel::OM->Get('Kernel::System::Log')->Log(
+                        Priority => 'error',
+                        Message  => "Got PriorityID '$GetParam{PriorityID}', but CIP enforces '$PriorityID' - overriding the frontend value.",
+                    );
+
+                    $GetParam{PriorityID} = $PriorityID;
+                }
+            }
+        }
+# EO ITSMCore
+
         # skip validation of hidden fields
         my %Visibility;
 

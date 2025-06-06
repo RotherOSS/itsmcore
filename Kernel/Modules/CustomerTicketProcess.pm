@@ -349,11 +349,11 @@ sub _RenderAjax {
 
             if ( $CIPCalculate && $Param{GetParam}{DynamicField}{DynamicField_ITSMImpact} ) {
                 # get the criticality either from the manually set dynamic field, or the service
-                my $Criticality = ${GetParam}{DynamicField_ITSMCriticality};
+                my $Criticality = $Param{GetParam}{DynamicField_ITSMCriticality};
 
-                if ( !$Criticality && $GetParam{ServiceID} ) {
+                if ( !$Criticality && $Param{GetParam}{ServiceID} ) {
                     my %Service = $Kernel::OM->Get('Kernel::System::Service')->ServiceGet(
-                        ServiceID => $GetParam{ServiceID},
+                        ServiceID => $Param{GetParam}{ServiceID},
                         UserID    => 1,
                     );
 
@@ -366,7 +366,7 @@ sub _RenderAjax {
                     if ( $Changed eq 'DynamicField_ITSMImpact' || $Changed eq 'DynamicField_ITSMCriticality' || $Changed eq 'ServiceID' ) {
                         my $PriorityID = $Kernel::OM->Get('Kernel::System::ITSMCIPAllocate')->PriorityAllocationGet(
                             Criticality => $Criticality,
-                            Impact      => $GetParam{DynamicField}{DynamicField_ITSMImpact},
+                            Impact      => $Param{GetParam}{DynamicField}{DynamicField_ITSMImpact},
                         );
 
                         $Param{GetParam}{PriorityID} = $PriorityID;
@@ -2521,7 +2521,7 @@ sub _RenderPriority {
 
         if ( !$Criticality && $Param{GetParam}{ServiceID} ) {
             my %Service = $Kernel::OM->Get('Kernel::System::Service')->ServiceGet(
-                ServiceID => $GetParam{ServiceID},
+                ServiceID => $Param{GetParam}{ServiceID},
                 UserID    => 1,
             );
 
@@ -3137,6 +3137,47 @@ sub _StoreActivityDialog {
 
             # skip if we've already checked ID or Name
             next DIALOGFIELD if $CheckedFields{ $Self->{NameToID}->{$CurrentField} };
+
+# Rother OSS / ITSMCore - calculate Priority via CIP matrix
+            if ( $Self->{NameToID}{$CurrentField} eq 'PriorityID' ) {
+                my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
+                my $Config       = $ConfigObject->Get("Ticket::Frontend::$Self->{Action}") // {};
+                my $CIPCalculate = $Config->{PriorityByCIP} // $ConfigObject->Get('ITSM::Frontend::CIPAllocationDefault');
+
+                if ( $CIPCalculate && $CIPCalculate == 2 ) {
+
+                    # get the criticality either from the manually set dynamic field, or the service
+                    my $Criticality = $Param{GetParam}{DynamicField_ITSMCriticality};
+
+                    if ( !$Criticality && $Param{GetParam}{ServiceID} ) {
+                        my %Service = $Kernel::OM->Get('Kernel::System::Service')->ServiceGet(
+                            ServiceID => $Param{GetParam}{ServiceID},
+                            UserID    => 1,
+                        );
+
+                        $Criticality = $Service{Criticality};
+                    }
+
+                    if ( $Criticality ) { 
+                        my $PriorityID = $Kernel::OM->Get('Kernel::System::ITSMCIPAllocate')->PriorityAllocationGet(
+                            Criticality => $Criticality,
+                            Impact      => $Param{GetParam}{DynamicField}{DynamicField_ITSMImpact},
+                        );
+         
+                        if ( $PriorityID ne $Param{GetParam}{PriorityID} ) {
+
+                            # this should never happen; we just enforce the prio and write an error to the log file here
+                            $Kernel::OM->Get('Kernel::System::Log')->Log(
+                                Priority => 'error',
+                                Message  => "Got PriorityID '$Param{GetParam}{PriorityID}', but CIP enforces '$PriorityID' - overriding the frontend value.",
+                            );
+
+                            $Param{GetParam}{PriorityID} = $PriorityID;
+                        }
+                    }
+                }
+            }
+# EO ITSMCore
 
             my $Result = $Self->_CheckField(
                 Field => $Self->{NameToID}->{$CurrentField},
