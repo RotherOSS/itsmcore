@@ -69,16 +69,23 @@
         <File Permission="660" Location="Kernel/Modules/AdminITSMCIPAllocate.pm" />
         <File Permission="660" Location="Kernel/Modules/AdminService.pm" />
         <File Permission="660" Location="Kernel/Modules/AdminSLA.pm" />
+        <File Permission="660" Location="Kernel/Modules/AgentTicketActionCommon.pm" />
+        <File Permission="660" Location="Kernel/Modules/AgentTicketEmail.pm" />
+        <File Permission="660" Location="Kernel/Modules/AgentTicketPhone.pm" />
+        <File Permission="660" Location="Kernel/Modules/AgentTicketProcess.pm" />
         <File Permission="660" Location="Kernel/Modules/AgentITSMService.pm" />
         <File Permission="660" Location="Kernel/Modules/AgentITSMServicePrint.pm" />
         <File Permission="660" Location="Kernel/Modules/AgentITSMServiceZoom.pm" />
         <File Permission="660" Location="Kernel/Modules/AgentITSMSLA.pm" />
         <File Permission="660" Location="Kernel/Modules/AgentITSMSLAPrint.pm" />
         <File Permission="660" Location="Kernel/Modules/AgentITSMSLAZoom.pm" />
+        <File Permission="660" Location="Kernel/Modules/CustomerTicketMessage.pm" />
+        <File Permission="660" Location="Kernel/Modules/CustomerTicketProcess.pm" />
         <File Permission="660" Location="Kernel/Output/HTML/ITSMServiceMenu/Generic.pm" />
         <File Permission="660" Location="Kernel/Output/HTML/ITSMServiceMenu/Link.pm" />
         <File Permission="660" Location="Kernel/Output/HTML/ITSMSLAMenu/Generic.pm" />
         <File Permission="660" Location="Kernel/Output/HTML/LinkObject/Service.pm" />
+        <File Permission="660" Location="Kernel/Output/HTML/TicketZoom/TicketInformation.pm" />
         <File Permission="660" Location="Kernel/Output/JavaScript/Templates/Standard/Agent/ITSMCore/LoadingDialog.html.tmpl" />
         <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/AdminITSMCIPAllocate.tt" />
         <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/AdminService.tt" />
@@ -87,6 +94,10 @@
         <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/AgentITSMServiceZoom.tt" />
         <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/AgentITSMSLA.tt" />
         <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/AgentITSMSLAZoom.tt" />
+        <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/AgentTicketEmail.tt" />
+        <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/AgentTicketPhone.tt" />
+        <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/AgentTicketZoom/TicketInformation.tt" />
+        <File Permission="660" Location="Kernel/Output/HTML/Templates/Standard/CustomerTicketMessage.tt" />
         <File Permission="660" Location="Kernel/System/Console/Command/Admin/Service/Add.pm" />
         <File Permission="660" Location="Kernel/System/DynamicField/Driver/Service.pm" />
         <File Permission="660" Location="Kernel/System/LinkObject/Service.pm" />

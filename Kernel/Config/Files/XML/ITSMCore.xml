@@ -79,6 +79,61 @@
             </Hash>
         </Value>
     </Setting>
+    <Setting Name="ITSM::Frontend::CIPAllocationDefault" Required="0" Valid="1">
+        <Description Translatable="1">Default behavior of priority allocation in the frontends based on Criticality and Impact. Can be overruled by frontend specific PriorityByCIP settings.</Description>
+        <Navigation>Core::ITSMCore</Navigation>
+        <Value>
+            <Item ValueType="Select" SelectedID="1">
+                <Item ValueType="Option" Value="0" Translatable="1">Off</Item>
+                <Item ValueType="Option" Value="1" Translatable="1">Suggest</Item>
+                <Item ValueType="Option" Value="2" Translatable="1">Enforce</Item>
+            </Item>
+        </Value>
+    </Setting>
+    <Setting Name="Ticket::Frontend::AgentTicketPhone###PriorityByCIP" Required="0" Valid="0">
+        <Description Translatable="1">CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault.</Description>
+        <Navigation>Frontend::Agent::View::TicketPhoneNew</Navigation>
+        <Value>
+            <Item ValueType="Select" SelectedID="2">
+                <Item ValueType="Option" Value="0" Translatable="1">Off</Item>
+                <Item ValueType="Option" Value="1" Translatable="1">Suggest</Item>
+                <Item ValueType="Option" Value="2" Translatable="1">Enforce</Item>
+            </Item>
+        </Value>
+    </Setting>
+    <Setting Name="Ticket::Frontend::AgentTicketEmail###PriorityByCIP" Required="0" Valid="0">
+        <Description Translatable="1">CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault.</Description>
+        <Navigation>Frontend::Agent::View::TicketEmailNew</Navigation>
+        <Value>
+            <Item ValueType="Select" SelectedID="2">
+                <Item ValueType="Option" Value="0" Translatable="1">Off</Item>
+                <Item ValueType="Option" Value="1" Translatable="1">Suggest</Item>
+                <Item ValueType="Option" Value="2" Translatable="1">Enforce</Item>
+            </Item>
+        </Value>
+    </Setting>
+    <Setting Name="Ticket::Frontend::AgentTicketFreeText###PriorityByCIP" Required="0" Valid="0">
+        <Description Translatable="1">CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault.</Description>
+        <Navigation>Frontend::Agent::View::TicketFreeText</Navigation>
+        <Value>
+            <Item ValueType="Select" SelectedID="2">
+                <Item ValueType="Option" Value="0" Translatable="1">Off</Item>
+                <Item ValueType="Option" Value="1" Translatable="1">Suggest</Item>
+                <Item ValueType="Option" Value="2" Translatable="1">Enforce</Item>
+            </Item>
+        </Value>
+    </Setting>
+    <Setting Name="Ticket::Frontend::CustomerTicketMessage###PriorityByCIP" Required="0" Valid="0">
+        <Description Translatable="1">CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault.</Description>
+        <Navigation>Frontend::Cuastomer::View::TicketMessage</Navigation>
+        <Value>
+            <Item ValueType="Select" SelectedID="2">
+                <Item ValueType="Option" Value="0" Translatable="1">Off</Item>
+                <Item ValueType="Option" Value="1" Translatable="1">Suggest</Item>
+                <Item ValueType="Option" Value="2" Translatable="1">Enforce</Item>
+            </Item>
+        </Value>
+    </Setting>
     <Setting Name="ITSM::Core::IncidentLinkTypeDirection" Required="1" Valid="1">
         <Description Translatable="1">Set the type and direction of links to be used to calculate the incident state. The key is the name of the link type (as defined in LinkObject::Type), and the value is the direction of the IncidentLinkType that should be followed to calculate the incident state. For example if the IncidentLinkType is set to 'DependsOn', and the Direction is 'Source', only 'Depends on' links will be followed (and not the opposite link 'Required for') to calculate the incident state. You can add more link types ad directions as you like, e.g. 'Includes' with the direction 'Target'. All link types defined in the sysconfig options LinkObject::Type are possible and the direction can be 'Source', 'Target', or 'Both'. IMPORTANT: AFTER YOU MAKE CHANGES TO THIS SYSCONFIG OPTION YOU NEED TO RUN THE CONSOLE COMMAND bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!</Description>
         <Navigation>Core::ITSMCore</Navigation>
