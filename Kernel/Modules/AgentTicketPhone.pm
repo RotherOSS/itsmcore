@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - de795e41b417658c571131ad07377c5340ce4db9 - Kernel/Modules/AgentTicketPhone.pm
+# $origin: otobo - 02c919daa3457da004b3d2eda877ccab41e068e5 - Kernel/Modules/AgentTicketPhone.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -2081,7 +2081,7 @@ sub Run {
         }
 
         # get redirect screen
-        my $NextScreen = $Self->{UserCreateNextMask} || 'AgentTicketPhone';
+        my $NextScreen = $Self->{Session}{UserCreateNextMask} || 'AgentTicketPhone';
 
         # redirect
         return $LayoutObject->Redirect(
@@ -3465,6 +3465,13 @@ sub _MaskPhoneNew {
             Data => {
                 ChatMessages => \@ChatMessages,
             },
+        );
+    }
+
+    # explanatory message about asterisk
+    if ( $ConfigObject->Get('Ticket::Frontend::AsteriskExplanation') ) {
+        $LayoutObject->Block(
+            Name => 'AsteriskExplanation',
         );
     }
 

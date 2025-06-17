@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - e44c18aea9abc125fddf9ceeed204db4fab290e0 - Kernel/Modules/AgentTicketProcess.pm
+# $origin: otobo - e4b7f3b82d0750633bcdf95bfbba1013261ce1fa - Kernel/Modules/AgentTicketProcess.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -858,7 +858,7 @@ sub _RenderAjax {
                     Name        => 'DynamicField_' . $DynamicFieldConfig->{Name} . "_$i",
                     Data        => $DataValues,
                     SelectedID  => $DFParam->{"DynamicField_$DynamicFieldConfig->{Name}"}[$i],
-                    Translation => $DynamicFieldConfig->{Config}->{TranslatableValues} || 0,
+                    Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
                     Max         => 100,
                 };
             }
@@ -883,7 +883,7 @@ sub _RenderAjax {
             Name        => 'DynamicField_' . $DynamicFieldConfig->{Name},
             Data        => $DataValues,
             SelectedID  => $DFParam->{"DynamicField_$DynamicFieldConfig->{Name}"},
-            Translation => $DynamicFieldConfig->{Config}->{TranslatableValues} || 0,
+            Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
             Max         => 100,
         };
     }
@@ -914,7 +914,7 @@ sub _RenderAjax {
                         Name        => 'DynamicField_' . $FrontendName . "_$i",
                         Data        => $DataValues,
                         SelectedID  => $SetField->{Values}{$FrontendName}[$i],
-                        Translation => $DynamicFieldConfig->{Config}->{TranslatableValues} || 0,
+                        Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
                         Max         => 100,
                     };
                 }
@@ -939,7 +939,7 @@ sub _RenderAjax {
                 Name        => 'DynamicField_' . $FrontendName,
                 Data        => $DataValues,
                 SelectedID  => $SetField->{Values}{$FrontendName},
-                Translation => $DynamicFieldConfig->{Config}->{TranslatableValues} || 0,
+                Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
                 Max         => 100,
             };
         }
@@ -1121,7 +1121,7 @@ sub _GetParam {
 
     }
     $GetParam{ActivityDialogEntityID} = $ActivityDialogEntityID;
-    $GetParam{ActivityEntityID}       = $ActivityEntityID;
+    $GetParam{ActivityEntityID}       = $ActivityEntityID // $ParamObject->GetParam( Param => 'ActivityEntityID' );
     $GetParam{ProcessEntityID}        = $ProcessEntityID;
 
     # Get the activitydialogs's Submit Param's or Config Params
@@ -1473,8 +1473,8 @@ sub _OutputActivityDialog {
     if ( $LayoutObject->{BrowserRichText} ) {
 
         # use height/width defined for this screen
-        $Param{RichTextHeight} = $Self->{Config}->{RichTextHeight} || 0;
-        $Param{RichTextWidth}  = $Self->{Config}->{RichTextWidth}  || 0;
+        $Param{RichTextHeight} = $Self->{Config}{RichTextHeight} || 0;
+        $Param{RichTextWidth}  = $Self->{Config}{RichTextWidth}  || 0;
 
         # set up rich text editor
         $LayoutObject->SetRichTextParameters(
@@ -1756,6 +1756,13 @@ sub _OutputActivityDialog {
 
     }
 
+    # explanatory message about asterisk
+    if ( $ConfigObject->Get('Ticket::Frontend::AsteriskExplanation') ) {
+        $LayoutObject->Block(
+            Name => 'AsteriskExplanation',
+        );
+    }
+
     $Output .= $LayoutObject->Output(
         TemplateFile => 'ProcessManagement/ActivityDialogHeader',
         Data         => {
@@ -1765,7 +1772,14 @@ sub _OutputActivityDialog {
             TicketID               => $Ticket{TicketID} || '',
             LinkTicketID           => $Self->{LinkTicketID},
             ActivityDialogEntityID => $ActivityActivityDialog->{ActivityDialog},
-            ProcessEntityID        => $Param{ProcessEntityID}
+            ActivityEntityID       => $Param{GetParam}{ActivityEntityID}
+                || $Ticket{
+                    'DynamicField_'
+                    . $ConfigObject->Get(
+                        'Process::DynamicFieldProcessManagementActivityID'
+                    )
+                },
+            ProcessEntityID => $Param{ProcessEntityID}
                 || $Ticket{
                     'DynamicField_'
                     . $ConfigObject->Get(
@@ -1896,7 +1910,7 @@ sub _OutputActivityDialog {
         }
     }
 
-    my %DynamicFieldValues = map { ( 'DynamicField_' . $_ => $Param{GetParam}->{ 'DynamicField_' . $_ } ) } keys $Self->{DynamicField}->%*;
+    my %DynamicFieldValues = map { ( 'DynamicField_' . $_ => $Param{GetParam}{ 'DynamicField_' . $_ } ) } keys $Self->{DynamicField}->%*;
 
     # Loop through ActivityDialogFields and render their output
     DIALOGFIELD:
@@ -1940,8 +1954,8 @@ sub _OutputActivityDialog {
                 Errors               => $Param{DFErrors},
                 Visibility           => \%Visibility,
                 Object               => {
-                    CustomerID     => $Param{GetParam}->{CustomerID},
-                    CustomerUserID => $Param{GetParam}->{CustomerUserID},
+                    CustomerID     => $Param{GetParam}{CustomerID},
+                    CustomerUserID => $Param{GetParam}{CustomerUserID},
                     UserID         => $Self->{UserID},
                     %DynamicFieldValues,
                 },
@@ -1968,8 +1982,8 @@ sub _OutputActivityDialog {
                 PossibleValues      => $DFPossibleValues{$DynamicFieldName},
                 Visibility          => $Visibility{ 'DynamicField_' . $DynamicFieldName } // 0,
                 Object              => {
-                    CustomerID     => $Param{GetParam}->{CustomerID},
-                    CustomerUserID => $Param{GetParam}->{CustomerUserID},
+                    CustomerID     => $Param{GetParam}{CustomerID},
+                    CustomerUserID => $Param{GetParam}{CustomerUserID},
                     UserID         => $Self->{UserID},
                     %DynamicFieldValues,
                 },
@@ -1995,12 +2009,12 @@ sub _OutputActivityDialog {
         }
 
         # render State
-        elsif ( $Self->{NameToID}->{$CurrentField} eq 'StateID' )
+        elsif ( $Self->{NameToID}{$CurrentField} eq 'StateID' )
         {
 
             # We don't render Fields twice,
             # if there was already a Config without ID, skip this field
-            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}->{$CurrentField} };
+            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}{$CurrentField} };
 
             my $Response = $Self->_RenderState(
                 ActivityDialogField => $ActivityDialog->{Fields}{$CurrentField},
@@ -2029,13 +2043,13 @@ sub _OutputActivityDialog {
 
             $Output .= $Response->{HTML};
 
-            $RenderedFields{ $Self->{NameToID}->{$CurrentField} } = 1;
+            $RenderedFields{ $Self->{NameToID}{$CurrentField} } = 1;
         }
 
         # render Queue
-        elsif ( $Self->{NameToID}->{$CurrentField} eq 'QueueID' )
+        elsif ( $Self->{NameToID}{$CurrentField} eq 'QueueID' )
         {
-            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}->{$CurrentField} };
+            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}{$CurrentField} };
 
             my $Response = $Self->_RenderQueue(
                 ActivityDialogField => $ActivityDialog->{Fields}{$CurrentField},
@@ -2064,13 +2078,13 @@ sub _OutputActivityDialog {
 
             $Output .= $Response->{HTML};
 
-            $RenderedFields{ $Self->{NameToID}->{$CurrentField} } = 1;
+            $RenderedFields{ $Self->{NameToID}{$CurrentField} } = 1;
         }
 
         # render Priority
-        elsif ( $Self->{NameToID}->{$CurrentField} eq 'PriorityID' )
+        elsif ( $Self->{NameToID}{$CurrentField} eq 'PriorityID' )
         {
-            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}->{$CurrentField} };
+            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}{$CurrentField} };
 
             my $Response = $Self->_RenderPriority(
                 ActivityDialogField => $ActivityDialog->{Fields}{$CurrentField},
@@ -2099,12 +2113,12 @@ sub _OutputActivityDialog {
 
             $Output .= $Response->{HTML};
 
-            $RenderedFields{ $Self->{NameToID}->{$CurrentField} } = 1;
+            $RenderedFields{ $Self->{NameToID}{$CurrentField} } = 1;
         }
 
         # render Lock
-        elsif ( $Self->{NameToID}->{$CurrentField} eq 'LockID' ) {
-            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}->{$CurrentField} };
+        elsif ( $Self->{NameToID}{$CurrentField} eq 'LockID' ) {
+            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}{$CurrentField} };
 
             my $Response = $Self->_RenderLock(
                 ActivityDialogField => $ActivityDialog->{Fields}{$CurrentField},
@@ -2133,12 +2147,12 @@ sub _OutputActivityDialog {
 
             $Output .= $Response->{HTML};
 
-            $RenderedFields{ $Self->{NameToID}->{$CurrentField} } = 1;
+            $RenderedFields{ $Self->{NameToID}{$CurrentField} } = 1;
         }
 
         # render Service
-        elsif ( $Self->{NameToID}->{$CurrentField} eq 'ServiceID' ) {
-            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}->{$CurrentField} };
+        elsif ( $Self->{NameToID}{$CurrentField} eq 'ServiceID' ) {
+            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}{$CurrentField} };
 
             my $Response = $Self->_RenderService(
                 ActivityDialogField => $ActivityDialog->{Fields}{$CurrentField},
@@ -2171,8 +2185,8 @@ sub _OutputActivityDialog {
         }
 
         # render SLA
-        elsif ( $Self->{NameToID}->{$CurrentField} eq 'SLAID' ) {
-            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}->{$CurrentField} };
+        elsif ( $Self->{NameToID}{$CurrentField} eq 'SLAID' ) {
+            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}{$CurrentField} };
 
             my $Response = $Self->_RenderSLA(
                 ActivityDialogField => $ActivityDialog->{Fields}{$CurrentField},
@@ -2201,12 +2215,12 @@ sub _OutputActivityDialog {
 
             $Output .= $Response->{HTML};
 
-            $RenderedFields{ $Self->{NameToID}->{$CurrentField} } = 1;
+            $RenderedFields{ $Self->{NameToID}{$CurrentField} } = 1;
         }
 
         # render Owner
-        elsif ( $Self->{NameToID}->{$CurrentField} eq 'OwnerID' ) {
-            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}->{$CurrentField} };
+        elsif ( $Self->{NameToID}{$CurrentField} eq 'OwnerID' ) {
+            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}{$CurrentField} };
 
             my $Response = $Self->_RenderOwner(
                 ActivityDialogField => $ActivityDialog->{Fields}{$CurrentField},
@@ -2235,12 +2249,12 @@ sub _OutputActivityDialog {
 
             $Output .= $Response->{HTML};
 
-            $RenderedFields{ $Self->{NameToID}->{$CurrentField} } = 1;
+            $RenderedFields{ $Self->{NameToID}{$CurrentField} } = 1;
         }
 
         # render responsible
-        elsif ( $Self->{NameToID}->{$CurrentField} eq 'ResponsibleID' ) {
-            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}->{$CurrentField} };
+        elsif ( $Self->{NameToID}{$CurrentField} eq 'ResponsibleID' ) {
+            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}{$CurrentField} };
 
             my $Response = $Self->_RenderResponsible(
                 ActivityDialogField => $ActivityDialog->{Fields}{$CurrentField},
@@ -2269,12 +2283,12 @@ sub _OutputActivityDialog {
 
             $Output .= $Response->{HTML};
 
-            $RenderedFields{ $Self->{NameToID}->{$CurrentField} } = 1;
+            $RenderedFields{ $Self->{NameToID}{$CurrentField} } = 1;
         }
 
         # render CustomerID
-        elsif ( $Self->{NameToID}->{$CurrentField} eq 'CustomerID' ) {
-            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}->{$CurrentField} };
+        elsif ( $Self->{NameToID}{$CurrentField} eq 'CustomerID' ) {
+            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}{$CurrentField} };
 
             my $Response = $Self->_RenderCustomer(
                 ActivityDialogField => $ActivityDialog->{Fields}{$CurrentField},
@@ -2303,7 +2317,7 @@ sub _OutputActivityDialog {
 
             $Output .= $Response->{HTML};
 
-            $RenderedFields{ $Self->{NameToID}->{$CurrentField} } = 1;
+            $RenderedFields{ $Self->{NameToID}{$CurrentField} } = 1;
         }
 
         elsif ( $CurrentField eq 'PendingTime' ) {
@@ -2327,7 +2341,7 @@ sub _OutputActivityDialog {
                 );
             }
 
-            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}->{$CurrentField} };
+            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}{$CurrentField} };
 
             my $Response = $Self->_RenderPendingTime(
                 ActivityDialogField => $ActivityDialog->{Fields}{$CurrentField},
@@ -2356,12 +2370,12 @@ sub _OutputActivityDialog {
 
             $Output .= $Response->{HTML};
 
-            $RenderedFields{ $Self->{NameToID}->{$CurrentField} } = 1;
+            $RenderedFields{ $Self->{NameToID}{$CurrentField} } = 1;
         }
 
         # render Title
-        elsif ( $Self->{NameToID}->{$CurrentField} eq 'Title' ) {
-            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}->{$CurrentField} };
+        elsif ( $Self->{NameToID}{$CurrentField} eq 'Title' ) {
+            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}{$CurrentField} };
 
             my $Response = $Self->_RenderTitle(
                 ActivityDialogField => $ActivityDialog->{Fields}{$CurrentField},
@@ -2394,8 +2408,8 @@ sub _OutputActivityDialog {
         }
 
         # render Article
-        elsif ( $Self->{NameToID}->{$CurrentField} eq 'Article' ) {
-            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}->{$CurrentField} };
+        elsif ( $Self->{NameToID}{$CurrentField} eq 'Article' ) {
+            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}{$CurrentField} };
 
             my $Response = $Self->_RenderArticle(
                 ActivityDialogField => $ActivityDialog->{Fields}{$CurrentField},
@@ -2406,7 +2420,7 @@ sub _OutputActivityDialog {
                 Error               => \%Error  || {},
                 FormID              => $Self->{FormID},
                 GetParam            => $Param{GetParam},
-                InformAgents        => $ActivityDialog->{Fields}->{Article}->{Config}->{InformAgents},
+                InformAgents        => $ActivityDialog->{Fields}{Article}{Config}{InformAgents},
             );
 
             if ( !$Response->{Success} ) {
@@ -2429,11 +2443,11 @@ sub _OutputActivityDialog {
         }
 
         # render Type
-        elsif ( $Self->{NameToID}->{$CurrentField} eq 'TypeID' ) {
+        elsif ( $Self->{NameToID}{$CurrentField} eq 'TypeID' ) {
 
             # We don't render Fields twice,
             # if there was already a Config without ID, skip this field
-            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}->{$CurrentField} };
+            next DIALOGFIELD if $RenderedFields{ $Self->{NameToID}{$CurrentField} };
 
             my $Response = $Self->_RenderType(
                 ActivityDialogField => $ActivityDialog->{Fields}{$CurrentField},
@@ -2462,7 +2476,7 @@ sub _OutputActivityDialog {
 
             $Output .= $Response->{HTML};
 
-            $RenderedFields{ $Self->{NameToID}->{$CurrentField} } = 1;
+            $RenderedFields{ $Self->{NameToID}{$CurrentField} } = 1;
         }
     }
 
@@ -2567,13 +2581,13 @@ sub _RenderPendingTime {
 
     my $Error = '';
     if ( IsHashRefWithData( $Param{Error} ) ) {
-        if ( $Param{Error}->{'PendingtTimeDay'} ) {
+        if ( $Param{Error}{'PendingtTimeDay'} ) {
             $Data{PendingtTimeDayError} = $LayoutObject->{LanguageObject}->Translate("Date invalid!");
-            $Error = $Param{Error}->{'PendingtTimeDay'};
+            $Error = $Param{Error}{'PendingtTimeDay'};
         }
-        if ( $Param{Error}->{'PendingtTimeHour'} ) {
+        if ( $Param{Error}{'PendingtTimeHour'} ) {
             $Data{PendingtTimeHourError} = $LayoutObject->{LanguageObject}->Translate("Date invalid!");
-            $Error = $Param{Error}->{'PendingtTimeDay'};
+            $Error = $Param{Error}{'PendingtTimeDay'};
         }
     }
 
@@ -2596,12 +2610,12 @@ sub _RenderPendingTime {
         Prefix              => 'PendingTime',
         PendingTimeRequired =>
             (
-                $Param{ActivityDialogField}->{Display} && $Param{ActivityDialogField}->{Display} == 2
+                $Param{ActivityDialogField}{Display} && $Param{ActivityDialogField}{Display} == 2
             ) ? 1 : 0,
         Format           => 'DateInputFormatLong',
         YearPeriodPast   => 0,
         YearPeriodFuture => 5,
-        DiffTime         => $Param{ActivityDialogField}->{DefaultValue}
+        DiffTime         => $Param{ActivityDialogField}{DefaultValue}
             || $Kernel::OM->Get('Kernel::Config')->Get('Ticket::Frontend::PendingDiffTime')
             || 86400,
         Class                => $Error,
@@ -2612,12 +2626,12 @@ sub _RenderPendingTime {
     );
 
     $LayoutObject->Block(
-        Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:PendingTime',
+        Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:PendingTime',
         Data => \%Data,
     );
     if ( $Param{DescriptionShort} ) {
         $LayoutObject->Block(
-            Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:PendingTime:DescriptionShort',
+            Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:PendingTime:DescriptionShort',
             Data => {
                 DescriptionShort => $Param{DescriptionShort},
             },
@@ -2677,8 +2691,8 @@ sub _RenderDynamicField {
     my $ServerError;
     if ( IsHashRefWithData( $Param{Error} ) ) {
         if (
-            defined $Param{Error}->{ $Param{FieldName} }
-            && $Param{Error}->{ $Param{FieldName} } ne ''
+            defined $Param{Error}{ $Param{FieldName} }
+            && $Param{Error}{ $Param{FieldName} } ne ''
             )
         {
             $ServerError = 1;
@@ -2688,11 +2702,11 @@ sub _RenderDynamicField {
     my $ErrorMessage = '';
     if ( IsHashRefWithData( $Param{ErrorMessages} ) ) {
         if (
-            defined $Param{ErrorMessages}->{ $Param{FieldName} }
-            && $Param{ErrorMessages}->{ $Param{FieldName} } ne ''
+            defined $Param{ErrorMessages}{ $Param{FieldName} }
+            && $Param{ErrorMessages}{ $Param{FieldName} } ne ''
             )
         {
-            $ErrorMessage = $Param{ErrorMessages}->{ $Param{FieldName} };
+            $ErrorMessage = $Param{ErrorMessages}{ $Param{FieldName} };
         }
     }
 
@@ -2703,8 +2717,8 @@ sub _RenderDynamicField {
         LayoutObject         => $LayoutObject,
         ParamObject          => $Kernel::OM->Get('Kernel::System::Web::Request'),
         AJAXUpdate           => 1,
-        Mandatory            => $Param{ActivityDialogField}->{Display} == 2,
-        ACLHidden            => ( $Param{ActivityDialogField}->{Display} == 2 && !$Param{Visibility} ),
+        Mandatory            => $Param{ActivityDialogField}{Display} == 2,
+        ACLHidden            => ( $Param{ActivityDialogField}{Display} == 2 && !$Param{Visibility} ),
         ServerError          => $ServerError,
         ErrorMessage         => $ErrorMessage,
         Object               => $Param{Object},
@@ -2736,7 +2750,7 @@ sub _RenderDynamicField {
 
             $Data{Content} = $DynamicFieldHTML->{MultiValue}[$MultiValueIndex];
             $LayoutObject->Block(
-                Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:DynamicField',
+                Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:DynamicField',
                 Data => {
                     %Data,
                     MultiValue => 1,
@@ -2764,7 +2778,7 @@ sub _RenderDynamicField {
             if ( $MultiValueIndex == $#{ $DynamicFieldHTML->{MultiValue} } ) {
                 if ( $Param{DescriptionShort} ) {
                     $LayoutObject->Block(
-                        Name => $Param{ActivityDialogField}->{LayoutBlock}
+                        Name => $Param{ActivityDialogField}{LayoutBlock}
                             || 'rw:DynamicField:DescriptionShort',
                         Data => {
                             DescriptionShort => $Param{DescriptionShort},
@@ -2797,13 +2811,13 @@ sub _RenderDynamicField {
         $Data{Content} = $DynamicFieldHTML->{Field};
 
         $LayoutObject->Block(
-            Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:DynamicField',
+            Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:DynamicField',
             Data => \%Data,
         );
 
         if ( $Param{DescriptionShort} ) {
             $LayoutObject->Block(
-                Name => $Param{ActivityDialogField}->{LayoutBlock}
+                Name => $Param{ActivityDialogField}{LayoutBlock}
                     || 'rw:DynamicField:DescriptionShort',
                 Data => {
                     DescriptionShort => $Param{DescriptionShort},
@@ -2850,17 +2864,17 @@ sub _RenderTitle {
         };
     }
 
-    my $Title = $Param{Ticket}->{Title} // '';
+    my $Title = $Param{Ticket}{Title} // '';
 
     if ( !$Title && $Self->{LinkArticleData} ) {
         my %Ticket = $Kernel::OM->Get('Kernel::System::Ticket')->TicketGet(
-            TicketID => $Self->{LinkArticleData}->{TicketID},
+            TicketID => $Self->{LinkArticleData}{TicketID},
             UserID   => $Self->{UserID},
         );
         $Title = $Ticket{Title};
     }
 
-    $Param{GetParam}->{Title} //= $Title;
+    $Param{GetParam}{Title} //= $Title;
 
     my %Data = (
         Label            => $LayoutObject->{LanguageObject}->Translate("Title"),
@@ -2874,18 +2888,18 @@ sub _RenderTitle {
 
     # If field is required put in the necessary variables for
     # ValidateRequired class input field, Mandatory class for the label
-    if ( $Param{ActivityDialogField}->{Display} && $Param{ActivityDialogField}->{Display} == 2 ) {
+    if ( $Param{ActivityDialogField}{Display} && $Param{ActivityDialogField}{Display} == 2 ) {
         $Data{ValidateRequired} = 'Validate_Required';
         $Data{MandatoryClass}   = 'Mandatory';
     }
 
     # output server errors
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'Title'} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{'Title'} ) {
         $Data{ServerError} = 'ServerError';
     }
 
     $LayoutObject->Block(
-        Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Title',
+        Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Title',
         Data => \%Data,
     );
 
@@ -2899,7 +2913,7 @@ sub _RenderTitle {
 
     if ( $Param{DescriptionShort} ) {
         $LayoutObject->Block(
-            Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Title:DescriptionShort',
+            Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Title:DescriptionShort',
             Data => {
                 DescriptionShort => $Param{DescriptionShort},
             },
@@ -2908,7 +2922,7 @@ sub _RenderTitle {
 
     if ( $Param{DescriptionLong} ) {
         $LayoutObject->Block(
-            Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Title:DescriptionLong',
+            Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Title:DescriptionLong',
             Data => {
                 DescriptionLong => $Param{DescriptionLong},
             },
@@ -2946,26 +2960,26 @@ sub _RenderArticle {
     if ( IsHashRefWithData( $Self->{LinkArticleData} ) ) {
         my $TicketObject = $Kernel::OM->Get('Kernel::System::Ticket');
         my $TicketNumber = $TicketObject->TicketNumberLookup(
-            TicketID => $Self->{LinkArticleData}->{TicketID},
+            TicketID => $Self->{LinkArticleData}{TicketID},
         );
 
         # prepare subject
-        $Param{GetParam}->{Subject} = $TicketObject->TicketSubjectClean(
+        $Param{GetParam}{Subject} = $TicketObject->TicketSubjectClean(
             TicketNumber => $TicketNumber,
-            Subject      => $Self->{LinkArticleData}->{Subject} || '',
+            Subject      => $Self->{LinkArticleData}{Subject} || '',
         );
 
         # body preparation for plain text processing
-        $Param{GetParam}->{Body} = $LayoutObject->ArticleQuote(
-            TicketID           => $Self->{LinkArticleData}->{TicketID},
-            ArticleID          => $Self->{LinkArticleData}->{ArticleID},
+        $Param{GetParam}{Body} = $LayoutObject->ArticleQuote(
+            TicketID           => $Self->{LinkArticleData}{TicketID},
+            ArticleID          => $Self->{LinkArticleData}{ArticleID},
             FormID             => $Self->{FormID},
             UploadCacheObject  => $Kernel::OM->Get('Kernel::System::Web::UploadCache'),
             AttachmentsInclude => 1,
         );
 
         my %SafetyCheckResult = $Kernel::OM->Get('Kernel::System::HTMLUtils')->Safety(
-            String => $Param{GetParam}->{Body},
+            String => $Param{GetParam}{Body},
 
             # Strip out external content if BlockLoadingRemoteContent is enabled.
             NoExtSrcLoad => $ConfigObject->Get('Ticket::Frontend::BlockLoadingRemoteContent'),
@@ -2977,7 +2991,7 @@ sub _RenderArticle {
             NoSVG        => 1,
             NoJavaScript => 1,
         );
-        $Param{GetParam}->{Body} = $SafetyCheckResult{String};
+        $Param{GetParam}{Body} = $SafetyCheckResult{String};
     }
 
     # get all attachments meta data
@@ -3007,30 +3021,30 @@ sub _RenderArticle {
         ValidateRequired => '',
         Subject          => $Param{GetParam}{Subject},
         Body             => $Param{GetParam}{Body},
-        LabelSubject     => $Param{ActivityDialogField}->{Config}->{LabelSubject}
+        LabelSubject     => $Param{ActivityDialogField}{Config}{LabelSubject}
             || $LayoutObject->{LanguageObject}->Translate("Subject"),
-        LabelBody => $Param{ActivityDialogField}->{Config}->{LabelBody}
+        LabelBody => $Param{ActivityDialogField}{Config}{LabelBody}
             || $LayoutObject->{LanguageObject}->Translate("Text"),
         AttachmentList => $Param{AttachmentList},
     );
 
     # If field is required put in the necessary variables for
     # ValidateRequired class input field, Mandatory class for the label
-    if ( $Param{ActivityDialogField}->{Display} && $Param{ActivityDialogField}->{Display} == 2 ) {
+    if ( $Param{ActivityDialogField}{Display} && $Param{ActivityDialogField}{Display} == 2 ) {
         $Data{ValidateRequired} = 'Validate_Required';
         $Data{MandatoryClass}   = 'Mandatory';
     }
 
     # output server errors
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'ArticleSubject'} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{'ArticleSubject'} ) {
         $Data{SubjectServerError} = 'ServerError';
     }
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'ArticleBody'} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{'ArticleBody'} ) {
         $Data{BodyServerError} = 'ServerError';
     }
 
     $LayoutObject->Block(
-        Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Article',
+        Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Article',
         Data => \%Data,
     );
 
@@ -3050,8 +3064,8 @@ sub _RenderArticle {
     if ( $LayoutObject->{BrowserRichText} ) {
 
         # use height/width defined for this screen
-        $Param{RichTextHeight} = $Self->{Config}->{RichTextHeight} || 0;
-        $Param{RichTextWidth}  = $Self->{Config}->{RichTextWidth}  || 0;
+        $Param{RichTextHeight} = $Self->{Config}{RichTextHeight} || 0;
+        $Param{RichTextWidth}  = $Self->{Config}{RichTextWidth}  || 0;
 
         # set up rich text editor
         $LayoutObject->SetRichTextParameters(
@@ -3084,7 +3098,7 @@ sub _RenderArticle {
             Type  => 'Long',
             Valid => 1,
         );
-        my $GID        = $Kernel::OM->Get('Kernel::System::Queue')->GetQueueGroupID( QueueID => $Param{Ticket}->{QueueID} );
+        my $GID        = $Kernel::OM->Get('Kernel::System::Queue')->GetQueueGroupID( QueueID => $Param{Ticket}{QueueID} );
         my %MemberList = $Kernel::OM->Get('Kernel::System::Group')->PermissionGroupGet(
             GroupID => $GID,
             Type    => 'ro',
@@ -3107,14 +3121,14 @@ sub _RenderArticle {
     }
 
     # output server errors
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'TimeUnits'} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{'TimeUnits'} ) {
         $Param{TimeUnitsInvalid} = 'ServerError';
     }
 
     # show time units
     if (
         $ConfigObject->Get('Ticket::Frontend::AccountTime')
-        && $Param{ActivityDialogField}->{Config}->{TimeUnits}
+        && $Param{ActivityDialogField}{Config}{TimeUnits}
         )
     {
 
@@ -3126,7 +3140,7 @@ sub _RenderArticle {
             );
             $Param{TimeUnitsRequired} = 'Validate_Required';
         }
-        elsif ( $Param{ActivityDialogField}->{Config}->{TimeUnits} == 1 ) {
+        elsif ( $Param{ActivityDialogField}{Config}{TimeUnits} == 1 ) {
 
             $LayoutObject->Block(
                 Name => 'TimeUnitsLabel',
@@ -3214,27 +3228,27 @@ sub _RenderCustomer {
 
     # If field is required put in the necessary variables for
     # ValidateRequired class input field, Mandatory class for the label
-    if ( $Param{ActivityDialogField}->{Display} && $Param{ActivityDialogField}->{Display} == 2 ) {
+    if ( $Param{ActivityDialogField}{Display} && $Param{ActivityDialogField}{Display} == 2 ) {
         $Data{ValidateRequired} = 'Validate_Required';
         $Data{MandatoryClass}   = 'Mandatory';
     }
 
     # output server errors
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{CustomerUserID} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{CustomerUserID} ) {
         $Data{CustomerUserIDServerError} = 'ServerError';
     }
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{CustomerID} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{CustomerID} ) {
         $Data{CustomerIDServerError} = 'ServerError';
     }
 
     if ( $Self->{LinkTicketData} ) {
         %CustomerUserData = $Kernel::OM->Get('Kernel::System::CustomerUser')->CustomerUserDataGet(
-            User => $Self->{LinkTicketData}->{CustomerUserID},
+            User => $Self->{LinkTicketData}{CustomerUserID},
         );
     }
 
     if (
-        ( IsHashRefWithData( $Param{Ticket} ) && $Param{Ticket}->{CustomerUserID} )
+        ( IsHashRefWithData( $Param{Ticket} ) && $Param{Ticket}{CustomerUserID} )
         || $SubmittedCustomerUserID
         )
     {
@@ -3247,12 +3261,12 @@ sub _RenderCustomer {
     # Customer user from article is preselected for new split ticket. See bug#12956.
     if (
         IsHashRefWithData( $Self->{LinkArticleData} )
-        && $Self->{LinkArticleData}->{From}
-        && $Self->{LinkArticleData}->{SenderType} eq 'customer'
+        && $Self->{LinkArticleData}{From}
+        && $Self->{LinkArticleData}{SenderType} eq 'customer'
         )
     {
 
-        my @ArticleFromAddress = Mail::Address->parse( $Self->{LinkArticleData}->{From} );
+        my @ArticleFromAddress = Mail::Address->parse( $Self->{LinkArticleData}{From} );
 
         my $CustomerUserObject = $Kernel::OM->Get('Kernel::System::CustomerUser');
         my %List               = $CustomerUserObject->CustomerSearch(
@@ -3285,7 +3299,7 @@ sub _RenderCustomer {
     }
 
     $LayoutObject->Block(
-        Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Customer',
+        Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Customer',
         Data => \%Data,
     );
 
@@ -3334,7 +3348,7 @@ sub _RenderResponsible {
     }
 
     if ( $Self->{LinkTicketData} ) {
-        $Param{GetParam}->{ResponsibleAll} = 1;
+        $Param{GetParam}{ResponsibleAll} = 1;
     }
 
     my $Responsibles = $Self->_GetResponsibles( %{ $Param{GetParam} } );
@@ -3350,7 +3364,7 @@ sub _RenderResponsible {
 
     # if field is required put in the necessary variables for
     #    ValidateRequired class input field, Mandatory class for the label
-    if ( $Param{ActivityDialogField}->{Display} && $Param{ActivityDialogField}->{Display} == 2 ) {
+    if ( $Param{ActivityDialogField}{Display} && $Param{ActivityDialogField}{Display} == 2 ) {
         $Data{ValidateRequired} = 'Validate_Required';
         $Data{MandatoryClass}   = 'Mandatory';
     }
@@ -3360,24 +3374,24 @@ sub _RenderResponsible {
     # get user object
     my $UserObject = $Kernel::OM->Get('Kernel::System::User');
 
-    if ( $Param{ActivityDialogField}->{DefaultValue} ) {
+    if ( $Param{ActivityDialogField}{DefaultValue} ) {
 
         if ( $Param{FieldName} eq 'Responsible' ) {
 
             # Fetch DefaultValue from Config
             if ( !$SelectedValue ) {
                 $SelectedValue = $UserObject->UserLookup(
-                    UserLogin => $Param{ActivityDialogField}->{DefaultValue} || '',
+                    UserLogin => $Param{ActivityDialogField}{DefaultValue} || '',
                 );
                 if ($SelectedValue) {
-                    $SelectedValue = $Param{ActivityDialogField}->{DefaultValue};
+                    $SelectedValue = $Param{ActivityDialogField}{DefaultValue};
                 }
             }
         }
         else {
             if ( !$SelectedValue ) {
                 $SelectedValue = $UserObject->UserLookup(
-                    UserID => $Param{ActivityDialogField}->{DefaultValue} || '',
+                    UserID => $Param{ActivityDialogField}{DefaultValue} || '',
                 );
             }
         }
@@ -3392,20 +3406,20 @@ sub _RenderResponsible {
     #    (if any)
     if (
         !$SelectedValue
-        && $Param{ActivityDialogField}->{Display} == 2
+        && $Param{ActivityDialogField}{Display} == 2
         && IsHashRefWithData( $Param{Ticket} )
         )
     {
-        $SelectedValue = $Param{Ticket}->{Responsible};
+        $SelectedValue = $Param{Ticket}{Responsible};
     }
 
     # if we have a user already and the field is not mandatory and it is the same as in ticket, then
     #    set it to none (as it doesn't need to be changed afterall)
     elsif (
         $SelectedValue
-        && $Param{ActivityDialogField}->{Display} != 2
+        && $Param{ActivityDialogField}{Display} != 2
         && IsHashRefWithData( $Param{Ticket} )
-        && $SelectedValue eq $Param{Ticket}->{Responsible}
+        && $SelectedValue eq $Param{Ticket}{Responsible}
         )
     {
         $SelectedValue = '';
@@ -3413,7 +3427,7 @@ sub _RenderResponsible {
 
     # set server errors
     my $ServerError = '';
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'ResponsibleID'} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{'ResponsibleID'} ) {
         $ServerError = 'ServerError';
     }
 
@@ -3426,7 +3440,7 @@ sub _RenderResponsible {
     }
 
     if ( $Self->{LinkTicketData} ) {
-        $SelectedID = $Self->{LinkTicketData}->{ResponsibleID};
+        $SelectedID = $Self->{LinkTicketData}{ResponsibleID};
     }
 
     # build Responsible string
@@ -3440,7 +3454,7 @@ sub _RenderResponsible {
     );
 
     $LayoutObject->Block(
-        Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Responsible',
+        Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Responsible',
         Data => \%Data,
     );
 
@@ -3454,7 +3468,7 @@ sub _RenderResponsible {
 
     if ( $Param{DescriptionShort} ) {
         $LayoutObject->Block(
-            Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Responsible:DescriptionShort',
+            Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Responsible:DescriptionShort',
             Data => {
                 DescriptionShort => $Param{DescriptionShort},
             },
@@ -3499,7 +3513,7 @@ sub _RenderOwner {
     }
 
     if ( $Self->{LinkTicketData} ) {
-        $Param{GetParam}->{OwnerAll} = 1;
+        $Param{GetParam}{OwnerAll} = 1;
     }
 
     my $Owners = $Self->_GetOwners( %{ $Param{GetParam} } );
@@ -3515,7 +3529,7 @@ sub _RenderOwner {
 
     # if field is required put in the necessary variables for
     #    ValidateRequired class input field, Mandatory class for the label
-    if ( $Param{ActivityDialogField}->{Display} && $Param{ActivityDialogField}->{Display} == 2 ) {
+    if ( $Param{ActivityDialogField}{Display} && $Param{ActivityDialogField}{Display} == 2 ) {
         $Data{ValidateRequired} = 'Validate_Required';
         $Data{MandatoryClass}   = 'Mandatory';
     }
@@ -3525,7 +3539,7 @@ sub _RenderOwner {
     # get user object
     my $UserObject = $Kernel::OM->Get('Kernel::System::User');
 
-    if ( $Param{ActivityDialogField}->{DefaultValue} ) {
+    if ( $Param{ActivityDialogField}{DefaultValue} ) {
 
         if ( $Param{FieldName} eq 'Owner' ) {
 
@@ -3533,17 +3547,17 @@ sub _RenderOwner {
 
                 # Fetch DefaultValue from Config
                 $SelectedValue = $UserObject->UserLookup(
-                    UserLogin => $Param{ActivityDialogField}->{DefaultValue} || '',
+                    UserLogin => $Param{ActivityDialogField}{DefaultValue} || '',
                 );
                 if ($SelectedValue) {
-                    $SelectedValue = $Param{ActivityDialogField}->{DefaultValue};
+                    $SelectedValue = $Param{ActivityDialogField}{DefaultValue};
                 }
             }
         }
         else {
             if ( !$SelectedValue ) {
                 $SelectedValue = $UserObject->UserLookup(
-                    UserID => $Param{ActivityDialogField}->{DefaultValue} || '',
+                    UserID => $Param{ActivityDialogField}{DefaultValue} || '',
                 );
             }
         }
@@ -3560,20 +3574,20 @@ sub _RenderOwner {
     #    (if any)
     if (
         !$SelectedValue
-        && $Param{ActivityDialogField}->{Display} == 2
+        && $Param{ActivityDialogField}{Display} == 2
         && IsHashRefWithData( $Param{Ticket} )
         )
     {
-        $SelectedValue = $Param{Ticket}->{Owner};
+        $SelectedValue = $Param{Ticket}{Owner};
     }
 
     # if we have a user already and the field is not mandatory and it is the same as in ticket, then
     #    set it to none (as it doesn't need to be changed afterall)
     elsif (
         $SelectedValue
-        && $Param{ActivityDialogField}->{Display} != 2
+        && $Param{ActivityDialogField}{Display} != 2
         && IsHashRefWithData( $Param{Ticket} )
-        && $SelectedValue eq $Param{Ticket}->{Owner}
+        && $SelectedValue eq $Param{Ticket}{Owner}
         )
     {
         $SelectedValue = '';
@@ -3581,12 +3595,12 @@ sub _RenderOwner {
 
     # set server errors
     my $ServerError = '';
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'OwnerID'} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{'OwnerID'} ) {
         $ServerError = 'ServerError';
     }
 
     if ( $Self->{LinkTicketData} ) {
-        $SelectedValue = $Self->{LinkTicketData}->{OwnerID};
+        $SelectedValue = $Self->{LinkTicketData}{OwnerID};
     }
 
     # look up $SelectedID
@@ -3608,7 +3622,7 @@ sub _RenderOwner {
     );
 
     $LayoutObject->Block(
-        Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Owner',
+        Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Owner',
         Data => \%Data,
     );
 
@@ -3622,7 +3636,7 @@ sub _RenderOwner {
 
     if ( $Param{DescriptionShort} ) {
         $LayoutObject->Block(
-            Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Owner:DescriptionShort',
+            Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Owner:DescriptionShort',
             Data => {
                 DescriptionShort => $Param{DescriptionShort},
             },
@@ -3666,9 +3680,9 @@ sub _RenderSLA {
     }
 
     if ( $Self->{LinkTicketData} ) {
-        $Param{GetParam}->{QueueID}        = $Self->{LinkTicketData}->{QueueID};
-        $Param{GetParam}->{TicketID}       = $Self->{LinkTicketData}->{TicketID};
-        $Param{GetParam}->{CustomerUserID} = $Self->{LinkTicketData}->{CustomerUserID};
+        $Param{GetParam}{QueueID}        = $Self->{LinkTicketData}{QueueID};
+        $Param{GetParam}{TicketID}       = $Self->{LinkTicketData}{TicketID};
+        $Param{GetParam}{CustomerUserID} = $Self->{LinkTicketData}{CustomerUserID};
     }
 
     # create a local copy of the GetParam
@@ -3677,7 +3691,7 @@ sub _RenderSLA {
     # use ticket information as a fall back if customer was already set, otherwise when the
     # activity dialog displays the service list will be initially empty, see bug#10059
     if ( IsHashRefWithData( $Param{Ticket} ) ) {
-        $GetServicesParam{CustomerUserID} ||= $Param{Ticket}->{CustomerUserID} ||= '';
+        $GetServicesParam{CustomerUserID} ||= $Param{Ticket}{CustomerUserID} ||= '';
     }
 
     my $Services = $Self->_GetServices(
@@ -3685,8 +3699,8 @@ sub _RenderSLA {
     );
 
     if ( $Self->{LinkTicketData} ) {
-        $Param{GetParam}->{Services}  = $Services;
-        $Param{GetParam}->{ServiceID} = $Self->{LinkTicketData}->{ServiceID};
+        $Param{GetParam}{Services}  = $Services;
+        $Param{GetParam}{ServiceID} = $Self->{LinkTicketData}{ServiceID};
     }
 
     my $SLAs = $Self->_GetSLAs(
@@ -3704,7 +3718,7 @@ sub _RenderSLA {
 
     # If field is required put in the necessary variables for
     # ValidateRequired class input field, Mandatory class for the label
-    if ( $Param{ActivityDialogField}->{Display} && $Param{ActivityDialogField}->{Display} == 2 ) {
+    if ( $Param{ActivityDialogField}{Display} && $Param{ActivityDialogField}{Display} == 2 ) {
         $Data{ValidateRequired} = 'Validate_Required';
         $Data{MandatoryClass}   = 'Mandatory';
     }
@@ -3725,29 +3739,29 @@ sub _RenderSLA {
 
             # Fetch DefaultValue from Config
             if (
-                defined $Param{ActivityDialogField}->{DefaultValue}
-                && $Param{ActivityDialogField}->{DefaultValue} ne ''
+                defined $Param{ActivityDialogField}{DefaultValue}
+                && $Param{ActivityDialogField}{DefaultValue} ne ''
                 )
             {
                 $SelectedValue = $SLAObject->SLALookup(
-                    SLA => $Param{ActivityDialogField}->{DefaultValue},
+                    SLA => $Param{ActivityDialogField}{DefaultValue},
                 );
             }
 
             if ($SelectedValue) {
-                $SelectedValue = $Param{ActivityDialogField}->{DefaultValue};
+                $SelectedValue = $Param{ActivityDialogField}{DefaultValue};
             }
         }
     }
     else {
         if ( !$SelectedValue ) {
             if (
-                defined $Param{ActivityDialogField}->{DefaultValue}
-                && $Param{ActivityDialogField}->{DefaultValue} ne ''
+                defined $Param{ActivityDialogField}{DefaultValue}
+                && $Param{ActivityDialogField}{DefaultValue} ne ''
                 )
             {
                 $SelectedValue = $SLAObject->SLALookup(
-                    SLA => $Param{ActivityDialogField}->{DefaultValue},
+                    SLA => $Param{ActivityDialogField}{DefaultValue},
                 );
             }
         }
@@ -3755,17 +3769,17 @@ sub _RenderSLA {
 
     # Get TicketValue
     if ( IsHashRefWithData( $Param{Ticket} ) && !$SelectedValue ) {
-        $SelectedValue = $Param{Ticket}->{SLA};
+        $SelectedValue = $Param{Ticket}{SLA};
     }
 
     # set server errors
     my $ServerError = '';
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'SLAID'} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{'SLAID'} ) {
         $ServerError = 'ServerError';
     }
 
     if ( $Self->{LinkTicketData} ) {
-        $SelectedValue = $Self->{LinkTicketData}->{SLA};
+        $SelectedValue = $Self->{LinkTicketData}{SLA};
     }
 
     # build SLA string
@@ -3781,7 +3795,7 @@ sub _RenderSLA {
     );
 
     $LayoutObject->Block(
-        Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:SLA',
+        Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:SLA',
         Data => \%Data,
     );
 
@@ -3795,7 +3809,7 @@ sub _RenderSLA {
 
     if ( $Param{DescriptionShort} ) {
         $LayoutObject->Block(
-            Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:SLA:DescriptionShort',
+            Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:SLA:DescriptionShort',
             Data => {
                 DescriptionShort => $Param{DescriptionShort},
             },
@@ -3839,9 +3853,9 @@ sub _RenderService {
     }
 
     if ( $Self->{LinkTicketData} ) {
-        $Param{GetParam}->{QueueID}        = $Self->{LinkTicketData}->{QueueID};
-        $Param{GetParam}->{TicketID}       = $Self->{LinkTicketData}->{TicketID};
-        $Param{GetParam}->{CustomerUserID} = $Self->{LinkTicketData}->{CustomerUserID};
+        $Param{GetParam}{QueueID}        = $Self->{LinkTicketData}{QueueID};
+        $Param{GetParam}{TicketID}       = $Self->{LinkTicketData}{TicketID};
+        $Param{GetParam}{CustomerUserID} = $Self->{LinkTicketData}{CustomerUserID};
     }
 
     # create a local copy of the GetParam
@@ -3850,7 +3864,7 @@ sub _RenderService {
     # use ticket information as a fall back if customer was already set, otherwise when the
     # activity dialog displays the service list will be initially empty, see bug#10059
     if ( IsHashRefWithData( $Param{Ticket} ) ) {
-        $GetServicesParam{CustomerUserID} ||= $Param{Ticket}->{CustomerUserID} ||= '';
+        $GetServicesParam{CustomerUserID} ||= $Param{Ticket}{CustomerUserID} ||= '';
     }
 
     my $Services = $Self->_GetServices(
@@ -3867,7 +3881,7 @@ sub _RenderService {
 
     # If field is required put in the necessary variables for
     # ValidateRequired class input field, Mandatory class for the label
-    if ( $Param{ActivityDialogField}->{Display} && $Param{ActivityDialogField}->{Display} == 2 ) {
+    if ( $Param{ActivityDialogField}{Display} && $Param{ActivityDialogField}{Display} == 2 ) {
         $Data{ValidateRequired} = 'Validate_Required';
         $Data{MandatoryClass}   = 'Mandatory';
     }
@@ -3890,28 +3904,28 @@ sub _RenderService {
 
             # Fetch DefaultValue from Config
             if (
-                defined $Param{ActivityDialogField}->{DefaultValue}
-                && $Param{ActivityDialogField}->{DefaultValue} ne ''
+                defined $Param{ActivityDialogField}{DefaultValue}
+                && $Param{ActivityDialogField}{DefaultValue} ne ''
                 )
             {
                 $SelectedValue = $ServiceObject->ServiceLookup(
-                    Name => $Param{ActivityDialogField}->{DefaultValue},
+                    Name => $Param{ActivityDialogField}{DefaultValue},
                 );
             }
             if ($SelectedValue) {
-                $SelectedValue = $Param{ActivityDialogField}->{DefaultValue};
+                $SelectedValue = $Param{ActivityDialogField}{DefaultValue};
             }
         }
     }
     else {
         if ( !$SelectedValue ) {
             if (
-                defined $Param{ActivityDialogField}->{DefaultValue}
-                && $Param{ActivityDialogField}->{DefaultValue} ne ''
+                defined $Param{ActivityDialogField}{DefaultValue}
+                && $Param{ActivityDialogField}{DefaultValue} ne ''
                 )
             {
                 $SelectedValue = $ServiceObject->ServiceLookup(
-                    Service => $Param{ActivityDialogField}->{DefaultValue},
+                    Service => $Param{ActivityDialogField}{DefaultValue},
                 );
             }
         }
@@ -3919,12 +3933,12 @@ sub _RenderService {
 
     # Get TicketValue
     if ( IsHashRefWithData( $Param{Ticket} ) && !$SelectedValue ) {
-        $SelectedValue = $Param{Ticket}->{Service};
+        $SelectedValue = $Param{Ticket}{Service};
     }
 
     # set server errors
     my $ServerError = '';
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'ServiceID'} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{'ServiceID'} ) {
         $ServerError = 'ServerError';
     }
 
@@ -3935,7 +3949,7 @@ sub _RenderService {
     }
 
     if ( $Self->{LinkTicketData} ) {
-        $SelectedValue = $Self->{LinkTicketData}->{Service};
+        $SelectedValue = $Self->{LinkTicketData}{Service};
     }
 
     # build Service string
@@ -3952,7 +3966,7 @@ sub _RenderService {
     );
 
     $LayoutObject->Block(
-        Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Service',
+        Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Service',
         Data => \%Data,
     );
 
@@ -3966,7 +3980,7 @@ sub _RenderService {
 
     if ( $Param{DescriptionShort} ) {
         $LayoutObject->Block(
-            Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Service:DescriptionShort',
+            Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Service:DescriptionShort',
             Data => {
                 DescriptionShort => $Param{DescriptionShort},
             },
@@ -4027,7 +4041,7 @@ sub _RenderLock {
 
     # If field is required put in the necessary variables for
     # ValidateRequired class input field, Mandatory class for the label
-    if ( $Param{ActivityDialogField}->{Display} && $Param{ActivityDialogField}->{Display} == 2 ) {
+    if ( $Param{ActivityDialogField}{Display} && $Param{ActivityDialogField}{Display} == 2 ) {
         $Data{ValidateRequired} = 'Validate_Required';
         $Data{MandatoryClass}   = 'Mandatory';
     }
@@ -4047,33 +4061,33 @@ sub _RenderLock {
 
             # Fetch DefaultValue from Config
             $SelectedValue = $LockObject->LockLookup(
-                Lock => $Param{ActivityDialogField}->{DefaultValue} || '',
+                Lock => $Param{ActivityDialogField}{DefaultValue} || '',
             );
             if ($SelectedValue) {
-                $SelectedValue = $Param{ActivityDialogField}->{DefaultValue};
+                $SelectedValue = $Param{ActivityDialogField}{DefaultValue};
             }
         }
     }
     else {
         $SelectedValue = $LockObject->LockLookup(
-            LockID => $Param{ActivityDialogField}->{DefaultValue} || ''
+            LockID => $Param{ActivityDialogField}{DefaultValue} || ''
             )
             if !$SelectedValue;
     }
 
     # Get TicketValue
     if ( IsHashRefWithData( $Param{Ticket} ) && !$SelectedValue ) {
-        $SelectedValue = $Param{Ticket}->{Lock};
+        $SelectedValue = $Param{Ticket}{Lock};
     }
 
     # set server errors
     my $ServerError = '';
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'LockID'} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{'LockID'} ) {
         $ServerError = 'ServerError';
     }
 
     if ( $Self->{LinkTicketData} ) {
-        $SelectedValue = $Self->{LinkTicketData}->{Lock};
+        $SelectedValue = $Self->{LinkTicketData}{Lock};
     }
 
     # build lock string
@@ -4086,7 +4100,7 @@ sub _RenderLock {
     );
 
     $LayoutObject->Block(
-        Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Lock',
+        Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Lock',
         Data => \%Data,
     );
 
@@ -4100,7 +4114,7 @@ sub _RenderLock {
 
     if ( $Param{DescriptionShort} ) {
         $LayoutObject->Block(
-            Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Lock:DescriptionShort',
+            Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Lock:DescriptionShort',
             Data => {
                 DescriptionShort => $Param{DescriptionShort},
             },
@@ -4157,7 +4171,7 @@ sub _RenderPriority {
 
     # If field is required put in the necessary variables for
     # ValidateRequired class input field, Mandatory class for the label
-    if ( $Param{ActivityDialogField}->{Display} && $Param{ActivityDialogField}->{Display} == 2 ) {
+    if ( $Param{ActivityDialogField}{Display} && $Param{ActivityDialogField}{Display} == 2 ) {
         $Data{ValidateRequired} = 'Validate_Required';
         $Data{MandatoryClass}   = 'Mandatory';
     }
@@ -4217,34 +4231,34 @@ sub _RenderPriority {
 
             # Fetch DefaultValue from Config
             $SelectedValue = $PriorityObject->PriorityLookup(
-                Priority => $Param{ActivityDialogField}->{DefaultValue} || '',
+                Priority => $Param{ActivityDialogField}{DefaultValue} || '',
             );
             if ($SelectedValue) {
-                $SelectedValue = $Param{ActivityDialogField}->{DefaultValue};
+                $SelectedValue = $Param{ActivityDialogField}{DefaultValue};
             }
         }
     }
     else {
         if ( !$SelectedValue ) {
             $SelectedValue = $PriorityObject->PriorityLookup(
-                PriorityID => $Param{ActivityDialogField}->{DefaultValue} || '',
+                PriorityID => $Param{ActivityDialogField}{DefaultValue} || '',
             );
         }
     }
 
     # Get TicketValue
     if ( IsHashRefWithData( $Param{Ticket} ) && !$SelectedValue ) {
-        $SelectedValue = $Param{Ticket}->{Priority};
+        $SelectedValue = $Param{Ticket}{Priority};
     }
 
     # set server errors
     my $ServerError = '';
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'PriorityID'} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{'PriorityID'} ) {
         $ServerError = 'ServerError';
     }
 
     if ( $Self->{LinkTicketData} ) {
-        $SelectedValue = $Self->{LinkTicketData}->{Priority};
+        $SelectedValue = $Self->{LinkTicketData}{Priority};
     }
 
     # build next Priorities string
@@ -4257,7 +4271,7 @@ sub _RenderPriority {
     );
 
     $LayoutObject->Block(
-        Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Priority',
+        Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Priority',
         Data => \%Data,
     );
 
@@ -4271,7 +4285,7 @@ sub _RenderPriority {
 
     if ( $Param{DescriptionShort} ) {
         $LayoutObject->Block(
-            Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Priority:DescriptionShort',
+            Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Priority:DescriptionShort',
             Data => {
                 DescriptionShort => $Param{DescriptionShort},
             },
@@ -4328,7 +4342,7 @@ sub _RenderQueue {
 
     # If field is required put in the necessary variables for
     # ValidateRequired class input field, Mandatory class for the label
-    if ( $Param{ActivityDialogField}->{Display} && $Param{ActivityDialogField}->{Display} == 2 ) {
+    if ( $Param{ActivityDialogField}{Display} && $Param{ActivityDialogField}{Display} == 2 ) {
         $Data{ValidateRequired} = 'Validate_Required';
         $Data{MandatoryClass}   = 'Mandatory';
     }
@@ -4351,29 +4365,29 @@ sub _RenderQueue {
 
             # Fetch DefaultValue from Config
             $SelectedValue = $QueueObject->QueueLookup(
-                Queue => $Param{ActivityDialogField}->{DefaultValue} || '',
+                Queue => $Param{ActivityDialogField}{DefaultValue} || '',
             );
             if ($SelectedValue) {
-                $SelectedValue = $Param{ActivityDialogField}->{DefaultValue};
+                $SelectedValue = $Param{ActivityDialogField}{DefaultValue};
             }
         }
     }
     else {
         if ( !$SelectedValue ) {
             $SelectedValue = $QueueObject->QueueLookup(
-                QueueID => $Param{ActivityDialogField}->{DefaultValue} || '',
+                QueueID => $Param{ActivityDialogField}{DefaultValue} || '',
             );
         }
     }
 
     # Get TicketValue
     if ( IsHashRefWithData( $Param{Ticket} ) && !$SelectedValue ) {
-        $SelectedValue = $Param{Ticket}->{Queue};
+        $SelectedValue = $Param{Ticket}{Queue};
     }
 
     # set server errors
     my $ServerError = '';
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'QueueID'} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{'QueueID'} ) {
         $ServerError = 'ServerError';
     }
 
@@ -4384,7 +4398,7 @@ sub _RenderQueue {
     }
 
     if ( $Self->{LinkTicketData} ) {
-        $SelectedValue = $Self->{LinkTicketData}->{Queue};
+        $SelectedValue = $Self->{LinkTicketData}{Queue};
     }
 
     # build next queues string
@@ -4400,7 +4414,7 @@ sub _RenderQueue {
     );
 
     $LayoutObject->Block(
-        Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Queue',
+        Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Queue',
         Data => \%Data,
     );
 
@@ -4414,7 +4428,7 @@ sub _RenderQueue {
 
     if ( $Param{DescriptionShort} ) {
         $LayoutObject->Block(
-            Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Queue:DescriptionShort',
+            Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Queue:DescriptionShort',
             Data => {
                 DescriptionShort => $Param{DescriptionShort},
             },
@@ -4469,7 +4483,7 @@ sub _RenderState {
 
     # If field is required put in the necessary variables for
     # ValidateRequired class input field, Mandatory class for the label
-    if ( $Param{ActivityDialogField}->{Display} && $Param{ActivityDialogField}->{Display} == 2 ) {
+    if ( $Param{ActivityDialogField}{Display} && $Param{ActivityDialogField}{Display} == 2 ) {
         $Data{ValidateRequired} = 'Validate_Required';
         $Data{MandatoryClass}   = 'Mandatory';
     }
@@ -4489,29 +4503,29 @@ sub _RenderState {
 
             # Fetch DefaultValue from Config
             $SelectedValue = $StateObject->StateLookup(
-                State => $Param{ActivityDialogField}->{DefaultValue} || '',
+                State => $Param{ActivityDialogField}{DefaultValue} || '',
             );
             if ($SelectedValue) {
-                $SelectedValue = $Param{ActivityDialogField}->{DefaultValue};
+                $SelectedValue = $Param{ActivityDialogField}{DefaultValue};
             }
         }
     }
     else {
         if ( !$SelectedValue ) {
             $SelectedValue = $StateObject->StateLookup(
-                StateID => $Param{ActivityDialogField}->{DefaultValue} || '',
+                StateID => $Param{ActivityDialogField}{DefaultValue} || '',
             );
         }
     }
 
     # Get TicketValue
     if ( IsHashRefWithData( $Param{Ticket} ) && !$SelectedValue ) {
-        $SelectedValue = $Param{Ticket}->{State};
+        $SelectedValue = $Param{Ticket}{State};
     }
 
     # set server errors
     my $ServerError = '';
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'StateID'} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{'StateID'} ) {
         $ServerError = 'ServerError';
     }
 
@@ -4525,7 +4539,7 @@ sub _RenderState {
     );
 
     $LayoutObject->Block(
-        Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:State',
+        Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:State',
         Data => \%Data,
     );
 
@@ -4539,7 +4553,7 @@ sub _RenderState {
 
     if ( $Param{DescriptionShort} ) {
         $LayoutObject->Block(
-            Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:State:DescriptionShort',
+            Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:State:DescriptionShort',
             Data => {
                 DescriptionShort => $Param{DescriptionShort},
             },
@@ -4596,7 +4610,7 @@ sub _RenderType {
 
     # If field is required put in the necessary variables for
     # ValidateRequired class input field, Mandatory class for the label
-    if ( $Param{ActivityDialogField}->{Display} && $Param{ActivityDialogField}->{Display} == 2 ) {
+    if ( $Param{ActivityDialogField}{Display} && $Param{ActivityDialogField}{Display} == 2 ) {
         $Data{ValidateRequired} = 'Validate_Required';
         $Data{MandatoryClass}   = 'Mandatory';
     }
@@ -4619,28 +4633,28 @@ sub _RenderType {
 
             # Fetch DefaultValue from Config
             if (
-                defined $Param{ActivityDialogField}->{DefaultValue}
-                && $Param{ActivityDialogField}->{DefaultValue} ne ''
+                defined $Param{ActivityDialogField}{DefaultValue}
+                && $Param{ActivityDialogField}{DefaultValue} ne ''
                 )
             {
                 $SelectedValue = $TypeObject->TypeLookup(
-                    Type => $Param{ActivityDialogField}->{DefaultValue},
+                    Type => $Param{ActivityDialogField}{DefaultValue},
                 );
             }
             if ($SelectedValue) {
-                $SelectedValue = $Param{ActivityDialogField}->{DefaultValue};
+                $SelectedValue = $Param{ActivityDialogField}{DefaultValue};
             }
         }
     }
     else {
         if ( !$SelectedValue ) {
             if (
-                defined $Param{ActivityDialogField}->{DefaultValue}
-                && $Param{ActivityDialogField}->{DefaultValue} ne ''
+                defined $Param{ActivityDialogField}{DefaultValue}
+                && $Param{ActivityDialogField}{DefaultValue} ne ''
                 )
             {
                 $SelectedValue = $TypeObject->TypeLookup(
-                    Type => $Param{ActivityDialogField}->{DefaultValue},
+                    Type => $Param{ActivityDialogField}{DefaultValue},
                 );
             }
         }
@@ -4648,17 +4662,17 @@ sub _RenderType {
 
     # Get TicketValue
     if ( IsHashRefWithData( $Param{Ticket} ) && !$SelectedValue ) {
-        $SelectedValue = $Param{Ticket}->{Type};
+        $SelectedValue = $Param{Ticket}{Type};
     }
 
     # set server errors
     my $ServerError = '';
-    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'TypeID'} ) {
+    if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{'TypeID'} ) {
         $ServerError = 'ServerError';
     }
 
     if ( $Self->{LinkTicketData} ) {
-        $SelectedValue = $Self->{LinkTicketData}->{Type};
+        $SelectedValue = $Self->{LinkTicketData}{Type};
     }
 
     # build Service string
@@ -4674,7 +4688,7 @@ sub _RenderType {
     );
 
     $LayoutObject->Block(
-        Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Type',
+        Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Type',
         Data => \%Data,
     );
 
@@ -4688,7 +4702,7 @@ sub _RenderType {
 
     if ( $Param{DescriptionShort} ) {
         $LayoutObject->Block(
-            Name => $Param{ActivityDialogField}->{LayoutBlock} || 'rw:Type:DescriptionShort',
+            Name => $Param{ActivityDialogField}{LayoutBlock} || 'rw:Type:DescriptionShort',
             Data => {
                 DescriptionShort => $Param{DescriptionShort},
             },
@@ -4713,7 +4727,7 @@ sub _RenderType {
 sub _StoreActivityDialog {
     my ( $Self, %Param ) = @_;
 
-    my $TicketID = $Param{GetParam}->{TicketID};
+    my $TicketID = $Param{GetParam}{TicketID};
     my $ProcessStartpoint;
     my %Ticket;
     my $ProcessEntityID;
@@ -4726,7 +4740,7 @@ sub _StoreActivityDialog {
     # get layout object
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
 
-    my $ActivityDialogEntityID = $Param{GetParam}->{ActivityDialogEntityID};
+    my $ActivityDialogEntityID = $Param{GetParam}{ActivityDialogEntityID};
     if ( !$ActivityDialogEntityID ) {
         $LayoutObject->FatalError(
             Message => Translatable('ActivityDialogEntityID missing!'),
@@ -4764,16 +4778,16 @@ sub _StoreActivityDialog {
         next DIALOGFIELD if $CurrentField =~ m{^DynamicField_(.*)}xms;
 
         if (
-            $Self->{NameToID}->{$CurrentField} eq 'CustomerID'
-            || $Self->{NameToID}->{$CurrentField} eq 'CustomerUserID'
+            $Self->{NameToID}{$CurrentField} eq 'CustomerID'
+            || $Self->{NameToID}{$CurrentField} eq 'CustomerUserID'
             )
         {
 
-            next DIALOGFIELD if $CheckedFields{ $Self->{NameToID}->{'CustomerID'} };
+            next DIALOGFIELD if $CheckedFields{ $Self->{NameToID}{'CustomerID'} };
 
             # is not possible to a have an invisible field for this particular value
             # on agent interface
-            if ( $ActivityDialog->{Fields}->{$CurrentField}->{Display} == 0 ) {
+            if ( $ActivityDialog->{Fields}{$CurrentField}{Display} == 0 ) {
                 $LayoutObject->FatalError(
                     Message => Translatable('Couldn\'t use CustomerID as an invisible field.'),
                     Comment => Translatable('Please contact the administrator.'),
@@ -4781,7 +4795,7 @@ sub _StoreActivityDialog {
             }
 
             # CustomerID should not be mandatory as in other screens
-            $TicketParam{CustomerID} = $Param{GetParam}->{CustomerID} || '';
+            $TicketParam{CustomerID} = $Param{GetParam}{CustomerID} || '';
 
             # Unfortunately TicketCreate needs 'CustomerUser' as param instead of 'CustomerUserID'
             my $CustomerUserID = $ParamObject->GetParam( Param => 'SelectedCustomerUser' );
@@ -4809,8 +4823,8 @@ sub _StoreActivityDialog {
             else {
                 $TicketParam{CustomerUser} = $CustomerUserID;
             }
-            $CheckedFields{ $Self->{NameToID}->{'CustomerID'} }     = 1;
-            $CheckedFields{ $Self->{NameToID}->{'CustomerUserID'} } = 1;
+            $CheckedFields{ $Self->{NameToID}{'CustomerID'} }     = 1;
+            $CheckedFields{ $Self->{NameToID}{'CustomerUserID'} } = 1;
 
         }
         elsif ( $CurrentField eq 'PendingTime' ) {
@@ -4818,15 +4832,15 @@ sub _StoreActivityDialog {
 
             # Make sure we have Values otherwise take an empty string
             if (
-                IsHashRefWithData( $Param{GetParam}->{PendingTime} )
-                && defined $Param{GetParam}->{PendingTime}->{Year}
-                && defined $Param{GetParam}->{PendingTime}->{Month}
-                && defined $Param{GetParam}->{PendingTime}->{Day}
-                && defined $Param{GetParam}->{PendingTime}->{Hour}
-                && defined $Param{GetParam}->{PendingTime}->{Minute}
+                IsHashRefWithData( $Param{GetParam}{PendingTime} )
+                && defined $Param{GetParam}{PendingTime}{Year}
+                && defined $Param{GetParam}{PendingTime}{Month}
+                && defined $Param{GetParam}{PendingTime}{Day}
+                && defined $Param{GetParam}{PendingTime}{Hour}
+                && defined $Param{GetParam}{PendingTime}{Minute}
                 )
             {
-                $TicketParam{$CurrentField} = $Param{GetParam}->{PendingTime};
+                $TicketParam{$CurrentField} = $Param{GetParam}{PendingTime};
             }
 
             # if we have no Pending status we have no time to set
@@ -4839,7 +4853,7 @@ sub _StoreActivityDialog {
         else {
 
             # skip if we've already checked ID or Name
-            next DIALOGFIELD if $CheckedFields{ $Self->{NameToID}->{$CurrentField} };
+            next DIALOGFIELD if $CheckedFields{ $Self->{NameToID}{$CurrentField} };
 
 # Rother OSS / ITSMCore - calculate Priority via CIP matrix
             if ( $Self->{NameToID}{$CurrentField} eq 'PriorityID' ) {
@@ -4883,7 +4897,7 @@ sub _StoreActivityDialog {
 # EO ITSMCore
 
             my $Result = $Self->_CheckField(
-                Field => $Self->{NameToID}->{$CurrentField},
+                Field => $Self->{NameToID}{$CurrentField},
                 %{ $ActivityDialog->{Fields}{$CurrentField} },
             );
 
@@ -4892,7 +4906,7 @@ sub _StoreActivityDialog {
                 # special case for Article (Subject & Body)
                 if ( $CurrentField eq 'Article' ) {
                     for my $ArticlePart (qw(Subject Body)) {
-                        if ( !$Param{GetParam}->{$ArticlePart} ) {
+                        if ( !$Param{GetParam}{$ArticlePart} ) {
 
                             # set error for each part (if any)
                             $Error{ 'Article' . $ArticlePart } = 1;
@@ -4901,18 +4915,18 @@ sub _StoreActivityDialog {
                 }
 
                 # all other fields
-                elsif ( $ActivityDialog->{Fields}->{$CurrentField}->{Display} == 2 ) {
-                    $Error{ $Self->{NameToID}->{$CurrentField} } = 1;
+                elsif ( $ActivityDialog->{Fields}{$CurrentField}{Display} == 2 ) {
+                    $Error{ $Self->{NameToID}{$CurrentField} } = 1;
                 }
             }
 
             if (
                 $CurrentField eq 'Article'
-                && $ActivityDialog->{Fields}->{$CurrentField}->{Config}->{TimeUnits}
-                && $ActivityDialog->{Fields}->{$CurrentField}->{Config}->{TimeUnits} == 2
+                && $ActivityDialog->{Fields}{$CurrentField}{Config}{TimeUnits}
+                && $ActivityDialog->{Fields}{$CurrentField}{Config}{TimeUnits} == 2
                 )
             {
-                if ( !defined $Param{GetParam}->{TimeUnits} ) {
+                if ( !defined $Param{GetParam}{TimeUnits} ) {
 
                     # set error for the time-units (if any)
                     $Error{'TimeUnits'} = 1;
@@ -4920,9 +4934,9 @@ sub _StoreActivityDialog {
             }
 
             elsif ($Result) {
-                $TicketParam{ $Self->{NameToID}->{$CurrentField} } = $Result;
+                $TicketParam{ $Self->{NameToID}{$CurrentField} } = $Result;
             }
-            $CheckedFields{ $Self->{NameToID}->{$CurrentField} } = 1;
+            $CheckedFields{ $Self->{NameToID}{$CurrentField} } = 1;
         }
     }
 
@@ -5027,14 +5041,14 @@ sub _StoreActivityDialog {
         $DynamicFieldPossibleValues{ 'DynamicField_' . $DynamicFieldName } = $PossibleValuesFilter;
 
         # if we have an invisible field, use config's default value
-        if ( $ActivityDialog->{Fields}->{ 'DynamicField_' . $DynamicFieldName } && $ActivityDialog->{Fields}->{ 'DynamicField_' . $DynamicFieldName }->{Display} == 0 )
+        if ( $ActivityDialog->{Fields}{ 'DynamicField_' . $DynamicFieldName } && $ActivityDialog->{Fields}{ 'DynamicField_' . $DynamicFieldName }{Display} == 0 )
         {
             if (
-                defined $ActivityDialog->{Fields}->{ 'DynamicField_' . $DynamicFieldName }->{DefaultValue}
-                && length $ActivityDialog->{Fields}->{ 'DynamicField_' . $DynamicFieldName }->{DefaultValue}
+                defined $ActivityDialog->{Fields}{ 'DynamicField_' . $DynamicFieldName }{DefaultValue}
+                && length $ActivityDialog->{Fields}{ 'DynamicField_' . $DynamicFieldName }{DefaultValue}
                 )
             {
-                $TicketParam{ 'DynamicField_' . $DynamicFieldName } = $ActivityDialog->{Fields}->{ 'DynamicField_' . $DynamicFieldName }->{DefaultValue};
+                $TicketParam{ 'DynamicField_' . $DynamicFieldName } = $ActivityDialog->{Fields}{ 'DynamicField_' . $DynamicFieldName }{DefaultValue};
             }
             else {
                 $TicketParam{ 'DynamicField_' . $DynamicFieldName } = '';
@@ -5048,8 +5062,8 @@ sub _StoreActivityDialog {
 
         # only validate visible fields
         else {
-            my $Mandatory = $ActivityDialog->{Fields}->{ 'DynamicField_' . $DynamicFieldName }
-                ? ( $ActivityDialog->{Fields}->{ 'DynamicField_' . $DynamicFieldName }->{Display} == 2 )
+            my $Mandatory = $ActivityDialog->{Fields}{ 'DynamicField_' . $DynamicFieldName }
+                ? ( $ActivityDialog->{Fields}{ 'DynamicField_' . $DynamicFieldName }{Display} == 2 )
                 : $DynamicFieldConfig->{Mandatory};
 
             # Check DynamicField Values
@@ -5101,7 +5115,7 @@ sub _StoreActivityDialog {
     my $NewOwnerID;
     if ( !$TicketID ) {
 
-        $ProcessEntityID = $Param{GetParam}->{ProcessEntityID};
+        $ProcessEntityID = $Param{GetParam}{ProcessEntityID};
         if ( !$ProcessEntityID )
         {
             return $LayoutObject->FatalError(
@@ -5132,21 +5146,21 @@ sub _StoreActivityDialog {
         NEEDEDLOOP:
         for my $Needed (qw(Queue State Lock Priority)) {
 
-            if ( !$TicketParam{ $Self->{NameToID}->{$Needed} } ) {
+            if ( !$TicketParam{ $Self->{NameToID}{$Needed} } ) {
 
                 # if a required field has no value call _CheckField as filed is hidden
                 # (No Display param = Display => 0) and no DefaultValue, to use global default as
                 # fall-back. One reason for this to happen is that ActivityDialog DefaultValue tried
                 # to set before, was not valid.
                 my $Result = $Self->_CheckField(
-                    Field => $Self->{NameToID}->{$Needed},
+                    Field => $Self->{NameToID}{$Needed},
                 );
 
                 if ( !$Result ) {
-                    $Error{ $Self->{NameToID}->{$Needed} } = ' ServerError';
+                    $Error{ $Self->{NameToID}{$Needed} } = ' ServerError';
                 }
                 elsif ($Result) {
-                    $TicketParam{ $Self->{NameToID}->{$Needed} } = $Result;
+                    $TicketParam{ $Self->{NameToID}{$Needed} } = $Result;
                 }
             }
         }
@@ -5174,8 +5188,8 @@ sub _StoreActivityDialog {
                 $TicketParam{Title} = "$Param{ProcessName} - $CurrentTimeStamp ($OTOBOTimeZone)";
 
                 # use article subject from the web request if any
-                if ( IsStringWithData( $Param{GetParam}->{Subject} ) ) {
-                    $TicketParam{Title} = $Param{GetParam}->{Subject};
+                if ( IsStringWithData( $Param{GetParam}{Subject} ) ) {
+                    $TicketParam{Title} = $Param{GetParam}{Subject};
                 }
             }
 
@@ -5418,7 +5432,7 @@ sub _StoreActivityDialog {
     }
 
     # Check if we deal with a Ticket Update
-    my $UpdateTicketID = $Param{GetParam}->{TicketID};
+    my $UpdateTicketID = $Param{GetParam}{TicketID};
 
     # We save only once, no matter if one or more configurations are set for the same param
     my %StoredFields;
@@ -5465,7 +5479,7 @@ sub _StoreActivityDialog {
 
             my $TicketID = $UpdateTicketID || $NewTicketID;
 
-            if ( $Param{GetParam}->{Subject} && $Param{GetParam}->{Body} ) {
+            if ( $Param{GetParam}{Subject} && $Param{GetParam}{Body} ) {
 
                 # add note
                 my $ArticleID = '';
@@ -5506,10 +5520,10 @@ sub _StoreActivityDialog {
 
                             # workaround for link encode of rich text editor, see bug#5053
                             my $ContentIDLinkEncode = $LayoutObject->LinkEncode($ContentID);
-                            $Param{GetParam}->{Body} =~ s/(ContentID=)$ContentIDLinkEncode/$1$ContentID/g;
+                            $Param{GetParam}{Body} =~ s/(ContentID=)$ContentIDLinkEncode/$1$ContentID/g;
 
                             # ignore attachment if not linked in body
-                            if ( $Param{GetParam}->{Body} !~ /(\Q$ContentIDHTMLQuote\E|\Q$ContentID\E)/i )
+                            if ( $Param{GetParam}{Body} !~ /(\Q$ContentIDHTMLQuote\E|\Q$ContentID\E)/i )
                             {
                                 next ATTACHMENT;
                             }
@@ -5522,12 +5536,12 @@ sub _StoreActivityDialog {
                     @Attachments = @NewAttachmentData;
 
                     # verify html document
-                    $Param{GetParam}->{Body} = $LayoutObject->RichTextDocumentComplete(
-                        String => $Param{GetParam}->{Body},
+                    $Param{GetParam}{Body} = $LayoutObject->RichTextDocumentComplete(
+                        String => $Param{GetParam}{Body},
                     );
                 }
 
-                my $CommunicationChannel = $ActivityDialog->{Fields}->{Article}->{Config}->{CommunicationChannel}
+                my $CommunicationChannel = $ActivityDialog->{Fields}{Article}{Config}{CommunicationChannel}
                     // 'Internal';
 
                 my $ArticleBackendObject = $Kernel::OM->Get('Kernel::System::Ticket::Article')->BackendForChannel(
@@ -5546,7 +5560,7 @@ sub _StoreActivityDialog {
                 $ArticleID = $ArticleBackendObject->ArticleCreate(
                     TicketID                  => $TicketID,
                     SenderType                => 'agent',
-                    IsVisibleForCustomer      => $ActivityDialog->{Fields}->{Article}->{Config}->{IsVisibleForCustomer} // 0,
+                    IsVisibleForCustomer      => $ActivityDialog->{Fields}{Article}{Config}{IsVisibleForCustomer} // 0,
                     From                      => $From,
                     MimeType                  => $MimeType,
                     Charset                   => $LayoutObject->{UserCharset},
@@ -5555,7 +5569,7 @@ sub _StoreActivityDialog {
                     HistoryComment            => $HistoryComment,
                     Body                      => $Param{GetParam}{Body},
                     Subject                   => $Param{GetParam}{Subject},
-                    ForceNotificationToUserID => $ActivityDialog->{Fields}->{Article}->{Config}->{InformAgents}
+                    ForceNotificationToUserID => $ActivityDialog->{Fields}{Article}{Config}{InformAgents}
                     ? $Param{GetParam}{InformUserID}
                     : [],
                 );
@@ -5576,7 +5590,7 @@ sub _StoreActivityDialog {
                 $Kernel::OM->Get('Kernel::System::Web::FormCache')->FormIDRemove( FormID => $Self->{FormID} );
 
                 # time accounting
-                if ( $Param{GetParam}->{TimeUnits} ) {
+                if ( $Param{GetParam}{TimeUnits} ) {
                     $TicketObject->TicketAccountTime(
                         TicketID  => $TicketID,
                         ArticleID => $ArticleID,
@@ -5591,7 +5605,7 @@ sub _StoreActivityDialog {
         elsif ($UpdateTicketID) {
 
             my $Success;
-            if ( $Self->{NameToID}->{$CurrentField} eq 'Title' ) {
+            if ( $Self->{NameToID}{$CurrentField} eq 'Title' ) {
 
                 # if there is no title, nothing is needed to be done
                 if (
@@ -5613,14 +5627,14 @@ sub _StoreActivityDialog {
             }
             elsif (
                 (
-                    $Self->{NameToID}->{$CurrentField} eq 'CustomerID'
-                    || $Self->{NameToID}->{$CurrentField} eq 'CustomerUserID'
+                    $Self->{NameToID}{$CurrentField} eq 'CustomerID'
+                    || $Self->{NameToID}{$CurrentField} eq 'CustomerUserID'
                 )
                 )
             {
-                next DIALOGFIELD if $StoredFields{ $Self->{NameToID}->{$CurrentField} };
+                next DIALOGFIELD if $StoredFields{ $Self->{NameToID}{$CurrentField} };
 
-                if ( $ActivityDialog->{Fields}->{$CurrentField}->{Display} == 1 ) {
+                if ( $ActivityDialog->{Fields}{$CurrentField}{Display} == 1 ) {
                     $LayoutObject->FatalError(
                         Message => $LayoutObject->{LanguageObject}->Translate(
                             'Wrong ActivityDialog Field config: %s can\'t be Display => 1 / Show field (Please change its configuration to be Display => 0 / Do not show field or Display => 2 / Show field as mandatory)!',
@@ -5639,8 +5653,8 @@ sub _StoreActivityDialog {
                     # In this case we don't want to call any additional stores
                     # on Customer, CustomerNo, CustomerID or CustomerUserID
                     # so make sure both fields are set to "Stored" ;)
-                    $StoredFields{ $Self->{NameToID}->{'CustomerID'} }     = 1;
-                    $StoredFields{ $Self->{NameToID}->{'CustomerUserID'} } = 1;
+                    $StoredFields{ $Self->{NameToID}{'CustomerID'} }     = 1;
+                    $StoredFields{ $Self->{NameToID}{'CustomerUserID'} } = 1;
                     next DIALOGFIELD;
                 }
 
@@ -5658,11 +5672,11 @@ sub _StoreActivityDialog {
                 # In this case we don't want to call any additional stores
                 # on Customer, CustomerNo, CustomerID or CustomerUserID
                 # so make sure both fields are set to "Stored" ;)
-                $StoredFields{ $Self->{NameToID}->{'CustomerID'} }     = 1;
-                $StoredFields{ $Self->{NameToID}->{'CustomerUserID'} } = 1;
+                $StoredFields{ $Self->{NameToID}{'CustomerID'} }     = 1;
+                $StoredFields{ $Self->{NameToID}{'CustomerUserID'} } = 1;
             }
             else {
-                next DIALOGFIELD if $StoredFields{ $Self->{NameToID}->{$CurrentField} };
+                next DIALOGFIELD if $StoredFields{ $Self->{NameToID}{$CurrentField} };
 
                 my $TicketFieldSetSub = $CurrentField;
                 $TicketFieldSetSub =~ s{ID$}{}xms;
@@ -5675,14 +5689,14 @@ sub _StoreActivityDialog {
                     # sadly we need an exception for Owner(ID) and Responsible(ID), because the
                     # Ticket*Set subs need NewUserID as param
                     if (
-                        scalar grep { $Self->{NameToID}->{$CurrentField} eq $_ }
+                        scalar grep { $Self->{NameToID}{$CurrentField} eq $_ }
                         qw( OwnerID ResponsibleID )
                         )
                     {
                         $UpdateFieldName = 'NewUserID';
                     }
                     else {
-                        $UpdateFieldName = $Self->{NameToID}->{$CurrentField};
+                        $UpdateFieldName = $Self->{NameToID}{$CurrentField};
                     }
 
                     # to store if the field needs to be updated
@@ -5693,10 +5707,10 @@ sub _StoreActivityDialog {
                     # value
                     if (
                         ( $UpdateFieldName eq 'ServiceID' || $UpdateFieldName eq 'SLAID' )
-                        && !defined $TicketParam{ $Self->{NameToID}->{$CurrentField} }
+                        && !defined $TicketParam{ $Self->{NameToID}{$CurrentField} }
                         )
                     {
-                        $TicketParam{ $Self->{NameToID}->{$CurrentField} } = '';
+                        $TicketParam{ $Self->{NameToID}{$CurrentField} } = '';
                         $FieldUpdate = 1;
                     }
 
@@ -5710,8 +5724,8 @@ sub _StoreActivityDialog {
                     elsif (
                         $UpdateFieldName ne 'ServiceID'
                         && $UpdateFieldName ne 'SLAID'
-                        && defined $TicketParam{ $Self->{NameToID}->{$CurrentField} }
-                        && $TicketParam{ $Self->{NameToID}->{$CurrentField} } ne ''
+                        && defined $TicketParam{ $Self->{NameToID}{$CurrentField} }
+                        && $TicketParam{ $Self->{NameToID}{$CurrentField} } ne ''
                         )
                     {
                         $FieldUpdate = 1;
@@ -5722,7 +5736,7 @@ sub _StoreActivityDialog {
                     # check if field needs to be updated
                     if ($FieldUpdate) {
                         $Success = $TicketObject->$TicketFieldSetSub(
-                            $UpdateFieldName => $TicketParam{ $Self->{NameToID}->{$CurrentField} },
+                            $UpdateFieldName => $TicketParam{ $Self->{NameToID}{$CurrentField} },
                             TicketID         => $TicketID,
                             UserID           => $Self->{UserID},
                         );
@@ -5746,7 +5760,7 @@ sub _StoreActivityDialog {
                             # service
                             if ( IsPositiveInteger( $Ticket{SLAID} ) ) {
                                 my %SLAList = $Kernel::OM->Get('Kernel::System::SLA')->SLAList(
-                                    ServiceID => $TicketParam{ $Self->{NameToID}->{$CurrentField} },
+                                    ServiceID => $TicketParam{ $Self->{NameToID}{$CurrentField} },
                                     UserID    => $Self->{UserID},
                                 );
 
@@ -5839,8 +5853,8 @@ sub _StoreActivityDialog {
     if (
         $LinkTicketID
         && $Config->{SplitLinkType}
-        && $Config->{SplitLinkType}->{LinkType}
-        && $Config->{SplitLinkType}->{Direction}
+        && $Config->{SplitLinkType}{LinkType}
+        && $Config->{SplitLinkType}{Direction}
         )
     {
 
@@ -5860,7 +5874,7 @@ sub _StoreActivityDialog {
         my $SourceKey = $LinkTicketID;
         my $TargetKey = $TicketID;
 
-        if ( $Config->{SplitLinkType}->{Direction} eq 'Source' ) {
+        if ( $Config->{SplitLinkType}{Direction} eq 'Source' ) {
             $SourceKey = $TicketID;
             $TargetKey = $LinkTicketID;
         }
@@ -5871,7 +5885,7 @@ sub _StoreActivityDialog {
             SourceKey    => $SourceKey,
             TargetObject => 'Ticket',
             TargetKey    => $TargetKey,
-            Type         => $Config->{SplitLinkType}->{LinkType} || 'Normal',
+            Type         => $Config->{SplitLinkType}{LinkType} || 'Normal',
             State        => 'Valid',
             UserID       => $Self->{UserID},
         );
@@ -5906,14 +5920,14 @@ sub _DisplayProcessList {
     my ( $Self, %Param ) = @_;
 
     # If we have a ProcessEntityID
-    $Param{Errors}->{ProcessEntityIDInvalid} = ' ServerError'
-        if ( $Param{ProcessEntityID} && !$Param{ProcessList}->{ $Param{ProcessEntityID} } );
+    $Param{Errors}{ProcessEntityIDInvalid} = ' ServerError'
+        if ( $Param{ProcessEntityID} && !$Param{ProcessList}{ $Param{ProcessEntityID} } );
 
     # get layout object
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
 
     $Param{ProcessList} = $LayoutObject->BuildSelection(
-        Class        => 'Modernize Validate_Required' . ( $Param{Errors}->{ProcessEntityIDInvalid} || ' ' ),
+        Class        => 'Modernize Validate_Required' . ( $Param{Errors}{ProcessEntityIDInvalid} || ' ' ),
         Data         => $Param{ProcessList},
         Name         => 'ProcessEntityID',
         SelectedID   => $Param{ProcessEntityID},
@@ -5927,8 +5941,8 @@ sub _DisplayProcessList {
     if ( $LayoutObject->{BrowserRichText} ) {
 
         # use height/width defined for this screen
-        $Param{RichTextHeight} = $Self->{Config}->{RichTextHeight} || 0;
-        $Param{RichTextWidth}  = $Self->{Config}->{RichTextWidth}  || 0;
+        $Param{RichTextHeight} = $Self->{Config}{RichTextHeight} || 0;
+        $Param{RichTextWidth}  = $Self->{Config}{RichTextWidth}  || 0;
 
         # set up rich text editor
         $LayoutObject->SetRichTextParameters(
@@ -5966,6 +5980,14 @@ sub _DisplayProcessList {
     );
     if ( $Self->{IsMainWindow} ) {
         $Output .= $LayoutObject->NavigationBar();
+    }
+
+    # explanatory message about asterisk
+    my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
+    if ( $ConfigObject->Get('Ticket::Frontend::AsteriskExplanation') ) {
+        $LayoutObject->Block(
+            Name => 'AsteriskExplanation',
+        );
     }
 
     $Output .= $LayoutObject->Output(
@@ -6486,7 +6508,7 @@ sub _GetSLAs {
     # get sla
     my %SLA;
     if ( $Param{ServiceID} && $Param{Services} && %{ $Param{Services} } ) {
-        if ( $Param{Services}->{ $Param{ServiceID} } ) {
+        if ( $Param{Services}{ $Param{ServiceID} } ) {
             %SLA = $Kernel::OM->Get('Kernel::System::Ticket')->TicketSLAList(
                 %Param,
                 Action => $Self->{Action},

@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - e44c18aea9abc125fddf9ceeed204db4fab290e0 - Kernel/Modules/AgentTicketActionCommon.pm
+# $origin: otobo - 83c280f0af74d33b6bd1ce5fd7c083ab3c8e58cf - Kernel/Modules/AgentTicketActionCommon.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -1073,6 +1073,8 @@ sub Run {
         if ( $ConfigObject->Get('Ticket::Type') && $Config->{TicketType} ) {
             if ( $GetParam{TypeID} ) {
                 $TicketObject->TicketTypeSet(
+                    %GetParam,
+                    %ACLCompatGetParam,
                     Action   => $Self->{Action},
                     TypeID   => $GetParam{TypeID},
                     TicketID => $Self->{TicketID},
@@ -3356,6 +3358,13 @@ sub _Mask {
     }
 
     # End Widget Article
+
+    # explanatory message about asterisk
+    if ( $ConfigObject->Get('Ticket::Frontend::AsteriskExplanation') ) {
+        $LayoutObject->Block(
+            Name => 'AsteriskExplanation',
+        );
+    }
 
     # get output back
     return $LayoutObject->Output(
