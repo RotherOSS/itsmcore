@@ -6,7 +6,7 @@
     :maxdepth: 2
     :caption: Contents
 
-Sacrifice to Sphinx
+OTOBO::ITSM Core
 ===================
 
 Description

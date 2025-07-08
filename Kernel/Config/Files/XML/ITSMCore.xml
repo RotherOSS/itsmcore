@@ -125,7 +125,7 @@
     </Setting>
     <Setting Name="Ticket::Frontend::CustomerTicketMessage###PriorityByCIP" Required="0" Valid="0">
         <Description Translatable="1">CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault.</Description>
-        <Navigation>Frontend::Cuastomer::View::TicketMessage</Navigation>
+        <Navigation>Frontend::Customer::View::TicketMessage</Navigation>
         <Value>
             <Item ValueType="Select" SelectedID="2">
                 <Item ValueType="Option" Value="0" Translatable="1">Off</Item>
