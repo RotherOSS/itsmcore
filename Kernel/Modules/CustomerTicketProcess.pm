@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - fb18c9453318c5217ff78ca18c546fbe057ed927 - Kernel/Modules/CustomerTicketProcess.pm
+# $origin: otobo - a0b3b53a722045f9b9c5d490a04bc7e4348d9009 - Kernel/Modules/CustomerTicketProcess.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -683,8 +683,6 @@ sub _RenderAjax {
 sub _GetParam {
     my ( $Self, %Param ) = @_;
 
-    #my $IsAJAXUpdate = $Param{AJAX} || '';
-
     # get layout object
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
 
@@ -847,6 +845,7 @@ sub _GetParam {
             next DIALOGFIELD;
         }
     }
+
     REQUIREDFIELDLOOP:
     for my $CurrentField (qw(Queue State Lock Priority)) {
         $Value = undef;
@@ -931,6 +930,15 @@ sub _GetParam {
 
     DYNAMICFIELD:
     for my $DynamicFieldName ( keys $Self->{DynamicField}->%* ) {
+
+        # overwrite dynamic field config default value with activity dialog default value, if present
+        if (
+            $ActivityDialog->{Fields}{"DynamicField_$DynamicFieldName"}
+            && $ActivityDialog->{Fields}{"DynamicField_$DynamicFieldName"}{DefaultValue}
+            )
+        {
+            $Self->{DynamicField}{$DynamicFieldName}{Config}{DefaultValue} = $ActivityDialog->{Fields}{"DynamicField_$DynamicFieldName"}{DefaultValue};
+        }
 
         # Get the Config of the current DynamicField
         my $DynamicFieldConfig = $Self->{DynamicField}{$DynamicFieldName};
@@ -1230,23 +1238,6 @@ sub _OutputActivityDialog {
 
         else {
             $NewTicket = 1;
-        }
-
-        # fill empty values with defaults if applicable and prepare ACLCompat
-        DYNAMICFIELD:
-        for my $Name ( keys $Self->{DynamicField}->%* ) {
-            if ( !defined $Param{GetParam}{ 'DynamicField_' . $Name } ) {
-                my $DialogDefaultValue = $ActivityDialog->{Fields}{ 'DynamicField_' . $Name }{DefaultValue};
-
-                if ($DialogDefaultValue) {
-                    $Param{GetParam}{ 'DynamicField_' . $Name } = $DialogDefaultValue;
-                }
-                elsif ($NewTicket) {
-                    $Param{GetParam}{ 'DynamicField_' . $Name } = $Self->{DynamicField}{$Name}{Config}{DefaultValue};
-                }
-            }
-
-            $Param{GetParam}{DynamicField}{ 'DynamicField_' . $Name } = $Param{GetParam}{ 'DynamicField_' . $Name };
         }
 
         # retrieve field restrictions for dynamic fields
@@ -3157,12 +3148,12 @@ sub _StoreActivityDialog {
                         $Criticality = $Service{Criticality};
                     }
 
-                    if ( $Criticality ) { 
+                    if ( $Criticality ) {
                         my $PriorityID = $Kernel::OM->Get('Kernel::System::ITSMCIPAllocate')->PriorityAllocationGet(
                             Criticality => $Criticality,
                             Impact      => $Param{GetParam}{DynamicField}{DynamicField_ITSMImpact},
                         );
-         
+
                         if ( $PriorityID ne $Param{GetParam}{PriorityID} ) {
 
                             # this should never happen; we just enforce the prio and write an error to the log file here
@@ -3754,6 +3745,9 @@ sub _StoreActivityDialog {
         {
             next DYNAMICFIELD;
         }
+
+        # sanitize dynamic field name before storing value
+        $DynamicFieldConfig->{Name} =~ s/$Self->{IDSuffix}$//;
 
         my $Success = $DynamicFieldBackendObject->ValueSet(
             DynamicFieldConfig => $DynamicFieldConfig,

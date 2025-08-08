@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 83c280f0af74d33b6bd1ce5fd7c083ab3c8e58cf - Kernel/Modules/AgentTicketActionCommon.pm
+# $origin: otobo - dd09956a70eae7dadf66be27c119652dcceedb68 - Kernel/Modules/AgentTicketActionCommon.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -895,12 +895,12 @@ sub Run {
                 $Criticality = $Service{Criticality};
             }
 
-            if ( $Criticality ) { 
+            if ( $Criticality ) {
                 my $PriorityID = $CIPAllocateObject->PriorityAllocationGet(
                     Criticality => $Criticality,
                     Impact      => $GetParam{DynamicField}{DynamicField_ITSMImpact},
                 );
- 
+
                 if ( $PriorityID ne $GetParam{PriorityID} ) {
 
                     # this should never happen; we just enforce the prio and write an error to the log file here
@@ -1632,7 +1632,7 @@ sub Run {
                             $Criticality = $Service{Criticality};
                         }
 
-                        if ( $Criticality ) { 
+                        if ( $Criticality ) {
 
                             # recalculate the priority if any of the impacting elements changed
                             if ( $ChangedElements{DynamicField_ITSMImpact} || $ChangedElements{ServiceID} || $ChangedElements{DynamicField_ITSMCriticality} ) {
@@ -2341,7 +2341,7 @@ sub Run {
                             $Criticality = $Service{Criticality};
                         }
 
-                        if ( $Criticality ) { 
+                        if ( $Criticality ) {
 
                             # recalculate the priority if any of the impacting elements changed
                             if ( $ChangedElements{DynamicField_ITSMImpact} || $ChangedElements{ServiceID} || $ChangedElements{DynamicField_ITSMCriticality} ) {
@@ -2782,6 +2782,19 @@ sub _Mask {
             %OldOwnersShown = $TicketObject->TicketAclData();
         }
 
+        # show only users with owner or rw pemissions in the queue
+        my %OldOwnersWithAccess;
+        if ( $ConfigObject->Get('Ticket::ChangeOwnerToEveryone') ) {
+            %OldOwnersWithAccess = %OldOwnersShown;
+        }
+        else {
+            for my $UserID ( keys %OldOwnersShown ) {
+                if ( exists $ShownUsers{$UserID} ) {
+                    $OldOwnersWithAccess{$UserID} = $OldOwnersShown{$UserID};
+                }
+            }
+        }
+
         # build string
         $Param{OwnerStrg} = $LayoutObject->BuildSelection(
             Data       => \%ShownUsers,
@@ -2795,7 +2808,7 @@ sub _Mask {
             Filters      => {
                 OldOwners => {
                     Name   => $LayoutObject->{LanguageObject}->Translate('Previous Owner'),
-                    Values => \%OldOwnersShown,
+                    Values => \%OldOwnersWithAccess,
                 },
             },
         );
