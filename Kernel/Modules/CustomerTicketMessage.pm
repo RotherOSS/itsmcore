@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 320871ec92da1a26acdac5bc66423aa22770110d - Kernel/Modules/CustomerTicketMessage.pm
+# $origin: otobo - a8bafe232138d7e3460ce258306eb0a730cad6a9 - Kernel/Modules/CustomerTicketMessage.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -130,7 +130,7 @@ sub new {
         },
     ];
 
-    # dependancies of standard fields which are not defined via ACLs
+    # dependencies of standard fields which are not defined via ACLs
     $Self->{InternalDependancy} = {
         ServiceID => {
             SLAID => 1,
@@ -344,7 +344,7 @@ sub Run {
 
                 my %NewChangedElements;
 
-                # which standard fields to check - FieldID => GetParamValue (neccessary for Dest)
+                # which standard fields to check - FieldID => GetParamValue (necessary for Dest)
                 my %Check = (
                     Dest       => 'QueueID',
                     PriorityID => 'PriorityID',
@@ -415,7 +415,7 @@ sub Run {
                         }
 
                         # autoselect
-                        elsif ( !$GetParam{QueueID} && $Autoselect && $Autoselect->{Dest} ) {
+                        if ( !$GetParam{QueueID} && $Autoselect && $Autoselect->{Dest} ) {
                             $GetParam{QueueID} = $FieldRestrictionsObject->Autoselect(
                                 PossibleValues => $StdFieldValues{QueueID},
                             ) || '';
@@ -476,7 +476,7 @@ sub Run {
                     }
 
                     # autoselect
-                    elsif ( !$GetParam{ $Field->{FieldID} } && $Autoselect && $Autoselect->{ $Field->{FieldID} } ) {
+                    if ( !$GetParam{ $Field->{FieldID} } && $Autoselect && $Autoselect->{ $Field->{FieldID} } ) {
                         $GetParam{ $Field->{FieldID} } = $FieldRestrictionsObject->Autoselect(
                             PossibleValues => $StdFieldValues{ $Field->{FieldID} },
                         ) || '';
@@ -1117,10 +1117,7 @@ sub Run {
 
         # Permissions check were done earlier
         if ( $GetParam{FromChatID} ) {
-            my $ChatObject = $Kernel::OM->Get('Kernel::System::Chat');
-            my %Chat       = $ChatObject->ChatGet(
-                ChatID => $GetParam{FromChatID},
-            );
+            my $ChatObject      = $Kernel::OM->Get('Kernel::System::Chat');
             my @ChatMessageList = $ChatObject->ChatMessageList(
                 ChatID => $GetParam{FromChatID},
             );
@@ -1276,7 +1273,7 @@ sub Run {
 
                 my %NewChangedElements;
 
-                # which standard fields to check - FieldID => GetParamValue (neccessary for Dest)
+                # which standard fields to check - FieldID => GetParamValue (necessary for Dest)
                 my %Check = (
                     Dest       => 'QueueID',
                     PriorityID => 'PriorityID',
@@ -1347,7 +1344,7 @@ sub Run {
                         }
 
                         # autoselect
-                        elsif ( !$GetParam{QueueID} && $Autoselect && $Autoselect->{Dest} ) {
+                        if ( !$GetParam{QueueID} && $Autoselect && $Autoselect->{Dest} ) {
                             $GetParam{QueueID} = $FieldRestrictionsObject->Autoselect(
                                 PossibleValues => $StdFieldValues{QueueID},
                             ) || '';
@@ -1408,7 +1405,7 @@ sub Run {
                     }
 
                     # autoselect
-                    elsif ( !$GetParam{ $Field->{FieldID} } && $Autoselect && $Autoselect->{ $Field->{FieldID} } ) {
+                    if ( !$GetParam{ $Field->{FieldID} } && $Autoselect && $Autoselect->{ $Field->{FieldID} } ) {
                         $GetParam{ $Field->{FieldID} } = $FieldRestrictionsObject->Autoselect(
                             PossibleValues => $StdFieldValues{ $Field->{FieldID} },
                         ) || '';
@@ -2074,8 +2071,6 @@ sub _MaskNew {
             $Param{$_} = $Param{Errors}->{$_};
         }
     }
-
-    my $SeparateDynamicFields = $ConfigObject->Get('Ticket::CustomerFrontend::SeparateDynamicFields');
 
     # render dynamic fields
     $Param{DynamicFieldHTML} = $Kernel::OM->Get('Kernel::Output::HTML::DynamicField::Mask')->EditSectionRender(
