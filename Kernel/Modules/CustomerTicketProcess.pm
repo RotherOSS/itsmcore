@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2025 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - a0b3b53a722045f9b9c5d490a04bc7e4348d9009 - Kernel/Modules/CustomerTicketProcess.pm
+# $origin: otobo - 86a9de4600b1d93d198d10492db70a5465e3c0e2 - Kernel/Modules/CustomerTicketProcess.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -1276,7 +1276,6 @@ sub _OutputActivityDialog {
             Autoselect                => $Autoselect,
             ACLPreselection           => $ACLPreselection // '',
             LoopProtection            => \$LoopProtection,
-            InitialRun                => 1,
         );
 
         %DFPossibleValues = map { 'DynamicField_' . $_ => $DynFieldStates{Fields}{$_}{PossibleValues} } keys $Self->{DynamicField}->%*;
