@@ -29,13 +29,13 @@ ITSM.Agent.Zoom = (function (TargetNS) {
 
     /**
      * @function
-     * @param {String} ITSMTableHeight - The heigth of the table.
+     * @param {String} ITSMTableHeight - The height of the table.
      * @description
      *      This function initializes the special module functions.
      */
     TargetNS.Init = function (ITSMTableHeight) {
 
-        Core.UI.Resizable.Init($('#ITSMTableBody'), ITSMTableHeight, function (event, ui, Height) {
+        Core.UI.Resizable.Init($('#ITSMTableBody'), ITSMTableHeight, function (_event, _ui, Height) {
 
             // remember new height for next reload
             window.clearTimeout(TargetNS.ResizeTimeOutScroller);

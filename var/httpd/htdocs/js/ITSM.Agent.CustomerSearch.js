@@ -61,7 +61,7 @@ ITSM.Agent.CustomerSearch = (function (TargetNS) {
                         Response(ValueData);
                     }));
                 },
-                function (Event, UI) {
+                function (_Event, UI) {
                     $Element.val(UI.item.show);
 
                     // set hidden field SelectedCustomerUser

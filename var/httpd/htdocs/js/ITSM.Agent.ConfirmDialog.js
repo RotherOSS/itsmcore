@@ -137,7 +137,7 @@ ITSM.Agent.ConfirmDialog = (function (TargetNS) {
 
             // show the confirmation dialog to confirm the action
             Core.UI.Dialog.ShowContentDialog(Response.HTML, LocalDialogData.DialogTitle, PositionTop, "Center", true, Buttons);
-            $('a.AsPopupDialog').unbind('click.AsPopupDialog').bind('click.AsPopupDialog', function (Event) {
+            $('a.AsPopupDialog').unbind('click.AsPopupDialog').bind('click.AsPopupDialog', function () {
                 Core.UI.Popup.OpenPopup ($(this).attr('href'), 'Action');
                 Core.UI.Dialog.CloseDialog($('.Dialog:visible'));
                 return false;
