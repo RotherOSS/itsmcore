@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 93ed1a12e9b77ceaf15fe3dcea9f3fc840d93146 - Kernel/Modules/AgentTicketActionCommon.pm
+# $origin: otobo - 66a61f18b13e667530cb5f7660d00ac12d97315c - Kernel/Modules/AgentTicketActionCommon.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -1787,7 +1787,7 @@ sub Run {
             }
 
             my $DataValues = $DynFieldStates{Fields}{$Name}{NotACLReducible}
-                ? $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"}
+                ? ( $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"} // '' )
                 :
                 (
                     $DynamicFieldBackendObject->BuildSelectionDataGet(
@@ -1843,7 +1843,7 @@ sub Run {
                 }
 
                 my $DataValues = $SetField->{FieldStates}{$FrontendName}{NotACLReducible}
-                    ? $SetField->{Values}{$FrontendName}
+                    ? ( $SetField->{Values}{$FrontendName} // '' )
                     :
                     (
                         $DynamicFieldBackendObject->BuildSelectionDataGet(
