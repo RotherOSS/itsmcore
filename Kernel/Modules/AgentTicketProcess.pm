@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 66a61f18b13e667530cb5f7660d00ac12d97315c - Kernel/Modules/AgentTicketProcess.pm
+# $origin: otobo - ac4570c99296fbf5d528f8c8cf2f6777c80c7223 - Kernel/Modules/AgentTicketProcess.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -859,6 +859,27 @@ sub _RenderAjax {
                 };
             }
 
+            # add template value for keeping templates in line with ACLs
+            if ( !$DynFieldStates{Fields}{$Name}{NotACLReducible} ) {
+                my $DataValues = (
+                    $DynamicFieldBackendObject->BuildSelectionDataGet(
+                        DynamicFieldConfig => $DynamicFieldConfig,
+                        PossibleValues     => $DynFieldStates{Fields}{$Name}{PossibleValues},
+                        Value              => [ $DynamicFieldConfig->{Config}{DefaultValue} // '' ],
+                        )
+                        || $DynFieldStates{Fields}{$Name}{PossibleValues}
+                );
+
+                # add dynamic field to the list of fields to update
+                push @JSONCollector, {
+                    Name        => 'DynamicField_' . $DynamicFieldConfig->{Name} . "_Template",
+                    Data        => $DataValues,
+                    SelectedID  => $DynamicFieldConfig->{Config}{DefaultValue} // '',
+                    Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
+                    Max         => 100,
+                };
+            }
+
             next DYNAMICFIELD;
         }
 
@@ -910,6 +931,27 @@ sub _RenderAjax {
                         Name        => 'DynamicField_' . $FrontendName . "_$i",
                         Data        => $DataValues,
                         SelectedID  => $SetField->{Values}{$FrontendName}[$i],
+                        Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
+                        Max         => 100,
+                    };
+                }
+
+                # add template value for keeping templates in line with ACLs
+                if ( !$SetField->{FieldStates}{$FrontendName}{NotACLReducible} ) {
+                    my $DataValues = (
+                        $DynamicFieldBackendObject->BuildSelectionDataGet(
+                            DynamicFieldConfig => $DynamicFieldConfig,
+                            PossibleValues     => $SetField->{FieldStates}{$FrontendName}{PossibleValues},
+                            Value              => [ $DynamicFieldConfig->{Config}{DefaultValue} // '' ],
+                            )
+                            || $SetField->{FieldStates}{$FrontendName}{PossibleValues}
+                    );
+
+                    # add dynamic field to the list of fields to update
+                    push @JSONCollector, {
+                        Name        => 'DynamicField_' . $FrontendName . "_Template",
+                        Data        => $DataValues,
+                        SelectedID  => $DynamicFieldConfig->{Config}{DefaultValue} // '',
                         Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
                         Max         => 100,
                     };

@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 66a61f18b13e667530cb5f7660d00ac12d97315c - Kernel/Modules/CustomerTicketProcess.pm
+# $origin: otobo - 800091b06ec8f5a82ebe43f3c45644cf09dab47a - Kernel/Modules/CustomerTicketProcess.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -537,7 +537,28 @@ sub _RenderAjax {
                         Name        => 'DynamicField_' . $FrontendName . "_$i",
                         Data        => $DataValues,
                         SelectedID  => $SetField->{Values}{$FrontendName}[$i],
-                        Translation => $DynamicFieldConfig->{Config}->{TranslatableValues} || 0,
+                        Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
+                        Max         => 100,
+                    };
+                }
+
+                # add template value for keeping templates in line with ACLs
+                if ( !$SetField->{FieldStates}{$FrontendName}{NotACLReducible} ) {
+                    my $DataValues = (
+                        $DynamicFieldBackendObject->BuildSelectionDataGet(
+                            DynamicFieldConfig => $DynamicFieldConfig,
+                            PossibleValues     => $SetField->{FieldStates}{$FrontendName}{PossibleValues},
+                            Value              => [ $DynamicFieldConfig->{Config}{DefaultValue} // '' ],
+                            )
+                            || $SetField->{FieldStates}{$FrontendName}{PossibleValues}
+                    );
+
+                    # add dynamic field to the list of fields to update
+                    push @JSONCollector, {
+                        Name        => 'DynamicField_' . $FrontendName . "_Template",
+                        Data        => $DataValues,
+                        SelectedID  => $DynamicFieldConfig->{Config}{DefaultValue} // '',
+                        Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
                         Max         => 100,
                     };
                 }
@@ -562,7 +583,7 @@ sub _RenderAjax {
                 Name        => 'DynamicField_' . $FrontendName,
                 Data        => $DataValues,
                 SelectedID  => $SetField->{Values}{$FrontendName},
-                Translation => $DynamicFieldConfig->{Config}->{TranslatableValues} || 0,
+                Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
                 Max         => 100,
             };
         }
@@ -600,10 +621,31 @@ sub _RenderAjax {
 
                 # add dynamic field to the list of fields to update
                 push @JSONCollector, {
-                    Name        => 'DynamicField_' . $DynamicFieldConfig->{Name} . "_$i",      # contains the id suffix
+                    Name        => 'DynamicField_' . $DynamicFieldConfig->{Name} . "_$i",    # contains the id suffix
                     Data        => $DataValues,
                     SelectedID  => $DFParam->{"DynamicField_$Name"}[$i],
-                    Translation => $DynamicFieldConfig->{Config}->{TranslatableValues} || 0,
+                    Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
+                    Max         => 100,
+                };
+            }
+
+            # add template value for keeping templates in line with ACLs
+            if ( !$DynFieldStates{Fields}{$Name}{NotACLReducible} ) {
+                my $DataValues = (
+                    $DynamicFieldBackendObject->BuildSelectionDataGet(
+                        DynamicFieldConfig => $DynamicFieldConfig,
+                        PossibleValues     => $DynFieldStates{Fields}{$Name}{PossibleValues},
+                        Value              => [ $DynamicFieldConfig->{Config}{DefaultValue} // '' ],
+                        )
+                        || $DynFieldStates{Fields}{$Name}{PossibleValues}
+                );
+
+                # add dynamic field to the list of fields to update
+                push @JSONCollector, {
+                    Name        => 'DynamicField_' . $DynamicFieldConfig->{Name} . "_Template",    # contains the id suffix
+                    Data        => $DataValues,
+                    SelectedID  => $DynamicFieldConfig->{Config}{DefaultValue} // '',
+                    Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
                     Max         => 100,
                 };
             }
@@ -625,10 +667,10 @@ sub _RenderAjax {
 
         # add dynamic field to the list of fields to update
         push @JSONCollector, {
-            Name        => 'DynamicField_' . $DynamicFieldConfig->{Name},              # contains the id suffix
+            Name        => 'DynamicField_' . $DynamicFieldConfig->{Name},            # contains the id suffix
             Data        => $DataValues,
             SelectedID  => $DFParam->{"DynamicField_$Name"},
-            Translation => $DynamicFieldConfig->{Config}->{TranslatableValues} || 0,
+            Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
             Max         => 100,
         };
     }
@@ -2497,7 +2539,6 @@ sub _RenderPriority {
             PriorityID => $PriorityIDParam,
         );
     }
-
 
 # Rother OSS / ITSMCore - calculate Priority via CIP matrix
     my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
