@@ -2,7 +2,7 @@
 # OTOBO is a web-based ticketing system for service organisations.
 # --
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
-# Copyright (C) 2019-2024 Rother OSS GmbH, https://otobo.io/
+# Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -307,7 +307,6 @@ sub _CreateITSMDynamicFields {
             )
         {
 
-            ## no critic qw(Variables::ProhibitUnusedVarsStricter)
             # rename the field and create a new one
             my $Success = $Kernel::OM->Get('Kernel::System::DynamicField')->DynamicFieldUpdate(
                 %{ $DynamicFieldLookup{ $DynamicField->{Name} } },
@@ -321,7 +320,6 @@ sub _CreateITSMDynamicFields {
         # otherwise if the field exists and the type match, update it to the ITSM definition
         else {
 
-            ## no critic qw(Variables::ProhibitUnusedVarsStricter)
             my $Success = $Kernel::OM->Get('Kernel::System::DynamicField')->DynamicFieldUpdate(
                 %{$DynamicField},
                 ID         => $DynamicFieldLookup{ $DynamicField->{Name} }->{ID},

@@ -683,12 +683,12 @@ sub Run {
                 $Criticality = $Service{Criticality};
             }
 
-            if ( $Criticality ) { 
+            if ( $Criticality ) {
                 my $PriorityID = $CIPAllocateObject->PriorityAllocationGet(
                     Criticality => $Criticality,
                     Impact      => $GetParam{DynamicField}{DynamicField_ITSMImpact},
                 );
- 
+
                 if ( $PriorityID ne $GetParam{PriorityID} ) {
 
                     # this should never happen; we just enforce the prio and write an error to the log file here
