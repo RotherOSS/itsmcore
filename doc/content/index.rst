@@ -18,11 +18,11 @@ System requirements
 
 Framework
 ---------
-OTOBO 11.0.x
+OTOBO 11.1.x
 
 Packages
 --------
-GeneralCatalog 11.0.0
+GeneralCatalog 11.1.0
 
 Third-party software
 --------------------
