@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
-"POT-Creation-Date: 2020-01-24 12:24+0000\n"
+"POT-Creation-Date: 2026-03-06 11:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,6 +56,14 @@ msgstr ""
 
 #. Template: AgentITSMServiceZoom
 msgid "Associated SLAs"
+msgstr ""
+
+#. Template: TicketInformation
+msgid "Service Incident State"
+msgstr ""
+
+#. Template: TicketInformation
+msgid "Service Criticality"
 msgstr ""
 
 #. Perl Module: Kernel/Modules/AdminITSMCIPAllocate.pm
@@ -183,7 +191,15 @@ msgid "Both"
 msgstr ""
 
 #. SysConfig
+msgid "CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault."
+msgstr ""
+
+#. SysConfig
 msgid "Connected to"
+msgstr ""
+
+#. SysConfig
+msgid "Default behavior of priority allocation in the frontends based on Criticality and Impact. Can be overruled by frontend specific PriorityByCIP settings."
 msgstr ""
 
 #. SysConfig
@@ -195,7 +211,15 @@ msgid "Define which columns are shown in the linked Services widget (LinkObject:
 msgstr ""
 
 #. SysConfig
+msgid "Defines the list of online repositories. Another installation can be used as repository, for example: Key=\"http://example.com/otobo/public.pl?Action=PublicRepository;File=\" and Content=\"Some Name\"."
+msgstr ""
+
+#. SysConfig
 msgid "Depends on"
+msgstr ""
+
+#. SysConfig
+msgid "Enforce"
 msgstr ""
 
 #. SysConfig
@@ -243,6 +267,14 @@ msgid "Includes"
 msgstr "Contine"
 
 #. SysConfig
+msgid "Located in"
+msgstr ""
+
+#. SysConfig
+msgid "Location of"
+msgstr ""
+
+#. SysConfig
 msgid "Manage priority matrix."
 msgstr ""
 
@@ -268,6 +300,10 @@ msgstr ""
 
 #. SysConfig
 msgid "Module to show the Print menu item in service menu."
+msgstr ""
+
+#. SysConfig
+msgid "Off"
 msgstr ""
 
 #. SysConfig
@@ -319,7 +355,15 @@ msgid "Set the type and direction of links to be used to calculate the incident 
 msgstr ""
 
 #. SysConfig
+msgid "Show the current service incident state signal in the ticket information."
+msgstr ""
+
+#. SysConfig
 msgid "Source"
+msgstr ""
+
+#. SysConfig
+msgid "Suggest"
 msgstr ""
 
 #. SysConfig
@@ -379,6 +423,10 @@ msgid "This setting defines that a 'ITSMConfigItem' object can be linked with ot
 msgstr ""
 
 #. SysConfig
+msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'LocationOf' link type."
+msgstr ""
+
+#. SysConfig
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'RelevantTo' link type."
 msgstr ""
 
@@ -431,42 +479,14 @@ msgid "This setting defines the link type 'Includes'. If the source name and the
 msgstr ""
 
 #. SysConfig
+msgid "This setting defines the link type 'LocationOf'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
+msgstr ""
+
+#. SysConfig
 msgid "This setting defines the link type 'RelevantTo'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
 msgstr ""
 
 #. SysConfig
 msgid "Width of ITSM textareas."
-msgstr ""
-
-#. SysConfig
-msgid "Defines the list of online repositories. Another installation can be used as repository, for example: Key=\"http://example.com/otobo/public.pl?Action=PublicRepository;File=\" and Content=\"Some Name\"."
-msgstr ""
-
-#. SysConfig
-msgid "Located in"
-msgstr ""
-
-#. SysConfig
-msgid "Location of"
-msgstr ""
-
-#. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'LocationOf' link type."
-msgstr ""
-
-#. SysConfig
-msgid "This setting defines the link type 'LocationOf'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
-msgstr ""
-
-#. SysConfig
-msgid "Defines the initial height for the rich text editor component in pixels."
-msgstr ""
-
-#. SysConfig
-msgid "Defines if parent-child translations for queues and services should be generated automatically."
-msgstr ""
-
-#. SysConfig
-msgid "Defines the initial height in pixels for the rich text editor component for this screen."
 msgstr ""
 
