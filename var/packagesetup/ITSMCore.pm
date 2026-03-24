@@ -829,7 +829,7 @@ sub _DynamicFieldsDelete {
     my $DynamicFieldObject      = $Kernel::OM->Get('Kernel::System::DynamicField');
     my $DynamicFieldValueObject = $Kernel::OM->Get('Kernel::System::DynamicFieldValue');
 
-    # get the list of FAQ dynamic fields (valid and invalid ones)
+    # get the list of all dynamic fields (valid and invalid ones)
     my $DynamicFieldList = $DynamicFieldObject->DynamicFieldListGet(
         Valid => 0,
     );
