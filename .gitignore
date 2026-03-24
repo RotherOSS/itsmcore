@@ -8,3 +8,6 @@
 *.swp
 *.swo
 *~
+
+# macos specific files
+.DS_store
