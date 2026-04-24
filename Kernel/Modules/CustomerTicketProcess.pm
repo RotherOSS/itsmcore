@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 800091b06ec8f5a82ebe43f3c45644cf09dab47a - Kernel/Modules/CustomerTicketProcess.pm
+# $origin: otobo - 95feac0e5e90fe4a68819ea5bf98df81381d1826 - Kernel/Modules/CustomerTicketProcess.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -190,6 +190,34 @@ sub Run {
         );
     }
     elsif ( $Self->{Subaction} eq 'DisplayActivityDialog' && $ProcessEntityID ) {
+
+        # Get values for Ticket fields and use default value for Article fields, if given (this
+        # screen generates a new article, then article fields will be always default value or
+        # empty at the beginning).
+        my %Ticket;
+        if ($TicketID) {
+            %Ticket = $Kernel::OM->Get('Kernel::System::Ticket')->TicketGet(
+                TicketID      => $TicketID,
+                UserID        => $Kernel::OM->Get('Kernel::Config')->Get('CustomerPanelUserID'),
+                DynamicFields => 1,
+            );
+        }
+
+        DYNAMICFIELD:
+        for my $DynamicFieldConfig ( values $Self->{DynamicField}->%* ) {
+            next DYNAMICFIELD if !IsHashRefWithData($DynamicFieldConfig);
+
+            # strip dynamic field name from process suffix
+            if ( $DynamicFieldConfig->{Name} =~ /(?<DFName>[A-Za-z0-9-]+)_/ ) {
+                my $DFName = $+{DFName};
+
+                if ( ( $DynamicFieldConfig->{ObjectType} eq 'Ticket' ) && $TicketID ) {
+
+                    # Value is stored in the database from Ticket.
+                    $GetParam->{DynamicField}{ 'DynamicField_' . $DFName } = $Ticket{ 'DynamicField_' . $DFName };
+                }
+            }
+        }
 
         return $Self->_OutputActivityDialog(
             %Param,

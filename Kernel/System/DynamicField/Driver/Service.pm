@@ -27,7 +27,7 @@ use utf8;
 use parent qw(Kernel::System::DynamicField::Driver::BaseReference);
 
 # core modules
-use List::Util qw(any);
+use List::Util qw(any first);
 
 # CPAN modules
 
@@ -37,6 +37,7 @@ use Kernel::System::VariableCheck qw(IsArrayRefWithData IsHashRefWithData);
 
 our @ObjectDependencies = (
     'Kernel::Config',
+    'Kernel::System::CustomerUser',
     'Kernel::System::DynamicField',
     'Kernel::System::DynamicField::Backend',
     'Kernel::System::Group',
@@ -162,8 +163,9 @@ sub ObjectPermission {
 return a hash of object descriptions.
 
     my %Description = $BackendObject->ObjectDescriptionGet(
-        ObjectID => 123,
-        UserID   => 1,
+        DynamicFieldConfig => $DynamicFieldConfig,
+        ObjectID           => 123,
+        UserID             => 1,
     );
 
 Return
@@ -232,7 +234,7 @@ This is used in auto completion when searching for possible object IDs.
         ObjectID           => $ObjectID,                # (optional) if given, takes precedence over Term
         Term               => $Term,                    # (optional) defaults to wildcard search with empty string
         MaxResults         => $MaxResults,
-        UserID             => 1,
+        UserID             => $Self->{UserID},
         Object             => {
             %Data,
         },
@@ -248,7 +250,6 @@ sub SearchObjects {
     $Param{Term} //= '*';
 
     my $DynamicFieldConfig = $Param{DynamicFieldConfig};
-
     my %SearchParams;
 
     if ( $Param{ObjectID} ) {
@@ -269,7 +270,10 @@ sub SearchObjects {
     }
 
     # incorporate referencefilterlist into search params
-    if ( $DynamicFieldConfig->{Config}{ReferenceFilterList} && !$Param{ExternalSource} ) {
+    if ( IsArrayRefWithData( $DynamicFieldConfig->{Config}{ReferenceFilterList} ) && !$Param{ExternalSource} ) {
+
+        my $CustomerUserObject = $Kernel::OM->Get('Kernel::System::CustomerUser');
+
         FILTERITEM:
         for my $FilterItem ( $DynamicFieldConfig->{Config}{ReferenceFilterList}->@* ) {
 
@@ -283,29 +287,103 @@ sub SearchObjects {
                 my $EqualsObjectAttribute;
                 if ( IsHashRefWithData( $Param{Object} ) ) {
                     $EqualsObjectAttribute = $Param{Object}{DynamicField}{ $FilterItem->{EqualsObjectAttribute} } // $Param{Object}{ $FilterItem->{EqualsObjectAttribute} };
+
+                    if ( $FilterItem->{EqualsObjectAttribute} eq 'CustomerUserID' && !$EqualsObjectAttribute && $Param{CustomerUserID} ) {
+                        $EqualsObjectAttribute = $Param{CustomerUserID};
+                    }
+                    elsif ( $FilterItem->{EqualsObjectAttribute} eq 'CustomerID' && !$EqualsObjectAttribute && $Param{CustomerUserID} ) {
+                        my %CustomerUserData = $CustomerUserObject->CustomerUserDataGet(
+                            User => $Param{CustomerUserID},
+                        );
+                        $EqualsObjectAttribute = $CustomerUserData{CustomerID};
+                    }
                 }
                 elsif ( defined $Param{ParamObject} ) {
                     if ( $FilterItem->{EqualsObjectAttribute} =~ /^DynamicField_(?<DFName>\S+)/ ) {
+                        my $DFName             = $+{DFName};
                         my $FilterItemDFConfig = $Kernel::OM->Get('Kernel::System::DynamicField')->DynamicFieldGet(
-                            Name => $+{DFName},
+                            Name => $DFName,
                         );
+
                         next FILTERITEM unless IsHashRefWithData($FilterItemDFConfig);
+
                         $EqualsObjectAttribute = $Kernel::OM->Get('Kernel::System::DynamicField::Backend')->EditFieldValueGet(
                             ParamObject        => $Param{ParamObject},
                             DynamicFieldConfig => $FilterItemDFConfig,
                             TransformDates     => 0,
                         );
                     }
+                    elsif ( $FilterItem->{EqualsObjectAttribute} eq 'CustomerUserID' && $Param{CustomerUserID} ) {
+                        $EqualsObjectAttribute = $Param{CustomerUserID};
+                    }
+                    elsif ( $FilterItem->{EqualsObjectAttribute} eq 'CustomerID' && $Param{CustomerUserID} ) {
+                        my %CustomerUserData = $CustomerUserObject->CustomerUserDataGet(
+                            User => $Param{CustomerUserID},
+                        );
+                        $EqualsObjectAttribute = $CustomerUserData{CustomerID};
+                    }
                     else {
-                        $EqualsObjectAttribute = $Param{ParamObject}->GetParam( Param => $FilterItem->{EqualsObjectAttribute} );
+
+                        # match standard ticket attribute names with edit mask attribute names
+                        my @ParamNames = $Param{ParamObject}->GetParamNames();
+
+                        # check if attribute name itself is in params
+                        # NOTE trying attribute itself is crucially important in case of QueueID
+                        #   because AgentTicketPhone does not provide QueueID, but puts the id in
+                        #   Dest, and AgentTicketEmail leaves Dest as a string but puts the id in QueueID
+                        my $ParamName = first { $_ eq $FilterItem->{EqualsObjectAttribute} } @ParamNames;
+
+                        if ($ParamName) {
+                            $EqualsObjectAttribute = $Param{ParamObject}->GetParam( Param => $ParamName );
+
+                            # when called by AgentReferenceSearch, Dest is a string and we need to extract the QueueID
+                            if ( $ParamName eq 'Dest' ) {
+                                my $QueueID = '';
+                                if ( $EqualsObjectAttribute =~ /^(\d{1,100})\|\|.+?$/ ) {
+                                    $QueueID = $1;
+                                }
+                                $EqualsObjectAttribute = $QueueID;
+                            }
+                        }
+                        elsif ( $FilterItem->{EqualsObjectAttribute} eq 'CustomerID' ) {
+
+                            # try if CustomerUser is on the mask
+                            my $CustomerUserID = $Param{ParamObject}->GetParam( Param => 'SelectedCustomerUser' );
+                            if ($CustomerUserID) {
+                                my %CustomerUserData = $CustomerUserObject->CustomerUserDataGet(
+                                    User => $CustomerUserID,
+                                );
+                                $EqualsObjectAttribute = $CustomerUserData{CustomerID};
+                            }
+                        }
+                        else {
+
+                            # neither attribute nor mapped alternatives available
+                            $Kernel::OM->Get('Kernel::System::Log')->Log(
+                                Priority => 'error',
+                                Message  => "The attribute '$FilterItem->{EqualsObjectAttribute}' and its associated alternatives is not available on the mask!",
+                            );
+
+                            return;
+                        }
                     }
                 }
+
+                # ensure that for EqualsObjectAttribute UserID always $Self->{UserID} is used in the end
+                if ( $FilterItem->{EqualsObjectAttribute} eq 'UserID' ) {
+                    $EqualsObjectAttribute = $Param{UserID};
+                }
+
                 return () unless $EqualsObjectAttribute;
                 return () if ( ref $EqualsObjectAttribute eq 'ARRAY' && !$EqualsObjectAttribute->@* );
 
                 # config item attribute
                 if ( $FilterItem->{ReferenceObjectAttribute} =~ m{^Con}i ) {
                     $SearchParams{ $FilterItem->{ReferenceObjectAttribute} } = $EqualsObjectAttribute;
+                }
+
+                elsif ( $FilterItem->{ReferenceObjectAttribute} eq 'CustomerUserID' ) {
+                    $SearchParams{CustomerUserLogin} = [$EqualsObjectAttribute];
                 }
 
                 # dynamic field attribute
@@ -333,6 +411,10 @@ sub SearchObjects {
                     $SearchParams{ $FilterItem->{ReferenceObjectAttribute} } = {
                         Equals => $FilterItem->{EqualsString},
                     };
+                }
+
+                elsif ( $FilterItem->{ReferenceObjectAttribute} eq 'CustomerUserID' ) {
+                    $SearchParams{CustomerUserLogin} = [ $FilterItem->{EqualsString} ];
                 }
 
                 # array attribute

@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - ac4570c99296fbf5d528f8c8cf2f6777c80c7223 - Kernel/Modules/AgentTicketProcess.pm
+# $origin: otobo - ba2b8d4c3d1d2c75ac3e475af1adb5fafd50f378 - Kernel/Modules/AgentTicketProcess.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -22,6 +22,7 @@ use strict;
 use warnings;
 
 # core modules
+use List::Util qw(none);
 
 # CPAN modules
 use Mail::Address ();
@@ -444,6 +445,30 @@ sub Run {
     }
     if ( $Self->{Subaction} eq 'DisplayActivityDialog' && $ProcessEntityID ) {
 
+        # initial rendering - pre-fill dynamic fields with ticket values
+        my %Ticket;
+        if ($TicketID) {
+            %Ticket = $TicketObject->TicketGet(
+                TicketID      => $TicketID,
+                UserID        => $Self->{UserID},
+                DynamicFields => 1,
+            );
+        }
+
+        DYNAMICFIELD:
+        for my $DynamicFieldConfig ( values $Self->{DynamicField}->%* ) {
+            next DYNAMICFIELD unless IsHashRefWithData($DynamicFieldConfig);
+
+            # This overwrites the values that might have been taken from the web request.
+            # Note that there shouldn't be any values from the web request,
+            # because submits, successful and unsuccessful have been handled already above.
+            if ( ( $DynamicFieldConfig->{ObjectType} eq 'Ticket' ) && $TicketID ) {
+
+                # Value is stored in the database from Ticket.
+                $GetParam->{DynamicField}{ 'DynamicField_' . $DynamicFieldConfig->{Name} } = $Ticket{ 'DynamicField_' . $DynamicFieldConfig->{Name} };
+            }
+        }
+
         return $Self->_OutputActivityDialog(
             %Param,
             ProcessEntityID => $ProcessEntityID,
@@ -796,6 +821,10 @@ sub _RenderAjax {
     my $Autoselect      = $ConfigObject->Get('TicketACL::Autoselect') || undef;
     my $LoopProtection  = 100;
     my %ChangedElements = $Param{GetParam}{ElementChanged} ? ( $Param{GetParam}{ElementChanged} => 1 ) : ();
+    if ( $ChangedElements{ServiceID} ) {
+        $ChangedElements{CustomerUserID} = 1;
+        $ChangedElements{CustomerID}     = 1;
+    }
 
     # get values and visibility of dynamic fields
     my %DynFieldStates = $FieldRestrictionsObject->GetFieldStates(
@@ -1910,7 +1939,7 @@ sub _OutputActivityDialog {
             CustomerUser              => $Param{GetParam}{CustomerUserID} || '',
             GetParam                  => $Param{GetParam},
             Autoselect                => $Autoselect,
-            ACLPreselection           => $ACLPreselection // '',
+            ACLPreselection           => $ACLPreselection,
             LoopProtection            => \$LoopProtection,
         );
 
@@ -2351,7 +2380,7 @@ sub _OutputActivityDialog {
         elsif ( $CurrentField eq 'PendingTime' ) {
 
             # PendingTime is just useful if we have State or StateID
-            if ( !grep {m{^(StateID|State)$}xms} @{ $ActivityDialog->{FieldOrder} } ) {
+            if ( none {m{^(StateID|State)$}xms} @{ $ActivityDialog->{FieldOrder} } ) {
                 my $Message = $LayoutObject->{LanguageObject}->Translate(
                     'PendingTime can just be used if State or StateID is configured for the same ActivityDialog. ActivityDialog: %s!',
                     $ActivityActivityDialog->{ActivityDialog},
@@ -3263,7 +3292,7 @@ sub _RenderCustomer {
 
     # output server errors
     if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{CustomerUserID} ) {
-        $Data{CustomerUserIDServerError} = 'ServerError';
+        $Data{CustomerAutoCompleteServerError} = 'ServerError';
     }
     if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}{CustomerID} ) {
         $Data{CustomerIDServerError} = 'ServerError';
@@ -4832,7 +4861,7 @@ sub _StoreActivityDialog {
             # the content of the original field as customer user id
             if ( !$CustomerUserID ) {
 
-                $CustomerUserID = $ParamObject->GetParam( Param => 'CustomerUserID' );
+                $CustomerUserID = $ParamObject->GetParam( Param => 'CustomerAutoComplete' );
 
                 # check email address
                 for my $Email ( Mail::Address->parse($CustomerUserID) ) {
