@@ -2,13 +2,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
 "POT-Creation-Date: 2020-01-24 12:24+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2026-05-22 14:00+0000\n"
+"Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
+"Language-Team: Hungarian <http://translate.otobo.org/projects/opm-packages/"
+"itsm-core/hu/>\n"
+"Language: hu\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.16\n"
 
 #. Template: AdminITSMCIPAllocate
 msgid "Criticality ↔ Impact ↔ Priority"
@@ -20,7 +23,7 @@ msgstr "A Kritikusság ↔ Hatás összetétel prioritás eredményének kezelé
 
 #. Template: AdminITSMCIPAllocate
 msgid "Priority allocation"
-msgstr "Prioritás lefoglalás"
+msgstr "Prioritáslefoglalás"
 
 #. Template: AdminSLA
 msgid "Minimum Time Between Incidents"
@@ -48,7 +51,7 @@ msgstr "Hozzárendelt szolgáltatások"
 
 #. Template: AgentITSMServiceZoom
 msgid "Service Information"
-msgstr "Szolgáltatás információk"
+msgstr "Szolgáltatásinformációk"
 
 #. Template: AgentITSMServiceZoom
 msgid "Current incident state"
@@ -196,7 +199,7 @@ msgstr "Annak meghatározása, hogy mely oszlopok legyenek láthatók a kapcsolt
 
 #. SysConfig
 msgid "Depends on"
-msgstr "Ettől függ"
+msgstr "Függ ettől"
 
 #. SysConfig
 msgid "Frontend module registration for the AdminITSMCIPAllocate configuration in the admin area."
@@ -236,7 +239,7 @@ msgstr "ITSM szolgáltatás áttekintés."
 
 #. SysConfig
 msgid "Incident State Type"
-msgstr "Incidensállapot típus"
+msgstr "Incidensállapot típusa"
 
 #. SysConfig
 msgid "Includes"
@@ -316,7 +319,22 @@ msgstr "Szolgáltatás terület"
 
 #. SysConfig
 msgid "Set the type and direction of links to be used to calculate the incident state. The key is the name of the link type (as defined in LinkObject::Type), and the value is the direction of the IncidentLinkType that should be followed to calculate the incident state. For example if the IncidentLinkType is set to 'DependsOn', and the Direction is 'Source', only 'Depends on' links will be followed (and not the opposite link 'Required for') to calculate the incident state. You can add more link types ad directions as you like, e.g. 'Includes' with the direction 'Target'. All link types defined in the sysconfig options LinkObject::Type are possible and the direction can be 'Source', 'Target', or 'Both'. IMPORTANT: AFTER YOU MAKE CHANGES TO THIS SYSCONFIG OPTION YOU NEED TO RUN THE CONSOLE COMMAND bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!"
-msgstr "A hivatkozások típusának és irányának beállítása, hogy használható legyen az incidensállapot kiszámításához. A kulcs a hivatkozástípus neve (ahogy a LinkObject::Type értékében van meghatározva), és az érték az IncidentLinkType iránya, amelyet követnie kell az incidensállapot kiszámításához. Például ha az IncidentLinkType „DependsOn” értékre van állítva, és az irány „Forrás”, akkor csak a „Depends on” hivatkozások lesznek követve (és nem az ellentétes „Required for” hivatkozás) az incidensállapot kiszámításához. Hozzáadhat további hivatkozástípusokat és irányokat, ahogy csak szeretné, például „Includes” a „Cél” iránnyal. Minden LinkObject::Type rendszerbeállítási lehetőségben meghatározott hivatkozástípus lehetséges, és az irány „Forrás”, „Cél” vagy „Mindkettő” lehet. FONTOS: MIUTÁN MÓDOSÍTÁSOKAT HAJTOTT VÉGRE EZEN A RENDSZERBEÁLLÍTÁSON, LE KELL FUTTATNIA A bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate KONZOLPARANCSOT AZÉRT, HOGY MINDEN INCIDENSÁLLAPOT ÚJRA KISZÁMÍTÁSRA KERÜLJÖN AZ ÚJ BEÁLLÍTÁSOK ALAPJÁN!"
+msgstr ""
+"A hivatkozások típusának és irányának beállítása, hogy használható legyen az "
+"incidensállapot kiszámításához A kulcs a hivatkozástípus neve (ahogy a "
+"LinkObject::Type értékében van meghatározva), és az érték az "
+"IncidentLinkType iránya, amelyet követnie kell az incidensállapot "
+"kiszámításához. Például ha az IncidentLinkType „DependsOn” értékre van "
+"állítva, és az irány „Forrás”, akkor csak a „Depends on” hivatkozások "
+"lesznek követve (és nem az ellentétes „Required for” hivatkozás) az "
+"incidensállapot kiszámításához. Hozzáadhat további hivatkozástípusokat és "
+"irányokat, ahogy csak szeretné, például „Includes” a „Cél” iránnyal. Minden "
+"LinkObject::Type rendszerbeállítási lehetőségben meghatározott "
+"hivatkozástípus lehetséges, és az irány „Forrás”, „Cél” vagy „Mindkettő” "
+"lehet. FONTOS: MIUTÁN VÁLTOZTATÁSOKAT HAJTOTT VÉGRE EZEN A "
+"RENDSZERBEÁLLÍTÁSON, LE KELL FUTTATNIA a „bin/otobo.Console.pl "
+"Admin::ITSM::IncidentState::Recalculate” KONZOLPARANCSOT AZÉRT, HOGY MINDEN "
+"INCIDENSÁLLAPOT ÚJRA KISZÁMÍTÁSRA KERÜLJÖN AZ ÚJ BEÁLLÍTÁSOK ALAPJÁN!"
 
 #. SysConfig
 msgid "Source"
@@ -821,22 +839,32 @@ msgstr ""
 #. SysConfig
 msgid "Defines the list of online repositories. Another installation can be used as repository, for example: Key=\"http://example.com/otobo/public.pl?Action=PublicRepository;File=\" and Content=\"Some Name\"."
 msgstr ""
+"Meghatározza az interneten lévő tárolók listáját. Egy másik telepítés is "
+"használható tárolóként, például: Kulcs=„http://example.com/otobo/"
+"public.pl?Action=PublicRepository;File=” és Tartalom=„Valamilyen név”."
 
 #. SysConfig
 msgid "Located in"
-msgstr ""
+msgstr "Ebben található"
 
 #. SysConfig
 msgid "Location of"
-msgstr ""
+msgstr "Ennek helye"
 
 #. SysConfig
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'LocationOf' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e más „ITSMConfigItem” objektumokkal a „LocationOf” "
+"hivatkozástípus használatával."
 
 #. SysConfig
 msgid "This setting defines the link type 'LocationOf'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
 msgstr ""
+"Ez a beállítás határozza meg a „LocationOf” hivatkozástípust. Ha a forrásnév "
+"a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott "
+"hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül "
+"kapott hivatkozás irányított hivatkozás lesz."
 
 #. SysConfig
 msgid "Defines the initial height for the rich text editor component in pixels."
@@ -849,4 +877,3 @@ msgstr ""
 #. SysConfig
 msgid "Defines the initial height in pixels for the rich text editor component for this screen."
 msgstr ""
-
