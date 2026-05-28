@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 800091b06ec8f5a82ebe43f3c45644cf09dab47a - Kernel/Modules/AgentTicketActionCommon.pm
+# $origin: otobo - 581e36fb3affc2a387dd70824e309f45163545fe - Kernel/Modules/AgentTicketActionCommon.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -516,7 +516,7 @@ sub Run {
         qw(
             NewStateID NewPriorityID TimeUnits IsVisibleForCustomer Title Body Subject NewQueueID
             Year Month Day Hour Minute NewOwnerID NewResponsibleID TypeID ServiceID SLAID
-            ReplyToArticle StandardTemplateID CreateArticle FormDraftID Title
+            ReplyToArticle StandardTemplateID CreateArticle FormDraftID
         )
         )
     {
@@ -1119,21 +1119,21 @@ sub Run {
         {
 
             # move ticket (send notification if no new owner is selected)
-            my $BodyAsText = '';
+            my $BodyText = '';
             if ( $LayoutObject->{BrowserRichText} ) {
-                $BodyAsText = $LayoutObject->RichText2Ascii(
+                $BodyText = $LayoutObject->RichText2Ascii(
                     String => $GetParam{Body} || 0,
                 );
             }
             else {
-                $BodyAsText = $GetParam{Body} || 0;
+                $BodyText = $GetParam{Body} || 0;
             }
             my $Move = $TicketObject->TicketQueueSet(
                 QueueID            => $GetParam{NewQueueID},
                 UserID             => $Self->{UserID},
                 TicketID           => $Self->{TicketID},
                 SendNoNotification => $GetParam{NewUserID},
-                Comment            => $BodyAsText,
+                Comment            => $BodyText,
                 Action             => $Self->{Action},
             );
             if ( !$Move ) {
@@ -1754,165 +1754,11 @@ sub Run {
         }
 
         # build the AJAX return for the dynamic fields
-        my @DynamicFieldAJAX;
-        DYNAMICFIELD:
-        for my $Name ( sort keys $DynFieldStates{Fields}->%* ) {
-            my $DynamicFieldConfig = $Self->{DynamicField}{$Name};
-
-            if ( $DynamicFieldConfig->{Config}{MultiValue} && ref $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"} eq 'ARRAY' ) {
-                for my $i ( 0 .. $#{ $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"} } ) {
-                    my $DataValues = $DynFieldStates{Fields}{$Name}{NotACLReducible}
-                        ? ( $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"}[$i] // '' )
-                        :
-                        (
-                            $DynamicFieldBackendObject->BuildSelectionDataGet(
-                                DynamicFieldConfig => $DynamicFieldConfig,
-                                PossibleValues     => $DynFieldStates{Fields}{$Name}{PossibleValues},
-                                Value              => [ $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"}[$i] ],
-                            )
-                            || $DynFieldStates{Fields}{$Name}{PossibleValues}
-                        );
-
-                    # add dynamic field to the list of fields to update
-                    push @DynamicFieldAJAX, {
-                        Name        => 'DynamicField_' . $DynamicFieldConfig->{Name} . "_$i",
-                        Data        => $DataValues,
-                        SelectedID  => $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"}[$i],
-                        Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                        Max         => 100,
-                    };
-                }
-
-                # add template value for keeping templates in line with ACLs
-                if ( !$DynFieldStates{Field}{$Name}{NotACLReducible} ) {
-                    my $DataValues = (
-                        $DynamicFieldBackendObject->BuildSelectionDataGet(
-                            DynamicFieldConfig => $DynamicFieldConfig,
-                            PossibleValues     => $DynFieldStates{Fields}{$Name}{PossibleValues},
-                            Value              => [ $DynamicFieldConfig->{Config}{DefaultValue} // '' ],
-                            )
-                            || $DynFieldStates{Fields}{$Name}{PossibleValues}
-                    );
-
-                    # add dynamic field to the list of fields to update
-                    push @DynamicFieldAJAX, {
-                        Name        => 'DynamicField_' . $DynamicFieldConfig->{Name} . "_Template",
-                        Data        => $DataValues,
-                        SelectedID  => $DynamicFieldConfig->{Config}{DefaultValue} // '',
-                        Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                        Max         => 100,
-                    };
-                }
-
-                next DYNAMICFIELD;
-            }
-
-            my $DataValues = $DynFieldStates{Fields}{$Name}{NotACLReducible}
-                ? ( $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"} // '' )
-                :
-                (
-                    $DynamicFieldBackendObject->BuildSelectionDataGet(
-                        DynamicFieldConfig => $DynamicFieldConfig,
-                        PossibleValues     => $DynFieldStates{Fields}{$Name}{PossibleValues},
-                        Value              => $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"},
-                    )
-                    || $DynFieldStates{Fields}{$Name}{PossibleValues}
-                );
-
-            # add dynamic field to the list of fields to update
-            push @DynamicFieldAJAX, {
-                Name        => 'DynamicField_' . $DynamicFieldConfig->{Name},
-                Data        => $DataValues,
-                SelectedID  => $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"},
-                Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                Max         => 100,
-            };
-        }
-
-        for my $SetField ( values $DynFieldStates{Sets}->%* ) {
-            my $DynamicFieldConfig = $SetField->{DynamicFieldConfig};
-
-            # the frontend name is the name of the inner field including its index or the '_Template' suffix
-            DYNAMICFIELD:
-            for my $FrontendName ( keys $SetField->{FieldStates}->%* ) {
-
-                if ( $DynamicFieldConfig->{Config}{MultiValue} && ref $SetField->{Values}{$FrontendName} eq 'ARRAY' ) {
-                    for my $i ( 0 .. $#{ $SetField->{Values}{$FrontendName} } ) {
-                        my $DataValues = $SetField->{FieldStates}{$FrontendName}{NotACLReducible}
-                            ? ( $SetField->{Values}{$FrontendName}[$i] // '' )
-                            :
-                            (
-                                $DynamicFieldBackendObject->BuildSelectionDataGet(
-                                    DynamicFieldConfig => $DynamicFieldConfig,
-                                    PossibleValues     => $SetField->{FieldStates}{$FrontendName}{PossibleValues},
-                                    Value              => [ $SetField->{Values}{$FrontendName}[$i] ],
-                                )
-                                || $SetField->{FieldStates}{$FrontendName}{PossibleValues}
-                            );
-
-                        # add dynamic field to the list of fields to update
-                        push @DynamicFieldAJAX, {
-                            Name        => 'DynamicField_' . $FrontendName . "_$i",
-                            Data        => $DataValues,
-                            SelectedID  => $SetField->{Values}{$FrontendName}[$i],
-                            Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                            Max         => 100,
-                        };
-                    }
-
-                    # add template value for keeping templates in line with ACLs
-                    if ( !$SetField->{FieldStates}{$FrontendName}{NotACLReducible} ) {
-                        my $DataValues = (
-                            $DynamicFieldBackendObject->BuildSelectionDataGet(
-                                DynamicFieldConfig => $DynamicFieldConfig,
-                                PossibleValues     => $SetField->{FieldStates}{$FrontendName}{PossibleValues},
-                                Value              => [ $DynamicFieldConfig->{Config}{DefaultValue} // '' ],
-                                )
-                                || $SetField->{FieldStates}{$FrontendName}{PossibleValues}
-                        );
-
-                        # add dynamic field to the list of fields to update
-                        push @DynamicFieldAJAX, {
-                            Name        => 'DynamicField_' . $FrontendName . "_Template",
-                            Data        => $DataValues,
-                            SelectedID  => $DynamicFieldConfig->{Config}{DefaultValue} // '',
-                            Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                            Max         => 100,
-                        };
-                    }
-
-                    next DYNAMICFIELD;
-                }
-
-                my $DataValues = $SetField->{FieldStates}{$FrontendName}{NotACLReducible}
-                    ? ( $SetField->{Values}{$FrontendName} // '' )
-                    :
-                    (
-                        $DynamicFieldBackendObject->BuildSelectionDataGet(
-                            DynamicFieldConfig => $DynamicFieldConfig,
-                            PossibleValues     => $SetField->{FieldStates}{$FrontendName}{PossibleValues},
-                            Value              => $SetField->{Values}{$FrontendName},
-                        )
-                        || $SetField->{FieldStates}{$FrontendName}{PossibleValues}
-                    );
-
-                # add dynamic field to the list of fields to update
-                push @DynamicFieldAJAX, {
-                    Name        => 'DynamicField_' . $FrontendName,
-                    Data        => $DataValues,
-                    SelectedID  => $SetField->{Values}{$FrontendName},
-                    Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                    Max         => 100,
-                };
-            }
-        }
-
-        if ( IsHashRefWithData( $DynFieldStates{Visibility} ) ) {
-            push @DynamicFieldAJAX, {
-                Name => 'Restrictions_Visibility',
-                Data => $DynFieldStates{Visibility},
-            };
-        }
+        my @DynamicFieldAJAX = $DynamicFieldBackendObject->BuildAJAXReturn(
+            DynamicFieldConfigs => $Self->{DynamicField},
+            GetParam            => \%GetParam,
+            DynFieldStates      => \%DynFieldStates,
+        );
 
         # build AJAX return for the standard fields
         my @StdFieldAJAX;
@@ -2961,18 +2807,48 @@ sub _Mask {
 
                 my $QuickDateButtons = $Config->{QuickDateButtons} // $ConfigObject->Get('Ticket::Frontend::DefaultQuickDateButtons');
 
+                # fetch actions to perform prefilling for
+                my $RestorePendingConfig = $ConfigObject->Get("Ticket::Frontend::RestorePendingInformation");
+
+                # only prefill pending information for actions defined in the corresponding system configuration setting
+                my %PendingTimeSettings = ();
+                if ( $RestorePendingConfig->{Actions}->{ $Self->{Action} } ) {
+
+                    # try restoring pending time only if pending time exists and responsible config option is set
+                    if ( $Ticket{StateType} =~ /pending/ && $Ticket{RealTillTimeNotUsed} ) {
+
+                        my $PendingTimeObj = $Kernel::OM->Create(
+                            'Kernel::System::DateTime',
+                            ObjectParams => {
+                                Epoch => $Ticket{RealTillTimeNotUsed},
+                            },
+                        );
+
+                        my $CurrentTimeObj = $Kernel::OM->Create('Kernel::System::DateTime');
+
+                        # set pending time only if it is later than now
+                        if ( $CurrentTimeObj->Compare( DateTimeObject => $PendingTimeObj ) < 0 ) {
+                            %PendingTimeSettings = %{ $PendingTimeObj->Get() };
+                        }
+
+                    }
+
+                }
+
                 $Param{DateString} = $LayoutObject->BuildDateSelection(
                     %Param,
                     Format           => 'DateInputFormatLong',
                     YearPeriodPast   => 0,
                     YearPeriodFuture => 5,
-                    DiffTime         => $ConfigObject->Get('Ticket::Frontend::PendingDiffTime')
-                        || 0,
-                    Class                => $Param{DateInvalid} || ' ',
+
+                    # NOTE DiffTime only takes effect if no PendingTime is passed
+                    DiffTime             => $ConfigObject->Get('Ticket::Frontend::PendingDiffTime') || 0,
+                    Class                => $Param{DateInvalid}                                     || ' ',
                     Validate             => 1,
                     ValidateDateInFuture => 1,
                     Calendar             => $Calendar,
                     QuickDateButtons     => $QuickDateButtons,
+                    %PendingTimeSettings,
                 );
 
                 $LayoutObject->Block(
@@ -3110,23 +2986,20 @@ sub _Mask {
         }
 
         # create email parser object
-        my $EmailParserObject = Kernel::System::EmailParser->new(
-            Mode  => 'Standalone',
-            Debug => 0,
-        );
+        my $EmailAddressObject = $Kernel::OM->Get('Kernel::System::EmailAddress');
 
         # check and retrieve involved and informed agents of ReplyTo Note
         my @ReplyToUsers;
         my %ReplyToUsersHash;
         my %ReplyToUserIDs;
         if ( $Self->{ReplyToArticle} ) {
-            my @ReplyToParts = $EmailParserObject->SplitAddressLine(
+            my @ReplyToParts = $EmailAddressObject->ParseAddressLine(
                 Line => $Self->{ReplyToArticleContent}->{To} || '',
             );
 
             REPLYTOPART:
             for my $SingleReplyToPart (@ReplyToParts) {
-                my $ReplyToAddress = $EmailParserObject->GetEmailAddress(
+                my $ReplyToAddress = $EmailAddressObject->GetAddress(
                     Email => $SingleReplyToPart,
                 );
 

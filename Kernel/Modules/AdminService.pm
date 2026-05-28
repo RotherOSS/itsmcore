@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 6efdc7bf2a3325277cd79a60f0f2407f8ad59e87 - Kernel/Modules/AdminService.pm
+# $origin: otobo - ea211902130ca5b796d966845970cfc546444548 - Kernel/Modules/AdminService.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -22,11 +22,9 @@ use strict;
 use warnings;
 
 our $ObjectManagerDisabled = 1;
-# ---
-# ITSMCore
-# ---
+# Rother OSS / ITSMCore
 use Kernel::System::VariableCheck qw(:all);
-# ---
+# EO ITSMCore
 
 sub new {
     my ( $Type, %Param ) = @_;
@@ -67,9 +65,7 @@ sub Run {
         $Self->{IncludeInvalid} = $Param{IncludeInvalid};
     }
 
-# ---
-# ITSMCore
-# ---
+# Rother OSS / ITSMCore
     my $DynamicFieldObject   = $Kernel::OM->Get('Kernel::System::DynamicField');
 
     # get the dynamic field for ITSMCriticality
@@ -93,7 +89,7 @@ sub Run {
 
     # set the criticality list
     $Self->{CriticalityList} = $PossibleValues{ITSMCriticality};
-# ---
+# EO ITSMCore
 
     # ------------------------------------------------------------ #
     # service edit
@@ -123,12 +119,10 @@ sub Run {
 
         # get params
         my %GetParam;
-# ---
-# ITSMCore
-# ---
+# Rother OSS / ITSMCore
 #        for (qw(ServiceID ParentID Name ValidID Comment)) {
         for (qw(ServiceID ParentID Name ValidID Comment TypeID Criticality)) {
-# ---
+# EO ITSMCore
             $GetParam{$_} = $ParamObject->GetParam( Param => $_ ) || '';
         }
 
@@ -306,6 +300,7 @@ sub Run {
             },
         );
         $LayoutObject->Block( Name => 'Filter' );
+        $LayoutObject->Block( Name => 'ImportExportWidget' );
 
         # output overview result
         $LayoutObject->Block(
@@ -414,9 +409,7 @@ sub _MaskNew {
         Translation    => 0,
         Class          => 'Modernize',
     );
-# ---
-# ITSMCore
-# ---
+# Rother OSS / ITSMCore
     # generate TypeOptionStrg
     my $TypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
         Class => 'ITSM::Service::Type',
@@ -437,7 +430,7 @@ sub _MaskNew {
         SelectedID => $Param{Criticality} || $ServiceData{Criticality},
         Class      => 'Modernize',
     );
-# ---
+# EO ITSMCore
 
     # get valid list
     my %ValidList        = $Kernel::OM->Get('Kernel::System::Valid')->ValidList();

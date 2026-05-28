@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 800091b06ec8f5a82ebe43f3c45644cf09dab47a - Kernel/Modules/CustomerTicketProcess.pm
+# $origin: otobo - e13dcd88cef388cb3a5ad0abeaac00807b5528c9 - Kernel/Modules/CustomerTicketProcess.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -190,6 +190,34 @@ sub Run {
         );
     }
     elsif ( $Self->{Subaction} eq 'DisplayActivityDialog' && $ProcessEntityID ) {
+
+        # Get values for Ticket fields and use default value for Article fields, if given (this
+        # screen generates a new article, then article fields will be always default value or
+        # empty at the beginning).
+        my %Ticket;
+        if ($TicketID) {
+            %Ticket = $Kernel::OM->Get('Kernel::System::Ticket')->TicketGet(
+                TicketID      => $TicketID,
+                UserID        => $Kernel::OM->Get('Kernel::Config')->Get('CustomerPanelUserID'),
+                DynamicFields => 1,
+            );
+        }
+
+        DYNAMICFIELD:
+        for my $DynamicFieldConfig ( values $Self->{DynamicField}->%* ) {
+            next DYNAMICFIELD if !IsHashRefWithData($DynamicFieldConfig);
+
+            # strip dynamic field name from process suffix
+            if ( $DynamicFieldConfig->{Name} =~ /(?<DFName>[A-Za-z0-9-]+)_/ ) {
+                my $DFName = $+{DFName};
+
+                if ( ( $DynamicFieldConfig->{ObjectType} eq 'Ticket' ) && $TicketID ) {
+
+                    # Value is stored in the database from Ticket.
+                    $GetParam->{DynamicField}{ 'DynamicField_' . $DFName } = $Ticket{ 'DynamicField_' . $DFName };
+                }
+            }
+        }
 
         return $Self->_OutputActivityDialog(
             %Param,
@@ -511,169 +539,17 @@ sub _RenderAjax {
         $DynFieldStates{NewValues}->%*,
     };
 
-    for my $SetField ( values $DynFieldStates{Sets}->%* ) {
-        my $DynamicFieldConfig = $SetField->{DynamicFieldConfig};
+    my @DynamicFieldAJAX = $DynamicFieldBackendObject->BuildAJAXReturn(
+        DynamicFieldConfigs => $Self->{DynamicField},
+        GetParam            => {
+            $Param{GetParam}->%*,
+            DynamicField => $DFParam,
+        },
+        DynFieldStates      => \%DynFieldStates,
+        IDSuffix            => $Self->{IDSuffix},
+    );
 
-        # the frontend name is the name of the inner field including its index or the '_Template' suffix
-        DYNAMICFIELD:
-        for my $FrontendName ( keys $SetField->{FieldStates}->%* ) {
-
-            if ( $DynamicFieldConfig->{Config}{MultiValue} && ref $SetField->{Values}{$FrontendName} eq 'ARRAY' ) {
-                for my $i ( 0 .. $#{ $SetField->{Values}{$FrontendName} } ) {
-                    my $DataValues = $SetField->{FieldStates}{$FrontendName}{NotACLReducible}
-                        ? ( $SetField->{Values}{$FrontendName}[$i] // '' )
-                        :
-                        (
-                            $DynamicFieldBackendObject->BuildSelectionDataGet(
-                                DynamicFieldConfig => $DynamicFieldConfig,
-                                PossibleValues     => $SetField->{FieldStates}{$FrontendName}{PossibleValues},
-                                Value              => [ $SetField->{Values}{$FrontendName}[$i] ],
-                            )
-                            || $SetField->{FieldStates}{$FrontendName}{PossibleValues}
-                        );
-
-                    # add dynamic field to the list of fields to update
-                    push @JSONCollector, {
-                        Name        => 'DynamicField_' . $FrontendName . "_$i",
-                        Data        => $DataValues,
-                        SelectedID  => $SetField->{Values}{$FrontendName}[$i],
-                        Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                        Max         => 100,
-                    };
-                }
-
-                # add template value for keeping templates in line with ACLs
-                if ( !$SetField->{FieldStates}{$FrontendName}{NotACLReducible} ) {
-                    my $DataValues = (
-                        $DynamicFieldBackendObject->BuildSelectionDataGet(
-                            DynamicFieldConfig => $DynamicFieldConfig,
-                            PossibleValues     => $SetField->{FieldStates}{$FrontendName}{PossibleValues},
-                            Value              => [ $DynamicFieldConfig->{Config}{DefaultValue} // '' ],
-                            )
-                            || $SetField->{FieldStates}{$FrontendName}{PossibleValues}
-                    );
-
-                    # add dynamic field to the list of fields to update
-                    push @JSONCollector, {
-                        Name        => 'DynamicField_' . $FrontendName . "_Template",
-                        Data        => $DataValues,
-                        SelectedID  => $DynamicFieldConfig->{Config}{DefaultValue} // '',
-                        Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                        Max         => 100,
-                    };
-                }
-
-                next DYNAMICFIELD;
-            }
-
-            my $DataValues = $SetField->{FieldStates}{$FrontendName}{NotACLReducible}
-                ? ( $SetField->{Values}{$FrontendName} // '' )
-                :
-                (
-                    $DynamicFieldBackendObject->BuildSelectionDataGet(
-                        DynamicFieldConfig => $DynamicFieldConfig,
-                        PossibleValues     => $SetField->{FieldStates}{$FrontendName}{PossibleValues},
-                        Value              => $SetField->{Values}{$FrontendName},
-                    )
-                    || $SetField->{FieldStates}{$FrontendName}{PossibleValues}
-                );
-
-            # add dynamic field to the list of fields to update
-            push @JSONCollector, {
-                Name        => 'DynamicField_' . $FrontendName,
-                Data        => $DataValues,
-                SelectedID  => $SetField->{Values}{$FrontendName},
-                Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                Max         => 100,
-            };
-        }
-    }
-
-    # attach process suffix to dynamic field names in visibility hash
-    my %VisibilitySuffixed = map { $_ . $Self->{IDSuffix} => $DynFieldStates{Visibility}{$_} } keys $DynFieldStates{Visibility}->%*;
-
-    if ( IsHashRefWithData( $DynFieldStates{Visibility} ) ) {
-        push @JSONCollector, {
-            Name => 'Restrictions_Visibility',
-            Data => \%VisibilitySuffixed,
-        };
-    }
-
-    DYNAMICFIELD:
-    for my $Name ( keys $DynFieldStates{Fields}->%* ) {
-        my $DynamicFieldConfig = $Self->{DynamicField}{$Name};
-
-        next DYNAMICFIELD if !IsHashRefWithData($DynamicFieldConfig);
-
-        if ( $DynamicFieldConfig->{Config}{MultiValue} && ref $DFParam->{"DynamicField_$Name"} eq 'ARRAY' ) {
-            for my $i ( 0 .. $#{ $DFParam->{"DynamicField_$Name"} } ) {
-                my $DataValues = $DynFieldStates{Fields}{$Name}{NotACLReducible}
-                    ? ( $DFParam->{"DynamicField_$Name"}[$i] // '' )
-                    :
-                    (
-                        $DynamicFieldBackendObject->BuildSelectionDataGet(
-                            DynamicFieldConfig => $DynamicFieldConfig,
-                            PossibleValues     => $DynFieldStates{Fields}{$Name}{PossibleValues},
-                            Value              => [ $DFParam->{"DynamicField_$Name"}[$i] ],
-                        )
-                        || $DynFieldStates{Fields}{$Name}{PossibleValues}
-                    );
-
-                # add dynamic field to the list of fields to update
-                push @JSONCollector, {
-                    Name        => 'DynamicField_' . $DynamicFieldConfig->{Name} . "_$i",    # contains the id suffix
-                    Data        => $DataValues,
-                    SelectedID  => $DFParam->{"DynamicField_$Name"}[$i],
-                    Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                    Max         => 100,
-                };
-            }
-
-            # add template value for keeping templates in line with ACLs
-            if ( !$DynFieldStates{Fields}{$Name}{NotACLReducible} ) {
-                my $DataValues = (
-                    $DynamicFieldBackendObject->BuildSelectionDataGet(
-                        DynamicFieldConfig => $DynamicFieldConfig,
-                        PossibleValues     => $DynFieldStates{Fields}{$Name}{PossibleValues},
-                        Value              => [ $DynamicFieldConfig->{Config}{DefaultValue} // '' ],
-                        )
-                        || $DynFieldStates{Fields}{$Name}{PossibleValues}
-                );
-
-                # add dynamic field to the list of fields to update
-                push @JSONCollector, {
-                    Name        => 'DynamicField_' . $DynamicFieldConfig->{Name} . "_Template",    # contains the id suffix
-                    Data        => $DataValues,
-                    SelectedID  => $DynamicFieldConfig->{Config}{DefaultValue} // '',
-                    Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                    Max         => 100,
-                };
-            }
-
-            next DYNAMICFIELD;
-        }
-
-        my $DataValues = $DynFieldStates{Fields}{$Name}{NotACLReducible}
-            ? ( $DFParam->{"DynamicField_$Name"} // '' )
-            :
-            (
-                $DynamicFieldBackendObject->BuildSelectionDataGet(
-                    DynamicFieldConfig => $DynamicFieldConfig,
-                    PossibleValues     => $DynFieldStates{Fields}{$Name}{PossibleValues},
-                    Value              => $DFParam->{"DynamicField_$Name"},
-                )
-                || $DynFieldStates{Fields}{$Name}{PossibleValues}
-            );
-
-        # add dynamic field to the list of fields to update
-        push @JSONCollector, {
-            Name        => 'DynamicField_' . $DynamicFieldConfig->{Name},            # contains the id suffix
-            Data        => $DataValues,
-            SelectedID  => $DFParam->{"DynamicField_$Name"},
-            Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-            Max         => 100,
-        };
-    }
+    push @JSONCollector, @DynamicFieldAJAX;
 
     my $JSON = $LayoutObject->BuildSelectionJSON( [@JSONCollector] );
 
@@ -728,7 +604,7 @@ sub _GetParam {
     # get layout object
     my $LayoutObject = $Kernel::OM->Get('Kernel::Output::HTML::Layout');
 
-    for my $Needed (qw(ProcessEntityID)) {
+    for my $Needed (qw(TicketID ProcessEntityID)) {
         if ( !$Param{$Needed} ) {
             $LayoutObject->CustomerFatalError(
                 Message => $LayoutObject->{LanguageObject}->Translate( 'Parameter %s is missing in %s.', $Needed, '_GetParam' ),
@@ -750,37 +626,6 @@ sub _GetParam {
     my %ValuesGotten;
     my $Value;
 
-    # If we got no ActivityDialogEntityID and no TicketID
-    # we have to get the Processes' Startpoint
-    if ( !$ActivityDialogEntityID && !$TicketID ) {
-        my $ActivityActivityDialog = $Kernel::OM->Get('Kernel::System::ProcessManagement::Process')->ProcessStartpointGet(
-            ProcessEntityID => $ProcessEntityID,
-        );
-        if (
-            !$ActivityActivityDialog->{ActivityDialog}
-            || !$ActivityActivityDialog->{Activity}
-            )
-        {
-            my $Message = $LayoutObject->{LanguageObject}->Translate(
-                'Got no Start ActivityEntityID or Start ActivityDialogEntityID for Process: %s in _GetParam!',
-                $ProcessEntityID,
-            );
-
-            # does not show header and footer again
-            if ( $Self->{IsMainWindow} ) {
-                return $LayoutObject->CustomerError(
-                    Message => $Message,
-                );
-            }
-
-            $LayoutObject->CustomerFatalError(
-                Message => $Message,
-            );
-        }
-        $ActivityDialogEntityID = $ActivityActivityDialog->{ActivityDialog};
-        $ActivityEntityID       = $ActivityActivityDialog->{Activity};
-    }
-
     my $ActivityDialog = $Kernel::OM->Get('Kernel::System::ProcessManagement::ActivityDialog')->ActivityDialogGet(
         ActivityDialogEntityID => $ActivityDialogEntityID,
         Interface              => 'CustomerInterface',
@@ -796,33 +641,30 @@ sub _GetParam {
     # get config object
     my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
 
-    # if there is a ticket then is not an AJAX request
-    if ($TicketID) {
-        %Ticket = $Kernel::OM->Get('Kernel::System::Ticket')->TicketGet(
-            TicketID      => $TicketID,
-            UserID        => $ConfigObject->Get('CustomerPanelUserID'),
-            DynamicFields => 1,
+    %Ticket = $Kernel::OM->Get('Kernel::System::Ticket')->TicketGet(
+        TicketID      => $TicketID,
+        UserID        => $ConfigObject->Get('CustomerPanelUserID'),
+        DynamicFields => 1,
+    );
+
+    %GetParam = %Ticket;
+    if ( !IsHashRefWithData( \%GetParam ) ) {
+        $LayoutObject->CustomerFatalError(
+            Message => $LayoutObject->{LanguageObject}->Translate( 'Couldn\'t get Ticket for TicketID: %s in _GetParam!', $TicketID ),
         );
-
-        %GetParam = %Ticket;
-        if ( !IsHashRefWithData( \%GetParam ) ) {
-            $LayoutObject->CustomerFatalError(
-                Message => $LayoutObject->{LanguageObject}->Translate( 'Couldn\'t get Ticket for TicketID: %s in _GetParam!', $TicketID ),
-            );
-        }
-
-        $ActivityEntityID = $Ticket{
-            'DynamicField_'
-                . $ConfigObject->Get("Process::DynamicFieldProcessManagementActivityID")
-        };
-        if ( !$ActivityEntityID ) {
-            $LayoutObject->CustomerFatalError(
-                Message =>
-                    Translatable('Couldn\'t determine ActivityEntityID. DynamicField or Config isn\'t set properly!'),
-            );
-        }
-
     }
+
+    $ActivityEntityID = $Ticket{
+        'DynamicField_'
+            . $ConfigObject->Get("Process::DynamicFieldProcessManagementActivityID")
+    };
+    if ( !$ActivityEntityID ) {
+        $LayoutObject->CustomerFatalError(
+            Message =>
+                Translatable('Couldn\'t determine ActivityEntityID. DynamicField or Config isn\'t set properly!'),
+        );
+    }
+
     $GetParam{ActivityDialogEntityID} = $ActivityDialogEntityID;
     $GetParam{ActivityEntityID}       = $ActivityEntityID;
     $GetParam{ProcessEntityID}        = $ProcessEntityID;
@@ -898,13 +740,7 @@ sub _GetParam {
                 my $Message = $LayoutObject->{LanguageObject}->Translate( 'Process::Default%s Config Value missing!', $CurrentField );
 
                 # does not show header and footer again
-                if ( $Self->{IsMainWindow} ) {
-                    return $LayoutObject->CustomerError(
-                        Message => $Message,
-                    );
-                }
-
-                $LayoutObject->CustomerFatalError(
+                return $LayoutObject->CustomerError(
                     Message => $Message,
                 );
             }
@@ -1036,13 +872,7 @@ sub _OutputActivityDialog {
         my $Message = Translatable('Got no ProcessEntityID or TicketID and ActivityDialogEntityID!');
 
         # does not show header and footer again
-        if ( $Self->{IsMainWindow} ) {
-            return $LayoutObject->CustomerError(
-                Message => $Message,
-            );
-        }
-
-        $LayoutObject->CustomerFatalError(
+        return $LayoutObject->CustomerError(
             Message => $Message,
         );
     }
@@ -1059,64 +889,37 @@ sub _OutputActivityDialog {
     # get needed objects
     my $ActivityObject       = $Kernel::OM->Get('Kernel::System::ProcessManagement::Activity');
     my $ActivityDialogObject = $Kernel::OM->Get('Kernel::System::ProcessManagement::ActivityDialog');
-    my $ProcessObject        = $Kernel::OM->Get('Kernel::System::ProcessManagement::Process');
     my $ConfigObject         = $Kernel::OM->Get('Kernel::Config');
 
-    if ( !$TicketID ) {
-        $ActivityActivityDialog = $ProcessObject->ProcessStartpointGet(
-            ProcessEntityID => $Param{ProcessEntityID},
+    # no AJAX update in this part
+    %Ticket = $TicketObject->TicketGet(
+        TicketID      => $TicketID,
+        UserID        => $ConfigObject->Get('CustomerPanelUserID'),
+        DynamicFields => 1,
+    );
+
+    if ( !IsHashRefWithData( \%Ticket ) ) {
+        $LayoutObject->CustomerFatalError(
+            Message => $LayoutObject->{LanguageObject}->Translate( 'Can\'t get Ticket "%s"!', $Param{TicketID} ),
         );
-
-        if ( !IsHashRefWithData($ActivityActivityDialog) ) {
-            my $Message = $LayoutObject->{LanguageObject}->Translate(
-                'Can\'t get StartActivityDialog and StartActivityDialog for the ProcessEntityID "%s"!',
-                $Param{ProcessEntityID},
-            );
-
-            # does not show header and footer again
-            if ( $Self->{IsMainWindow} ) {
-                return $LayoutObject->CustomerError(
-                    Message => $Message,
-                );
-            }
-
-            $LayoutObject->CustomerFatalError(
-                Message => $Message,
-            );
-        }
     }
-    else {
 
-        # no AJAX update in this part
-        %Ticket = $TicketObject->TicketGet(
-            TicketID      => $TicketID,
-            UserID        => $ConfigObject->Get('CustomerPanelUserID'),
-            DynamicFields => 1,
+    my $DynamicFieldProcessID = 'DynamicField_'
+        . $ConfigObject->Get('Process::DynamicFieldProcessManagementProcessID');
+    my $DynamicFieldActivityID = 'DynamicField_'
+        . $ConfigObject->Get('Process::DynamicFieldProcessManagementActivityID');
+
+    if ( !$Ticket{$DynamicFieldProcessID} || !$Ticket{$DynamicFieldActivityID} ) {
+        $LayoutObject->CustomerFatalError(
+            Message =>
+                $LayoutObject->{LanguageObject}->Translate( 'Can\'t get ProcessEntityID or ActivityEntityID for Ticket "%s"!', $Param{TicketID} ),
         );
-
-        if ( !IsHashRefWithData( \%Ticket ) ) {
-            $LayoutObject->CustomerFatalError(
-                Message => $LayoutObject->{LanguageObject}->Translate( 'Can\'t get Ticket "%s"!', $Param{TicketID} ),
-            );
-        }
-
-        my $DynamicFieldProcessID = 'DynamicField_'
-            . $ConfigObject->Get('Process::DynamicFieldProcessManagementProcessID');
-        my $DynamicFieldActivityID = 'DynamicField_'
-            . $ConfigObject->Get('Process::DynamicFieldProcessManagementActivityID');
-
-        if ( !$Ticket{$DynamicFieldProcessID} || !$Ticket{$DynamicFieldActivityID} ) {
-            $LayoutObject->CustomerFatalError(
-                Message =>
-                    $LayoutObject->{LanguageObject}->Translate( 'Can\'t get ProcessEntityID or ActivityEntityID for Ticket "%s"!', $Param{TicketID} ),
-            );
-        }
-
-        $ActivityActivityDialog = {
-            Activity       => $Ticket{$DynamicFieldActivityID},
-            ActivityDialog => $ActivityDialogEntityID,
-        };
     }
+
+    $ActivityActivityDialog = {
+        Activity       => $Ticket{$DynamicFieldActivityID},
+        ActivityDialog => $ActivityDialogEntityID,
+    };
 
     my $Activity = $ActivityObject->ActivityGet(
         Interface        => 'CustomerInterface',
@@ -1129,13 +932,7 @@ sub _OutputActivityDialog {
         );
 
         # does not show header and footer again
-        if ( $Self->{IsMainWindow} ) {
-            return $LayoutObject->CustomerError(
-                Message => $Message,
-            );
-        }
-
-        $LayoutObject->CustomerFatalError(
+        return $LayoutObject->CustomerError(
             Message => $Message,
         );
     }
@@ -1151,13 +948,7 @@ sub _OutputActivityDialog {
         );
 
         # does not show header and footer again
-        if ( $Self->{IsMainWindow} ) {
-            return $LayoutObject->CustomerError(
-                Message => $Message,
-            );
-        }
-
-        $LayoutObject->CustomerFatalError(
+        return $LayoutObject->CustomerError(
             Message => $Message,
         );
     }
@@ -1252,7 +1043,6 @@ sub _OutputActivityDialog {
                         'Process::DynamicFieldProcessManagementProcessID'
                     )
                 },
-            IsMainWindow => $Self->{IsMainWindow},
             MainBoxClass => $MainBoxClass || '',
         },
     );
@@ -1363,13 +1153,7 @@ sub _OutputActivityDialog {
             );
 
             # does not show header and footer again
-            if ( $Self->{IsMainWindow} ) {
-                return $LayoutObject->CustomerError(
-                    Message => $Message,
-                );
-            }
-
-            $LayoutObject->CustomerFatalError(
+            return $LayoutObject->CustomerError(
                 Message => $Message,
             );
         }
@@ -1423,6 +1207,7 @@ sub _OutputActivityDialog {
                 FormID              => $Self->{FormID},
                 PossibleValues      => $DFPossibleValues{ 'DynamicField_' . $DynamicFieldName },
                 Visibility          => $Visibility{ 'DynamicField_' . $DynamicFieldName } // 0,
+                Visibilities        => \%Visibility,
                 LayoutObject        => $LayoutObject,
                 Object              => {
                     CustomerID     => $Self->{UserCustomerID},
@@ -1434,13 +1219,7 @@ sub _OutputActivityDialog {
             if ( !$Response->{Success} ) {
 
                 # does not show header and footer again
-                if ( $Self->{IsMainWindow} ) {
-                    return $LayoutObject->CustomerError(
-                        Message => $Response->{Message},
-                    );
-                }
-
-                $LayoutObject->CustomerFatalError(
+                return $LayoutObject->CustomerError(
                     Message => $Response->{Message},
                 );
             }
@@ -1474,13 +1253,7 @@ sub _OutputActivityDialog {
             if ( !$Response->{Success} ) {
 
                 # does not show header and footer again
-                if ( $Self->{IsMainWindow} ) {
-                    return $LayoutObject->CustomerError(
-                        Message => $Response->{Message},
-                    );
-                }
-
-                $LayoutObject->CustomerFatalError(
+                return $LayoutObject->CustomerError(
                     Message => $Response->{Message},
                 );
             }
@@ -1510,13 +1283,7 @@ sub _OutputActivityDialog {
             if ( !$Response->{Success} ) {
 
                 # does not show header and footer again
-                if ( $Self->{IsMainWindow} ) {
-                    return $LayoutObject->CustomerError(
-                        Message => $Response->{Message},
-                    );
-                }
-
-                $LayoutObject->CustomerFatalError(
+                return $LayoutObject->CustomerError(
                     Message => $Response->{Message},
                 );
             }
@@ -1546,13 +1313,7 @@ sub _OutputActivityDialog {
             if ( !$Response->{Success} ) {
 
                 # does not show header and footer again
-                if ( $Self->{IsMainWindow} ) {
-                    return $LayoutObject->CustomerError(
-                        Message => $Response->{Message},
-                    );
-                }
-
-                $LayoutObject->CustomerFatalError(
+                return $LayoutObject->CustomerError(
                     Message => $Response->{Message},
                 );
             }
@@ -1581,13 +1342,7 @@ sub _OutputActivityDialog {
             if ( !$Response->{Success} ) {
 
                 # does not show header and footer again
-                if ( $Self->{IsMainWindow} ) {
-                    return $LayoutObject->CustomerError(
-                        Message => $Response->{Message},
-                    );
-                }
-
-                $LayoutObject->CustomerFatalError(
+                return $LayoutObject->CustomerError(
                     Message => $Response->{Message},
                 );
             }
@@ -1616,13 +1371,7 @@ sub _OutputActivityDialog {
             if ( !$Response->{Success} ) {
 
                 # does not show header and footer again
-                if ( $Self->{IsMainWindow} ) {
-                    return $LayoutObject->CustomerError(
-                        Message => $Response->{Message},
-                    );
-                }
-
-                $LayoutObject->CustomerFatalError(
+                return $LayoutObject->CustomerError(
                     Message => $Response->{Message},
                 );
             }
@@ -1651,13 +1400,7 @@ sub _OutputActivityDialog {
             if ( !$Response->{Success} ) {
 
                 # does not show header and footer again
-                if ( $Self->{IsMainWindow} ) {
-                    return $LayoutObject->CustomerError(
-                        Message => $Response->{Message},
-                    );
-                }
-
-                $LayoutObject->CustomerFatalError(
+                return $LayoutObject->CustomerError(
                     Message => $Response->{Message},
                 );
             }
@@ -1686,13 +1429,7 @@ sub _OutputActivityDialog {
             if ( !$Response->{Success} ) {
 
                 # does not show header and footer again
-                if ( $Self->{IsMainWindow} ) {
-                    return $LayoutObject->CustomerError(
-                        Message => $Response->{Message},
-                    );
-                }
-
-                $LayoutObject->CustomerFatalError(
+                return $LayoutObject->CustomerError(
                     Message => $Response->{Message},
                 );
             }
@@ -1724,13 +1461,7 @@ sub _OutputActivityDialog {
             if ( !$Response->{Success} ) {
 
                 # does not show header and footer again
-                if ( $Self->{IsMainWindow} ) {
-                    return $LayoutObject->CustomerError(
-                        Message => $Response->{Message},
-                    );
-                }
-
-                $LayoutObject->CustomerFatalError(
+                return $LayoutObject->CustomerError(
                     Message => $Response->{Message},
                 );
             }
@@ -1848,6 +1579,7 @@ sub _RenderDynamicField {
         ErrorMessage         => $ErrorMessage,
         CustomerInterface    => 1,
         Object               => $Param{Object},
+        Visibility           => $Param{Visibilities},
     );
 
     my $FieldClasses = 'Field' . ( $DynamicFieldConfig->{FieldType} eq 'RichText' ? ' RichTextField' : '' );

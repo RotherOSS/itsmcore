@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 800091b06ec8f5a82ebe43f3c45644cf09dab47a - Kernel/Modules/AgentTicketPhone.pm
+# $origin: otobo - 58756d0ea2a11c96d46189c3bb83d609b33d49ad - Kernel/Modules/AgentTicketPhone.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -24,7 +24,6 @@ use warnings;
 # core modules
 
 # CPAN modules
-use Mail::Address ();
 
 # OTOBO modules
 use Kernel::System::VariableCheck qw(:all);
@@ -169,7 +168,8 @@ sub Run {
     my ( $Self, %Param ) = @_;
 
     # get param object
-    my $ParamObject = $Kernel::OM->Get('Kernel::System::Web::Request');
+    my $ParamObject        = $Kernel::OM->Get('Kernel::System::Web::Request');
+    my $EmailAddressObject = $Kernel::OM->Get('Kernel::System::EmailAddress');
 
     # get params
     my %GetParam;
@@ -227,8 +227,8 @@ sub Run {
             }
 
             # check email address
-            for my $Email ( Mail::Address->parse($CustomerElement) ) {
-                if ( !$CheckItemObject->CheckEmail( Address => $Email->address() ) ) {
+            for my $Email ( $EmailAddressObject->ParseAddressLine( Line => $CustomerElement ) ) {
+                if ( !$CheckItemObject->CheckEmail( AddressObject => $Email ) ) {
                     $CustomerErrorMsg = $CheckItemObject->CheckErrorType()
                         . 'ServerErrorMsg';
                     $CustomerError = 'ServerError';
@@ -242,7 +242,7 @@ sub Run {
             }
 
             if ( $CustomerError ne '' ) {
-                $CustomerDisabled = 'disabled="disabled"';
+                $CustomerDisabled = 'disabled';
                 $CountAux         = $Count . 'Error';
             }
 
@@ -474,12 +474,11 @@ sub Run {
 
                 my %QueueLookup         = reverse %Queues;
                 my %SystemAddressLookup = reverse $Kernel::OM->Get('Kernel::System::SystemAddress')->SystemAddressList();
-                my @ArticleFromAddress;
                 my $SystemAddressEmail;
 
                 if ($ArticleFrom) {
-                    @ArticleFromAddress = Mail::Address->parse($ArticleFrom);
-                    $SystemAddressEmail = $ArticleFromAddress[0]->address();
+                    my ($ArticleFromAddress) = $EmailAddressObject->ParseAddressLine( Line => $ArticleFrom );
+                    $SystemAddressEmail = $EmailAddressObject->GetAddress( AddressObject => $ArticleFromAddress );
                 }
 
                 if ( !defined $QueueLookup{ $Article{To} } && defined $SystemAddressLookup{$SystemAddressEmail} ) {
@@ -550,16 +549,14 @@ sub Run {
             );
         }
 
-        for my $Email ( Mail::Address->parse($ArticleFrom) ) {
+        for my $Email ( $EmailAddressObject->ParseAddressLine( Line => $ArticleFrom ) ) {
 
             my $CountAux         = $CountFrom;
             my $CustomerError    = '';
             my $CustomerErrorMsg = 'CustomerGenericServerErrorMsg';
             my $CustomerDisabled = '';
             my $CustomerSelected = $CountFrom eq '1' ? 'checked ' : '';
-            my $EmailAddress     = $Email->address();
-            if ( !$CheckItemObject->CheckEmail( Address => $EmailAddress ) )
-            {
+            if ( !$CheckItemObject->CheckEmail( AddressObject => $Email ) ) {
                 $CustomerErrorMsg = $CheckItemObject->CheckErrorType()
                     . 'ServerErrorMsg';
                 $CustomerError = 'ServerError';
@@ -572,16 +569,13 @@ sub Run {
             }
 
             if ( $CustomerError ne '' ) {
-                $CustomerDisabled = 'disabled="disabled"';
+                $CustomerDisabled = 'disabled';
                 $CountAux         = $CountFrom . 'Error';
             }
 
-            my $Phrase = '';
-            if ( $Email->phrase() ) {
-                $Phrase = $Email->phrase();
-            }
-
-            my $CustomerKey = '';
+            my $Phrase       = $EmailAddressObject->GetRealname( AddressObject => $Email ) || '';
+            my $CustomerKey  = '';
+            my $EmailAddress = $EmailAddressObject->GetAddress( AddressObject => $Email );
             if (
                 defined $CustomerDataFrom{UserEmail}
                 && $CustomerDataFrom{UserEmail} eq $EmailAddress
@@ -1502,8 +1496,8 @@ sub Run {
         }
 
         # check email address
-        for my $Email ( Mail::Address->parse( $GetParam{From} ) ) {
-            if ( !$CheckItemObject->CheckEmail( Address => $Email->address() ) ) {
+        for my $Email ( $EmailAddressObject->ParseAddressLine( Line => $GetParam{From} ) ) {
+            if ( !$CheckItemObject->CheckEmail( AddressObject => $Email ) ) {
                 $Error{ErrorType}   = $CheckItemObject->CheckErrorType() . 'ServerErrorMsg';
                 $Error{FromInvalid} = ' ServerError';
             }
@@ -2124,13 +2118,6 @@ sub Run {
         if ( $ChangedElements{ServiceID} ) {
             $ChangedElements{CustomerUserID} = 1;
             $ChangedElements{CustomerID}     = 1;
-
-            if ( $GetParam{From} ) {
-                my %CustomerData = $CustomerUserObject->CustomerUserDataGet(
-                    User => $CustomerUser,
-                );
-                $GetParam{CustomerID} = $CustomerData{CustomerID};
-            }
         }
         my %ChangedElementsDFStart = %ChangedElements;
         my %ChangedStdFields       = $ElementChanged && $ElementChanged !~ /^DynamicField_/ ? %ChangedElements : ();
@@ -2379,167 +2366,11 @@ sub Run {
         }
 
         # update Dynamic Fields Possible Values via AJAX
-        my @DynamicFieldAJAX;
-
-        # cycle through the activated Dynamic Fields for this screen
-        DYNAMICFIELD:
-        for my $Name ( sort keys $DynFieldStates{Fields}->%* ) {
-            my $DynamicFieldConfig = $Self->{DynamicField}{$Name};
-
-            if ( $DynamicFieldConfig->{Config}{MultiValue} && ref $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"} eq 'ARRAY' ) {
-                for my $i ( 0 .. $#{ $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"} } ) {
-                    my $DataValues = $DynFieldStates{Fields}{$Name}{NotACLReducible}
-                        ? ( $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"}[$i] // '' )
-                        :
-                        (
-                            $DynamicFieldBackendObject->BuildSelectionDataGet(
-                                DynamicFieldConfig => $DynamicFieldConfig,
-                                PossibleValues     => $DynFieldStates{Fields}{$Name}{PossibleValues},
-                                Value              => [ $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"}[$i] ],
-                            )
-                            || $DynFieldStates{Fields}{$Name}{PossibleValues}
-                        );
-
-                    # add dynamic field to the list of fields to update
-                    push @DynamicFieldAJAX, {
-                        Name        => 'DynamicField_' . $DynamicFieldConfig->{Name} . "_$i",
-                        Data        => $DataValues,
-                        SelectedID  => $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"}[$i],
-                        Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                        Max         => 100,
-                    };
-                }
-
-                # add template value for keeping templates in line with ACLs
-                if ( !$DynFieldStates{Fields}{$Name}{NotACLReducible} ) {
-                    my $DataValues = (
-                        $DynamicFieldBackendObject->BuildSelectionDataGet(
-                            DynamicFieldConfig => $DynamicFieldConfig,
-                            PossibleValues     => $DynFieldStates{Fields}{$Name}{PossibleValues},
-                            Value              => [ $DynamicFieldConfig->{Config}{DefaultValue} // '' ],
-                            )
-                            || $DynFieldStates{Fields}{$Name}{PossibleValues}
-                    );
-
-                    # add dynamic field to the list of fields to update
-                    push @DynamicFieldAJAX, {
-                        Name        => 'DynamicField_' . $DynamicFieldConfig->{Name} . '_Template',
-                        Data        => $DataValues,
-                        SelectedID  => $DynamicFieldConfig->{Config}{DefaultValue} // '',
-                        Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                        Max         => 100,
-                    };
-                }
-
-                next DYNAMICFIELD;
-            }
-
-            my $DataValues = $DynFieldStates{Fields}{$Name}{NotACLReducible}
-                ? ( $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"} // '' )
-                :
-                (
-                    $DynamicFieldBackendObject->BuildSelectionDataGet(
-                        DynamicFieldConfig => $DynamicFieldConfig,
-                        PossibleValues     => $DynFieldStates{Fields}{$Name}{PossibleValues},
-                        Value              => $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"},
-                    )
-                    || $DynFieldStates{Fields}{$Name}{PossibleValues}
-                );
-
-            # add dynamic field to the list of fields to update
-            push @DynamicFieldAJAX, {
-                Name        => 'DynamicField_' . $DynamicFieldConfig->{Name},
-                Data        => $DataValues,
-                SelectedID  => $GetParam{DynamicField}{"DynamicField_$DynamicFieldConfig->{Name}"},
-                Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                Max         => 100,
-            };
-        }
-
-        for my $SetField ( values $DynFieldStates{Sets}->%* ) {
-            my $DynamicFieldConfig = $SetField->{DynamicFieldConfig};
-
-            # the frontend name is the name of the inner field including its index or the '_Template' suffix
-            DYNAMICFIELD:
-            for my $FrontendName ( keys $SetField->{FieldStates}->%* ) {
-
-                if ( $DynamicFieldConfig->{Config}{MultiValue} && ref $SetField->{Values}{$FrontendName} eq 'ARRAY' ) {
-                    for my $i ( 0 .. $#{ $SetField->{Values}{$FrontendName} } ) {
-                        my $DataValues = $SetField->{FieldStates}{$FrontendName}{NotACLReducible}
-                            ? ( $SetField->{Values}{$FrontendName}[$i] // '' )
-                            :
-                            (
-                                $DynamicFieldBackendObject->BuildSelectionDataGet(
-                                    DynamicFieldConfig => $DynamicFieldConfig,
-                                    PossibleValues     => $SetField->{FieldStates}{$FrontendName}{PossibleValues},
-                                    Value              => [ $SetField->{Values}{$FrontendName}[$i] ],
-                                )
-                                || $SetField->{FieldStates}{$FrontendName}{PossibleValues}
-                            );
-
-                        # add dynamic field to the list of fields to update
-                        push @DynamicFieldAJAX, {
-                            Name        => 'DynamicField_' . $FrontendName . "_$i",
-                            Data        => $DataValues,
-                            SelectedID  => $SetField->{Values}{$FrontendName}[$i],
-                            Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                            Max         => 100,
-                        };
-                    }
-
-                    # add template value for keeping templates in line with ACLs
-                    if ( !$SetField->{FieldStates}{$FrontendName}{NotACLReducible} ) {
-                        my $DataValues = (
-                            $DynamicFieldBackendObject->BuildSelectionDataGet(
-                                DynamicFieldConfig => $DynamicFieldConfig,
-                                PossibleValues     => $SetField->{FieldStates}{$FrontendName}{PossibleValues},
-                                Value              => [ $DynamicFieldConfig->{Config}{DefaultValue} // '' ],
-                                )
-                                || $SetField->{FieldStates}{$FrontendName}{PossibleValues}
-                        );
-
-                        # add dynamic field to the list of fields to update
-                        push @DynamicFieldAJAX, {
-                            Name        => 'DynamicField_' . $DynamicFieldConfig->{Name} . '_Template',
-                            Data        => $DataValues,
-                            SelectedID  => $DynamicFieldConfig->{Config}{DefaultValue} // '',
-                            Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                            Max         => 100,
-                        };
-                    }
-
-                    next DYNAMICFIELD;
-                }
-
-                my $DataValues = $SetField->{FieldStates}{$FrontendName}{NotACLReducible}
-                    ? ( $SetField->{Values}{$FrontendName} // '' )
-                    :
-                    (
-                        $DynamicFieldBackendObject->BuildSelectionDataGet(
-                            DynamicFieldConfig => $DynamicFieldConfig,
-                            PossibleValues     => $SetField->{FieldStates}{$FrontendName}{PossibleValues},
-                            Value              => $SetField->{Values}{$FrontendName},
-                        )
-                        || $SetField->{FieldStates}{$FrontendName}{PossibleValues}
-                    );
-
-                # add dynamic field to the list of fields to update
-                push @DynamicFieldAJAX, {
-                    Name        => 'DynamicField_' . $FrontendName,
-                    Data        => $DataValues,
-                    SelectedID  => $SetField->{Values}{$FrontendName},
-                    Translation => $DynamicFieldConfig->{Config}{TranslatableValues} || 0,
-                    Max         => 100,
-                };
-            }
-        }
-
-        if ( IsHashRefWithData( $DynFieldStates{Visibility} ) ) {
-            push @DynamicFieldAJAX, {
-                Name => 'Restrictions_Visibility',
-                Data => $DynFieldStates{Visibility},
-            };
-        }
+        my @DynamicFieldAJAX = $DynamicFieldBackendObject->BuildAJAXReturn(
+            DynamicFieldConfigs => $Self->{DynamicField},
+            GetParam            => \%GetParam,
+            DynFieldStates      => \%DynFieldStates,
+        );
 
         # build AJAX return for the standard fields
         my @StdFieldAJAX;
@@ -3218,7 +3049,7 @@ sub _MaskPhoneNew {
             );
             if ( $Item->{CustomerError} ) {
                 $LayoutObject->Block(
-                    Name => 'CustomerErrorExplantion',
+                    Name => 'CustomerErrorExplanation',
                 );
             }
             $CustomerCounter++;
