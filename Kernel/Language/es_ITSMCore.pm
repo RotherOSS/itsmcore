@@ -46,6 +46,10 @@ sub Data {
     $Self->{Translation}->{'Current incident state'} = 'Estado actual del incidente';
     $Self->{Translation}->{'Associated SLAs'} = 'SLAs Relacionados';
 
+    # Template: TicketInformation
+    $Self->{Translation}->{'Service Incident State'} = '';
+    $Self->{Translation}->{'Service Criticality'} = '';
+
     # Perl Module: Kernel/Modules/AdminITSMCIPAllocate.pm
     $Self->{Translation}->{'Impact'} = 'Impacto';
 
@@ -90,7 +94,11 @@ sub Data {
     # SysConfig
     $Self->{Translation}->{'Alternative to'} = 'Alternativo a';
     $Self->{Translation}->{'Both'} = 'Ambos';
+    $Self->{Translation}->{'CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault.'} =
+        '';
     $Self->{Translation}->{'Connected to'} = 'Conectado a';
+    $Self->{Translation}->{'Default behavior of priority allocation in the frontends based on Criticality and Impact. Can be overruled by frontend specific PriorityByCIP settings.'} =
+        '';
     $Self->{Translation}->{'Define Actions where a settings button is available in the linked objects widget (LinkObject::ViewMode = "complex"). Please note that these Actions must have registered the following JS and CSS files: Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, Core.Agent.TableFilters.js and Core.Agent.LinkObject.js.'} =
         'Definir Acciones en las que un botón de configuración está disponible en el widget de objetos vinculados (LinkObject::ViewMode = "complex"). Tenga en cuenta que estas Acciones deben haber registrado los siguientes archivos JS y CSS: Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, Core.Agent.TableFilters.js y Core.Agent.LinkObject.js.';
     $Self->{Translation}->{'Define which columns are shown in the linked Services widget (LinkObject::ViewMode = "complex"). Note: Only Service attributes are allowed for DefaultColumns. Possible settings: 0 = Disabled, 1 = Available, 2 = Enabled by default.'} =
@@ -98,6 +106,7 @@ sub Data {
     $Self->{Translation}->{'Defines the list of online repositories. Another installation can be used as repository, for example: Key="http://example.com/otobo/public.pl?Action=PublicRepository;File=" and Content="Some Name".'} =
         '';
     $Self->{Translation}->{'Depends on'} = 'Depende de';
+    $Self->{Translation}->{'Enforce'} = '';
     $Self->{Translation}->{'Frontend module registration for the AdminITSMCIPAllocate configuration in the admin area.'} =
         'Módulo de Registro en el Fronted para la configuración AdminITSMCIPAllocate en la interfaz del agente.';
     $Self->{Translation}->{'Frontend module registration for the AgentITSMSLA object in the agent interface.'} =
@@ -125,6 +134,7 @@ sub Data {
     $Self->{Translation}->{'Module to show the Link menu item in service menu.'} = 'Módulo para mostrar el enlace en el menú de servicio.';
     $Self->{Translation}->{'Module to show the Print menu item in SLA menu.'} = 'Módulo para mostrar un enlace de impresión en el menú de SLA.';
     $Self->{Translation}->{'Module to show the Print menu item in service menu.'} = 'Módulo para mostrar un enlace de impresión en el menú de servicio.';
+    $Self->{Translation}->{'Off'} = '';
     $Self->{Translation}->{'Parameters for the incident states in the preference view.'} = 'Parámetros para el estado de incidentes en la vista de preferencias.';
     $Self->{Translation}->{'Part of'} = 'Parte de';
     $Self->{Translation}->{'Relevant to'} = 'Aplicable a';
@@ -138,7 +148,10 @@ sub Data {
     $Self->{Translation}->{'Service-Area'} = 'Servicio-Área';
     $Self->{Translation}->{'Set the type and direction of links to be used to calculate the incident state. The key is the name of the link type (as defined in LinkObject::Type), and the value is the direction of the IncidentLinkType that should be followed to calculate the incident state. For example if the IncidentLinkType is set to \'DependsOn\', and the Direction is \'Source\', only \'Depends on\' links will be followed (and not the opposite link \'Required for\') to calculate the incident state. You can add more link types ad directions as you like, e.g. \'Includes\' with the direction \'Target\'. All link types defined in the sysconfig options LinkObject::Type are possible and the direction can be \'Source\', \'Target\', or \'Both\'. IMPORTANT: AFTER YOU MAKE CHANGES TO THIS SYSCONFIG OPTION YOU NEED TO RUN THE CONSOLE COMMAND bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!'} =
         'Fija el tipo y direccion de los vínculos a ser usados para calcular el estado de incidencia. La llave es el nombre del tipo de vínculo (como está definido en  LinkObject::Type), y el valor es la direccion del \'IncidentLinkType\' que deberá de ser seguido para calcular el estado de incidencia. Por ejemplo si el  \'IncidentLinkType\' está fijado a \'DependsON\' y la direccion es \'Fuente\'. sólo los vínculos \'DependsOn\' serán seguidos (y no por el contrario su opuesto \'RequiredFor\') para calcular el estado de incidencia. Usted puede añadir tantos tipos de vínculos y direcciones como sea necesario, por ejemplo \'Includes\' con la dirección \'Destino\'. Todos los tipos de vínculos definidos en las opciones de  configuración el sistema  LinkObject::Type son posibles y su dirección puede ser \'Fuente\', \'Destino\' o \'Ambos\'. IMPORTANTE: DESPUES DE HACER CAMBIOS A ESTA OPCIÓN DE \'SYSCONFIG\' NECESITARÁ EJECUTAR el COMANDO DE CONSOLA bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate  ¡DE TAL FORMA QUE TODOS LOS ESTADOS DE INCIDENCIA SERÁN RECALCULADOS BASADOS EN LA NUEVA CONFIGURACIÓN!';
+    $Self->{Translation}->{'Show the current service incident state signal in the ticket information.'} =
+        '';
     $Self->{Translation}->{'Source'} = 'Origen';
+    $Self->{Translation}->{'Suggest'} = '';
     $Self->{Translation}->{'This setting defines that a \'ITSMChange\' object can be linked with \'Ticket\' objects using the \'Normal\' link type.'} =
         'Esta configuración define que un objeto \'ITSMChange\' puede ser vinculado con un objeto \'Ticket\' usando el tipo de vínculo \'Normal\'.';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with \'FAQ\' objects using the \'Normal\' link type.'} =

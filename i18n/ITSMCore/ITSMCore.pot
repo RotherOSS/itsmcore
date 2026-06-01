@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
-"POT-Creation-Date: 2024-08-02 02:48+0000\n"
+"POT-Creation-Date: 2026-03-06 11:43+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -56,6 +56,14 @@ msgstr ""
 
 #. Template: AgentITSMServiceZoom
 msgid "Associated SLAs"
+msgstr ""
+
+#. Template: TicketInformation
+msgid "Service Incident State"
+msgstr ""
+
+#. Template: TicketInformation
+msgid "Service Criticality"
 msgstr ""
 
 #. Perl Module: Kernel/Modules/AdminITSMCIPAllocate.pm
@@ -183,7 +191,15 @@ msgid "Both"
 msgstr ""
 
 #. SysConfig
+msgid "CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault."
+msgstr ""
+
+#. SysConfig
 msgid "Connected to"
+msgstr ""
+
+#. SysConfig
+msgid "Default behavior of priority allocation in the frontends based on Criticality and Impact. Can be overruled by frontend specific PriorityByCIP settings."
 msgstr ""
 
 #. SysConfig
@@ -200,6 +216,10 @@ msgstr ""
 
 #. SysConfig
 msgid "Depends on"
+msgstr ""
+
+#. SysConfig
+msgid "Enforce"
 msgstr ""
 
 #. SysConfig
@@ -283,6 +303,10 @@ msgid "Module to show the Print menu item in service menu."
 msgstr ""
 
 #. SysConfig
+msgid "Off"
+msgstr ""
+
+#. SysConfig
 msgid "Parameters for the incident states in the preference view."
 msgstr ""
 
@@ -331,7 +355,15 @@ msgid "Set the type and direction of links to be used to calculate the incident 
 msgstr ""
 
 #. SysConfig
+msgid "Show the current service incident state signal in the ticket information."
+msgstr ""
+
+#. SysConfig
 msgid "Source"
+msgstr ""
+
+#. SysConfig
+msgid "Suggest"
 msgstr ""
 
 #. SysConfig

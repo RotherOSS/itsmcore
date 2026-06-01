@@ -46,6 +46,10 @@ sub Data {
     $Self->{Translation}->{'Current incident state'} = '当前故障状态';
     $Self->{Translation}->{'Associated SLAs'} = '关联的SLA';
 
+    # Template: TicketInformation
+    $Self->{Translation}->{'Service Incident State'} = '';
+    $Self->{Translation}->{'Service Criticality'} = '';
+
     # Perl Module: Kernel/Modules/AdminITSMCIPAllocate.pm
     $Self->{Translation}->{'Impact'} = '影响';
 
@@ -90,7 +94,11 @@ sub Data {
     # SysConfig
     $Self->{Translation}->{'Alternative to'} = '替代';
     $Self->{Translation}->{'Both'} = '兼具';
+    $Self->{Translation}->{'CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault.'} =
+        '';
     $Self->{Translation}->{'Connected to'} = '连接到';
+    $Self->{Translation}->{'Default behavior of priority allocation in the frontends based on Criticality and Impact. Can be overruled by frontend specific PriorityByCIP settings.'} =
+        '';
     $Self->{Translation}->{'Define Actions where a settings button is available in the linked objects widget (LinkObject::ViewMode = "complex"). Please note that these Actions must have registered the following JS and CSS files: Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, Core.Agent.TableFilters.js and Core.Agent.LinkObject.js.'} =
         '定义链接对象小部件(LinkObject::ViewMode = \"complex\")设置按钮中的操作。请注意，这些操作必须已经在以下JS和CSS文件中注册：Core.AllocationList.css、Core.UI.AllocationList.js、 Core.UI.Table.Sort.js、Core.Agent.TableFilters.js和Core.Agent.LinkObject.js。';
     $Self->{Translation}->{'Define which columns are shown in the linked Services widget (LinkObject::ViewMode = "complex"). Note: Only Service attributes are allowed for DefaultColumns. Possible settings: 0 = Disabled, 1 = Available, 2 = Enabled by default.'} =
@@ -98,6 +106,7 @@ sub Data {
     $Self->{Translation}->{'Defines the list of online repositories. Another installation can be used as repository, for example: Key="http://example.com/otobo/public.pl?Action=PublicRepository;File=" and Content="Some Name".'} =
         '';
     $Self->{Translation}->{'Depends on'} = '依赖';
+    $Self->{Translation}->{'Enforce'} = '';
     $Self->{Translation}->{'Frontend module registration for the AdminITSMCIPAllocate configuration in the admin area.'} =
         '为系统管理区中的 AdminITSMCIPAllocate 配置注册前端模块。';
     $Self->{Translation}->{'Frontend module registration for the AgentITSMSLA object in the agent interface.'} =
@@ -125,6 +134,7 @@ sub Data {
     $Self->{Translation}->{'Module to show the Link menu item in service menu.'} = '服务菜单中显示“链接”菜单项的模块。';
     $Self->{Translation}->{'Module to show the Print menu item in SLA menu.'} = 'SLA菜单中显示“打印”菜单项的模块。';
     $Self->{Translation}->{'Module to show the Print menu item in service menu.'} = '服务菜单中显示“打印”菜单项的模块。';
+    $Self->{Translation}->{'Off'} = '';
     $Self->{Translation}->{'Parameters for the incident states in the preference view.'} = '选项视图中用于表示故障状态的参数。';
     $Self->{Translation}->{'Part of'} = '属于';
     $Self->{Translation}->{'Relevant to'} = '关联';
@@ -138,7 +148,10 @@ sub Data {
     $Self->{Translation}->{'Service-Area'} = '服务区';
     $Self->{Translation}->{'Set the type and direction of links to be used to calculate the incident state. The key is the name of the link type (as defined in LinkObject::Type), and the value is the direction of the IncidentLinkType that should be followed to calculate the incident state. For example if the IncidentLinkType is set to \'DependsOn\', and the Direction is \'Source\', only \'Depends on\' links will be followed (and not the opposite link \'Required for\') to calculate the incident state. You can add more link types ad directions as you like, e.g. \'Includes\' with the direction \'Target\'. All link types defined in the sysconfig options LinkObject::Type are possible and the direction can be \'Source\', \'Target\', or \'Both\'. IMPORTANT: AFTER YOU MAKE CHANGES TO THIS SYSCONFIG OPTION YOU NEED TO RUN THE CONSOLE COMMAND bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!'} =
         '设置链接的类型和方向以便计算故障状态。键是链接类型的名称（在LinkObject::Type中定义），值是IncidentLinkType（故障链接类型）的方向以计算故障状态。示例：如果IncidentLinkType（故障链接类型）设为“DependsOn（依赖）”，方向是Source（源），只有“依赖”链接（而不是链接类型为“被...需要”的链接）才用来计算故障状态。可以根据需要添加更多的链接类型和方向，如方向为“目标”的“Includes（包含）”链接。所有在系统配置选项的LinkObject::Type中定义的链接类型都可以使用，方向只可以是“Source（源）”、“Target（目标）”或“Both（源和目标都是）”。重要：在更改了系统配置选项后，你需要运行脚本bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate，才能按新的设置重新计算故障状态。';
+    $Self->{Translation}->{'Show the current service incident state signal in the ticket information.'} =
+        '';
     $Self->{Translation}->{'Source'} = '源';
+    $Self->{Translation}->{'Suggest'} = '';
     $Self->{Translation}->{'This setting defines that a \'ITSMChange\' object can be linked with \'Ticket\' objects using the \'Normal\' link type.'} =
         '这个设置定义了一个“ITSMChange（变更）”对象能够以链接类型“普通”链接到工单。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with \'FAQ\' objects using the \'Normal\' link type.'} =

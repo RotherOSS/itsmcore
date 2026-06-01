@@ -46,6 +46,10 @@ sub Data {
     $Self->{Translation}->{'Current incident state'} = '';
     $Self->{Translation}->{'Associated SLAs'} = '';
 
+    # Template: TicketInformation
+    $Self->{Translation}->{'Service Incident State'} = '';
+    $Self->{Translation}->{'Service Criticality'} = '';
+
     # Perl Module: Kernel/Modules/AdminITSMCIPAllocate.pm
     $Self->{Translation}->{'Impact'} = '';
 
@@ -90,7 +94,11 @@ sub Data {
     # SysConfig
     $Self->{Translation}->{'Alternative to'} = 'Alternativa za';
     $Self->{Translation}->{'Both'} = 'Oba';
+    $Self->{Translation}->{'CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault.'} =
+        '';
     $Self->{Translation}->{'Connected to'} = 'Povezano na';
+    $Self->{Translation}->{'Default behavior of priority allocation in the frontends based on Criticality and Impact. Can be overruled by frontend specific PriorityByCIP settings.'} =
+        '';
     $Self->{Translation}->{'Define Actions where a settings button is available in the linked objects widget (LinkObject::ViewMode = "complex"). Please note that these Actions must have registered the following JS and CSS files: Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, Core.Agent.TableFilters.js and Core.Agent.LinkObject.js.'} =
         'Definiše Akcije gde je dugme postavki dostupno u povezanom grafičkom elementu objekta (LinkObject::ViewMode = "complex"). Molimo da imate na umu da ove Akcije moraju da budu registrovane u sledećim JS i CSS datotekama: Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, Core.Agent.TableFilters.js i Core.Agent.LinkObject.js.';
     $Self->{Translation}->{'Define which columns are shown in the linked Services widget (LinkObject::ViewMode = "complex"). Note: Only Service attributes are allowed for DefaultColumns. Possible settings: 0 = Disabled, 1 = Available, 2 = Enabled by default.'} =
@@ -98,6 +106,7 @@ sub Data {
     $Self->{Translation}->{'Defines the list of online repositories. Another installation can be used as repository, for example: Key="http://example.com/otobo/public.pl?Action=PublicRepository;File=" and Content="Some Name".'} =
         '';
     $Self->{Translation}->{'Depends on'} = 'Zavisi od';
+    $Self->{Translation}->{'Enforce'} = '';
     $Self->{Translation}->{'Frontend module registration for the AdminITSMCIPAllocate configuration in the admin area.'} =
         'Registracija pristupnog modula za konfiguraciju AdminITSMCIPAllocate u prostoru administratora.';
     $Self->{Translation}->{'Frontend module registration for the AgentITSMSLA object in the agent interface.'} =
@@ -125,6 +134,7 @@ sub Data {
     $Self->{Translation}->{'Module to show the Link menu item in service menu.'} = 'Modul za prikaz veze u servisnom meniju.';
     $Self->{Translation}->{'Module to show the Print menu item in SLA menu.'} = 'Modul za prikaz veze za štampu u SLA meniju.';
     $Self->{Translation}->{'Module to show the Print menu item in service menu.'} = 'Modul za prikaz veze za štampu u servisnom meniju.';
+    $Self->{Translation}->{'Off'} = '';
     $Self->{Translation}->{'Parameters for the incident states in the preference view.'} = 'Parametri za incidentne statuse u prikazu podešavanja.';
     $Self->{Translation}->{'Part of'} = 'Sastavni deo';
     $Self->{Translation}->{'Relevant to'} = 'U zavisnosti';
@@ -138,7 +148,10 @@ sub Data {
     $Self->{Translation}->{'Service-Area'} = 'Prostor servisa';
     $Self->{Translation}->{'Set the type and direction of links to be used to calculate the incident state. The key is the name of the link type (as defined in LinkObject::Type), and the value is the direction of the IncidentLinkType that should be followed to calculate the incident state. For example if the IncidentLinkType is set to \'DependsOn\', and the Direction is \'Source\', only \'Depends on\' links will be followed (and not the opposite link \'Required for\') to calculate the incident state. You can add more link types ad directions as you like, e.g. \'Includes\' with the direction \'Target\'. All link types defined in the sysconfig options LinkObject::Type are possible and the direction can be \'Source\', \'Target\', or \'Both\'. IMPORTANT: AFTER YOU MAKE CHANGES TO THIS SYSCONFIG OPTION YOU NEED TO RUN THE CONSOLE COMMAND bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!'} =
         'Podešava tip i smer veza koji će se koristiti za utvrđivanje stanja incidenta. Ključ je naziv tipa veze (kao što je definisano u LinkObject::Type), a vrednost je smer IncidentLinkType koji treba ispratiti za određivanje stanja incidenta. Na primer, ako je IncidentLinkType podešen na DependsOn i smer je Source, samo veza "Zavisi od" će biti praćena (a neće i suprotna veza "Neophodno za") u određivanju stanja incidenta. Ukoliko želite može dodati još tipova i smerova veza, npr. "Uključuje" sa smerom "Cilj". Svi tipovi veza definisani u sistemskoj konfiguraciji LinkObject::Type su mogući i smer može biti "Izvor", "Cilj" ili "Oba". VAŽNO: NAKON IZMENE OPCIJA SISTEMSKE KONFIGURACIJE MORATE POKRENUTI SKRIPT bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate DA BI SVA STANJA INCIDENTA BILA PONOVO UTVRĐENA NA OSNOVU NOVIH PODEŠAVANJA!';
+    $Self->{Translation}->{'Show the current service incident state signal in the ticket information.'} =
+        '';
     $Self->{Translation}->{'Source'} = 'Izvor';
+    $Self->{Translation}->{'Suggest'} = '';
     $Self->{Translation}->{'This setting defines that a \'ITSMChange\' object can be linked with \'Ticket\' objects using the \'Normal\' link type.'} =
         'Ovo podešavanje određuje da li vezom tipa "Normal" objekat ITSM promena može da se poveže sa objektom tiketa.';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with \'FAQ\' objects using the \'Normal\' link type.'} =

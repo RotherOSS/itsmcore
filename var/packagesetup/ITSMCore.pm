@@ -27,6 +27,7 @@ our @ObjectDependencies = (
     'Kernel::System::SysConfig',
     'Kernel::System::DB',
     'Kernel::System::DynamicField',
+    'Kernel::System::DynamicFieldValue',
     'Kernel::System::GeneralCatalog',
     'Kernel::System::Group',
     'Kernel::System::ITSMCIPAllocate',
@@ -183,6 +184,9 @@ run the code uninstall part
 
 sub CodeUninstall {
     my ( $Self, %Param ) = @_;
+
+    # remove Dynamic Fields and its values
+    $Self->_DynamicFieldsDelete();
 
     # deactivate the group itsm-service
     $Self->_GroupDeactivate(
@@ -806,6 +810,68 @@ sub _MakeDynamicFieldsInternal {
                 \$DynamicField->{Name},
             ],
         );
+    }
+
+    return 1;
+}
+
+=head2 _DynamicFieldsDelete()
+
+delete fields of field type Service
+
+    my $Result = $CodeObject->_DynamicFieldsDelete();
+
+=cut
+
+sub _DynamicFieldsDelete {
+    my ( $Self, %Param ) = @_;
+
+    my $DynamicFieldObject      = $Kernel::OM->Get('Kernel::System::DynamicField');
+    my $DynamicFieldValueObject = $Kernel::OM->Get('Kernel::System::DynamicFieldValue');
+
+    # get the list of all dynamic fields (valid and invalid ones)
+    my $DynamicFieldList = $DynamicFieldObject->DynamicFieldListGet(
+        Valid => 0,
+    );
+
+    # delete the dynamic fields
+    DYNAMICFIELD:
+    for my $DynamicField ( @{$DynamicFieldList} ) {
+
+        # check if field should be deleted
+        next DYNAMICFIELD unless $DynamicField->{FieldType} eq 'Service';
+
+        # delete all field values
+        my $ValuesDeleteSuccess = $DynamicFieldValueObject->AllValuesDelete(
+            FieldID => $DynamicField->{ID},
+            UserID  => 1,
+        );
+
+        # values could be deleted
+        if ($ValuesDeleteSuccess) {
+
+            # delete field
+            my $Success = $DynamicFieldObject->DynamicFieldDelete(
+                ID     => $DynamicField->{ID},
+                UserID => 1,
+            );
+
+            # check error
+            if ( !$Success ) {
+                $Kernel::OM->Get('Kernel::System::Log')->Log(
+                    Priority => 'error',
+                    Message  => "Could not delete dynamic field '$DynamicField->{Name}'!",
+                );
+            }
+        }
+
+        # values could not be deleted
+        else {
+            $Kernel::OM->Get('Kernel::System::Log')->Log(
+                Priority => 'error',
+                Message  => "Could not delete values for dynamic field '$DynamicField->{Name}'!",
+            );
+        }
     }
 
     return 1;
