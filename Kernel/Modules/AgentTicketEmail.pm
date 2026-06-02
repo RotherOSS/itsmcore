@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - be110a57289d5c059302ff1b15e97bab3ba4bfe9 - Kernel/Modules/AgentTicketEmail.pm
+# $origin: otobo - b29efc250d16dc345e00f511cf904509bcd35d7c - Kernel/Modules/AgentTicketEmail.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -3351,7 +3351,7 @@ sub _MaskEmailNew {
             );
             if ( $Item->{CustomerError} ) {
                 $LayoutObject->Block(
-                    Name => 'CcCustomerErrorExplantion',
+                    Name => 'CcCustomerErrorExplanation',
                 );
             }
             $CustomerCounterCc++;
@@ -3391,7 +3391,7 @@ sub _MaskEmailNew {
             );
             if ( $Item->{CustomerError} ) {
                 $LayoutObject->Block(
-                    Name => 'BccCustomerErrorExplantion',
+                    Name => 'BccCustomerErrorExplanation',
                 );
             }
             $CustomerCounterBcc++;
@@ -3431,7 +3431,7 @@ sub _MaskEmailNew {
             );
             if ( $Item->{CustomerError} ) {
                 $LayoutObject->Block(
-                    Name => 'CustomerErrorExplantion',
+                    Name => 'CustomerErrorExplanation',
                 );
             }
             $CustomerCounter++;

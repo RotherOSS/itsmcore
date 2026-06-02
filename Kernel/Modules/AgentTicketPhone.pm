@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 7433103c4423a2e51b2c0b5d86903bc33e1346dd - Kernel/Modules/AgentTicketPhone.pm
+# $origin: otobo - b29efc250d16dc345e00f511cf904509bcd35d7c - Kernel/Modules/AgentTicketPhone.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -3049,7 +3049,7 @@ sub _MaskPhoneNew {
             );
             if ( $Item->{CustomerError} ) {
                 $LayoutObject->Block(
-                    Name => 'CustomerErrorExplantion',
+                    Name => 'CustomerErrorExplanation',
                 );
             }
             $CustomerCounter++;
