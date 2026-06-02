@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 58756d0ea2a11c96d46189c3bb83d609b33d49ad - Kernel/Modules/AgentTicketPhone.pm
+# $origin: otobo - 7433103c4423a2e51b2c0b5d86903bc33e1346dd - Kernel/Modules/AgentTicketPhone.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -573,7 +573,7 @@ sub Run {
                 $CountAux         = $CountFrom . 'Error';
             }
 
-            my $Phrase       = $EmailAddressObject->GetRealname( AddressObject => $Email ) || '';
+            my $Phrase       = $EmailAddressObject->GetRealName( AddressObject => $Email ) || '';
             my $CustomerKey  = '';
             my $EmailAddress = $EmailAddressObject->GetAddress( AddressObject => $Email );
             if (
@@ -3049,7 +3049,7 @@ sub _MaskPhoneNew {
             );
             if ( $Item->{CustomerError} ) {
                 $LayoutObject->Block(
-                    Name => 'CustomerErrorExplanation',
+                    Name => 'CustomerErrorExplantion',
                 );
             }
             $CustomerCounter++;

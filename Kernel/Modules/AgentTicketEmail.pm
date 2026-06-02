@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 58756d0ea2a11c96d46189c3bb83d609b33d49ad - Kernel/Modules/AgentTicketEmail.pm
+# $origin: otobo - be110a57289d5c059302ff1b15e97bab3ba4bfe9 - Kernel/Modules/AgentTicketEmail.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -684,7 +684,7 @@ sub Run {
                 $CountAux         = $CountFrom . 'Error';
             }
 
-            my $Phrase      = $EmailAddressObject->GetRealname( AddressObject => $Email ) || '';
+            my $Phrase      = $EmailAddressObject->GetRealName( AddressObject => $Email ) || '';
             my $CustomerKey = '';
             if (
                 defined $CustomerDataFrom{UserEmail}
@@ -1193,8 +1193,8 @@ sub Run {
 
             if ( $GetParam{Dest} && $GetParam{Dest} =~ /^(\d{1,100})\|\|.+?$/ ) {
                 $GetParam{QueueID} = $1;
-                my %Queue = $QueueObject->GetSystemAddress( QueueID => $GetParam{QueueID} );
-                $GetParam{From} = $Queue{Email};
+                my %Address = $QueueObject->GetSystemAddress( QueueID => $GetParam{QueueID} );
+                $GetParam{From} = $Address{Email};
             }
 
             my %Jobs = %{ $ConfigObject->Get('Ticket::Frontend::ArticleComposeModule') };
@@ -1375,8 +1375,8 @@ sub Run {
             $GetParam{OwnerAll} = 1;
         }
         else {
-            my %Queue = $QueueObject->GetSystemAddress( QueueID => $NewQueueID );
-            $GetParam{From} = $Queue{Email};
+            my %Address = $QueueObject->GetSystemAddress( QueueID => $NewQueueID );
+            $GetParam{From} = $Address{Email};
         }
 
         my $CustomerUser = $ParamObject->GetParam( Param => 'CustomerUser' )
@@ -2285,8 +2285,8 @@ sub Run {
         my $QueueID = '';
         if ( $Dest =~ /^(\d{1,100})\|\|.+?$/ ) {
             $QueueID = $1;
-            my %Queue = $QueueObject->GetSystemAddress( QueueID => $QueueID );
-            $GetParam{From} = $Queue{Email};
+            my %Address = $QueueObject->GetSystemAddress( QueueID => $QueueID );
+            $GetParam{From} = $Address{Email};
         }
         $GetParam{Dest}    = $Dest;
         $GetParam{QueueID} = $QueueID;
@@ -3351,7 +3351,7 @@ sub _MaskEmailNew {
             );
             if ( $Item->{CustomerError} ) {
                 $LayoutObject->Block(
-                    Name => 'CcCustomerErrorExplanation',
+                    Name => 'CcCustomerErrorExplantion',
                 );
             }
             $CustomerCounterCc++;
@@ -3391,7 +3391,7 @@ sub _MaskEmailNew {
             );
             if ( $Item->{CustomerError} ) {
                 $LayoutObject->Block(
-                    Name => 'BccCustomerErrorExplanation',
+                    Name => 'BccCustomerErrorExplantion',
                 );
             }
             $CustomerCounterBcc++;
@@ -3431,7 +3431,7 @@ sub _MaskEmailNew {
             );
             if ( $Item->{CustomerError} ) {
                 $LayoutObject->Block(
-                    Name => 'CustomerErrorExplanation',
+                    Name => 'CustomerErrorExplantion',
                 );
             }
             $CustomerCounter++;

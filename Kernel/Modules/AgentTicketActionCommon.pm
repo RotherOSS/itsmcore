@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 581e36fb3affc2a387dd70824e309f45163545fe - Kernel/Modules/AgentTicketActionCommon.pm
+# $origin: otobo - 5c05b50ba4f443c933021fcfbbd9e81605956494 - Kernel/Modules/AgentTicketActionCommon.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -25,7 +25,7 @@ use namespace::autoclean;
 use utf8;
 
 # core modules
-use List::Util qw(any);
+use List::Util qw(any first);
 
 # CPAN modules
 
@@ -516,7 +516,7 @@ sub Run {
         qw(
             NewStateID NewPriorityID TimeUnits IsVisibleForCustomer Title Body Subject NewQueueID
             Year Month Day Hour Minute NewOwnerID NewResponsibleID TypeID ServiceID SLAID
-            ReplyToArticle StandardTemplateID CreateArticle FormDraftID
+            ReplyToArticle StandardTemplateID CreateArticle FormDraftID Title
         )
         )
     {
@@ -776,6 +776,29 @@ sub Run {
                 {
                     $Error{'DateInvalid'} = 'ServerError';
                 }
+            }
+        }
+
+        # if action is ArticleEdit, check if article is editable
+        my $ArticleEditingEnabled = 0;
+        if ( $Self->{Action} eq 'AgentTicketArticleEdit' && $Config->{Article} && $Self->{ArticleID} ) {
+
+            # fetch communication channel id by article id
+            my @BaseArticles = $Kernel::OM->Get('Kernel::System::Ticket::Article')->ArticleList(
+                TicketID  => $Self->{TicketID},
+                ArticleID => $Self->{ArticleID},
+            );
+            if (@BaseArticles) {
+                my $CommunicationChannelID = $BaseArticles[0]->{CommunicationChannelID};
+                my %CommunicationChannel   = $Kernel::OM->Get('Kernel::System::CommunicationChannel')->ChannelGet(
+                    ChannelID => $CommunicationChannelID,
+                );
+                $ArticleEditingEnabled = $Self->_CheckArticleEditingEnabled(
+                    Article              => $Config->{Article},
+                    CommunicationChannel => $CommunicationChannel{ChannelName},
+                );
+                $Config->{NoteMandatory} = $ArticleEditingEnabled;
+                $GetParam{CreateArticle} = $ArticleEditingEnabled;
             }
         }
 
@@ -1357,23 +1380,98 @@ sub Run {
                 );
             }
             elsif ( $Self->{ArticleID} ) {
-                $ArticleID = $Kernel::OM->Get('Kernel::System::Ticket::Article::Backend::Internal')->ArticleEdit(
-                    TicketID                        => $Self->{TicketID},
-                    ArticleID                       => $Self->{ArticleID},             #Include the original article id for article versioning
-                    SenderType                      => 'agent',
-                    From                            => $From,
-                    MimeType                        => $MimeType,
-                    Charset                         => $LayoutObject->{UserCharset},
-                    UserID                          => $Self->{UserID},
-                    HistoryType                     => $Config->{HistoryType},
-                    HistoryComment                  => $Config->{HistoryComment},
-                    ForceNotificationToUserID       => \@NotifyUserIDs,
-                    ExcludeMuteNotificationToUserID => \@NotifyDone,
-                    UnlockOnAway                    => $UnlockOnAway,
-                    Attachment                      => \@Attachments,
-                    UserLogin                       => $Self->{UserLogin},
-                    %GetParam,
+
+                # check if editing is necessary by comparing article body
+                my $ArticleBackendObject = $Kernel::OM->Get('Kernel::System::Ticket::Article')->BackendForArticle(
+                    TicketID  => $Self->{TicketID},
+                    ArticleID => $Self->{ArticleID},
                 );
+                my %Article = $ArticleBackendObject->ArticleGet(
+                    TicketID      => $Self->{TicketID},
+                    ArticleID     => $Self->{ArticleID},
+                    DynamicFields => 1,
+                    RealNames     => 1,
+                    UserID        => $Self->{UserID}
+                );
+                my %Data = $Self->_LoadArticleEdit(
+                    ArticleData          => \%Article,
+                    Ticket               => \%Ticket,
+                    ArticleBackendObject => $ArticleBackendObject,
+                    NoAttachments        => 1,
+                );
+
+                # sanitize both body strings from content ids for comparison
+                my $ExistingBody = $Data{Body};
+                $ExistingBody =~ s/(=|"|')cid:(.*?)("|'|>|\/>|\s)//egxi;
+                my $NewBody = $GetParam{Body};
+                $NewBody =~ s/(=|"|')cid:(.*?)("|'|>|\/>|\s)//egxi;
+
+                # compare attachments
+                my $AttachmentsDifferent = 0;
+                {
+                    # define if rich text should be used
+                    $Self->{RichText} = $ConfigObject->Get('Ticket::Frontend::ZoomRichTextForce')
+                        || $LayoutObject->{BrowserRichText}
+                        || 0;
+
+                    # Always exclude plain text attachment, but exclude HTML body only if rich text is enabled.
+                    $Self->{ExcludeAttachments} = {
+                        ExcludePlainText => 1,
+                        ExcludeHTMLBody  => $Self->{RichText},
+                    };
+
+                    # Get attachment index (excluding body attachments).
+                    my %AtmIndex = $ArticleBackendObject->ArticleAttachmentIndex(
+                        ArticleID => $Self->{ArticleID},
+                        %{ $Self->{ExcludeAttachments} },
+                    );
+
+                    if ( scalar @Attachments != scalar( values %AtmIndex ) ) {
+                        $AttachmentsDifferent = 1;
+                    }
+                    else {
+                        ATTACHMENT:
+                        for my $Attachment (@Attachments) {
+                            my $CompareAttachment = first { $_->{Filename} eq $Attachment->{Filename} } values %AtmIndex;
+                            if ( !IsHashRefWithData($CompareAttachment) ) {
+                                $AttachmentsDifferent = 1;
+                                last ATTACHMENT;
+                            }
+                            if ( $CompareAttachment->{FilesizeRaw} != $Attachment->{Filesize} ) {
+                                $AttachmentsDifferent = 1;
+                                last ATTACHMENT;
+                            }
+                        }
+                    }
+                }
+
+                if (
+                    ( $ExistingBody ne $NewBody )
+                    || ( $Article{Subject} ne $GetParam{Subject} )
+                    || ($AttachmentsDifferent)
+                    )
+                {
+                    $ArticleID = $ArticleBackendObject->ArticleEdit(
+                        TicketID                        => $Self->{TicketID},
+                        ArticleID                       => $Self->{ArticleID},
+                        SenderType                      => $Article{SenderType},
+                        From                            => $From,
+                        MimeType                        => $MimeType,
+                        Charset                         => $LayoutObject->{UserCharset},
+                        UserID                          => $Self->{UserID},
+                        HistoryType                     => $Config->{HistoryType},
+                        HistoryComment                  => $Config->{HistoryComment},
+                        ForceNotificationToUserID       => \@NotifyUserIDs,
+                        ExcludeMuteNotificationToUserID => \@NotifyDone,
+                        UnlockOnAway                    => $UnlockOnAway,
+                        Attachment                      => \@Attachments,
+                        UserLogin                       => $Self->{UserLogin},
+                        %GetParam,
+                    );
+                }
+                else {
+                    $ArticleID = $Self->{ArticleID};
+                }
             }
             else {
                 $ArticleID = $Kernel::OM->Get('Kernel::System::Ticket::Article::Backend::Internal')->ArticleCreate(
@@ -1416,6 +1514,38 @@ sub Run {
                 Key  => $Self->{FormID},
             );
 
+        }
+        elsif ( $Self->{Action} eq 'AgentTicketArticleEdit' && ( $Config->{TimeUnits} || $ArticleEditingEnabled ) ) {
+
+            # time accounting
+            $ArticleID = $Self->{ArticleID};
+            if ( $GetParam{TimeUnits} ) {
+                $TicketObject->TicketAccountTime(
+                    TicketID  => $Self->{TicketID},
+                    ArticleID => $ArticleID,
+                    TimeUnit  => $GetParam{TimeUnits},
+                    UserID    => $Self->{UserID},
+                );
+            }
+        }
+
+        if ( $Self->{Action} eq 'AgentTicketArticleEdit' && $Config->{IsVisibleForCustomer} ) {
+            my $IsVisibleForCustomer = $Config->{IsVisibleForCustomerDefault};
+            $IsVisibleForCustomer = $GetParam{IsVisibleForCustomer} ? 1 : 0;
+
+            my $ArticleBackendObject = $Kernel::OM->Get('Kernel::System::Ticket::Article')->BackendForArticle(
+                TicketID  => $Self->{TicketID},
+                ArticleID => $Self->{ArticleID},
+            );
+
+            $ArticleBackendObject->ArticleUpdate(
+                TicketID  => $Self->{TicketID},
+                ArticleID => $Self->{ArticleID},
+                Key       => 'IsVisibleForCustomer',
+                Value     => $IsVisibleForCustomer,
+                UserID    => $Self->{UserID},
+            );
+            $ArticleID = $Self->{ArticleID};
         }
 
         # set dynamic fields
@@ -3706,6 +3836,10 @@ sub _LoadArticleEdit {
         );
     }
     else {
+        return %ArticleData;
+    }
+
+    if ( $Param{NoAttachments} ) {
         return %ArticleData;
     }
 
