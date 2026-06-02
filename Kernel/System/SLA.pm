@@ -26,7 +26,10 @@ use warnings;
 # CPAN modules
 
 # OTOBO modules
-use Kernel::System::VariableCheck qw(IsArrayRefWithData);
+# Rother OSS / ITSMCore
+# use Kernel::System::VariableCheck qw(IsArrayRefWithData);
+use Kernel::System::VariableCheck qw(IsArrayRefWithData IsHashRefWithData);
+# EO ITSMCore
 
 our @ObjectDependencies = (
     'Kernel::Config',
@@ -815,6 +818,12 @@ sub ExportSLAs {
         UserID => $UserID,
     );
 
+# Rother OSS / ITSMCore
+    my $TypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
+        Class => 'ITSM::SLA::Type',
+    );
+# EO ITSMCore
+
     my %ExportData;
     SLAID:
     for my $SLAID ( sort keys %SLAList ) {
@@ -856,6 +865,13 @@ sub ExportSLAs {
                     delete $SLAData{ServiceIDs};
                 }
             }
+# Rother OSS / ITSMCore
+            elsif ( $Attribute eq 'TypeID' && IsHashRefWithData($TypeList) ) {
+                my $Type = $TypeList->{$SLAData{TypeID}};
+                $SLAData{Type} = $Type;
+                delete $SLAData{TypeID};
+            }
+# EO ITSMCore
         }
 
         # observation showed that Type and TypeID both are usually present
@@ -886,6 +902,14 @@ sub ImportSLAs {
     );
     my %SLALookup = reverse %SLAList;
 
+# Rother OSS / ITSMCore
+    my $TypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
+        Class => 'ITSM::SLA::Type',
+    );
+
+    my %TypeLookup = IsHashRefWithData($TypeList) ? reverse $TypeList->%* : ();
+# EO ITSMCore
+
     SLANAME:
     for my $SLAName ( keys $Param{SLAs}->%* ) {
         my $SLAData = $Param{SLAs}{$SLAName};
@@ -905,6 +929,11 @@ sub ImportSLAs {
             }
             $SLAData->{ServiceIDs} = \@ServiceIDs;
         }
+# Rother OSS / ITSMCore
+        if ( $SLAData->{Type} ) {
+            $SLAData->{TypeID} = $TypeLookup{$SLAData->{Type}};
+        }
+# EO ITSMCore
         $SLAData->{ValidID} = $ValidObject->ValidLookup(
             Valid => $SLAData->{Valid},
         );

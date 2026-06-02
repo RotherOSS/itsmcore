@@ -37,7 +37,6 @@ our @ObjectDependencies = (
     'Kernel::System::Main',
     'Kernel::System::Queue',
     'Kernel::System::Translations',
-    'Kernel::System::Type',
     'Kernel::System::Valid',
 );
 
@@ -1520,6 +1519,12 @@ sub ExportServices {
         UserID => $UserID,
     );
 
+# Rother OSS / ITSMCore
+    my $TypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
+        Class => 'ITSM::Service::Type',
+    );
+# EO ITSMCore
+
     my %ExportData;
     SERVICEID:
     for my $ServiceID ( sort keys %ServiceList ) {
@@ -1535,7 +1540,6 @@ sub ExportServices {
 
         # translate IDs into names or name-like identifiers
         my $QueueObject = $Kernel::OM->Get('Kernel::System::Queue');
-        my $TypeObject  = $Kernel::OM->Get('Kernel::System::Type');
         my $ValidObject = $Kernel::OM->Get('Kernel::System::Valid');
 
         ATTRIBUTE:
@@ -1564,18 +1568,13 @@ sub ExportServices {
                 $ServiceData{DestQueue} = $Queue;
                 delete $ServiceData{DestQueueID};
             }
-            elsif ( $Attribute eq 'TicketTypeIDs' ) {
-                if ( IsArrayRefWithData( $ServiceData{TicketTypeIDs} ) ) {
-                    my @TicketTypes;
-                    for my $TicketTypeID ( $ServiceData{TicketTypeIDs}->@* ) {
-                        push @TicketTypes, $TypeObject->TypeLookup(
-                            TypeID => $TicketTypeID,
-                        );
-                    }
-                    $ServiceData{TicketTypes} = \@TicketTypes;
-                    delete $ServiceData{TicketTypeIDs};
-                }
+# Rother OSS / ITSMCore
+            elsif ( $Attribute eq 'TypeID' && IsHashRefWithData($TypeList) ) {
+                my $Type = $TypeList->{$ServiceData{TypeID}};
+                $ServiceData{Type} = $Type;
+                delete $ServiceData{TypeID};
             }
+# EO ITSMCore
         }
 
         delete $ServiceData{ChangeBy};
@@ -1583,9 +1582,6 @@ sub ExportServices {
         delete $ServiceData{CreateBy};
         delete $ServiceData{CreateTime};
         delete $ServiceData{ServiceID};
-
-        # unhandled attribute, related to ITSMCore and GeneralCatalog
-        delete $ServiceData{TypeID};
 
         $ExportData{ $ServiceData{Name} } = \%ServiceData;
     }
@@ -1599,13 +1595,20 @@ sub ImportServices {
     my $UserID = $Self->{UserID} || $Param{UserID};
 
     my $QueueObject = $Kernel::OM->Get('Kernel::System::Queue');
-    my $TypeObject  = $Kernel::OM->Get('Kernel::System::Type');
     my $ValidObject = $Kernel::OM->Get('Kernel::System::Valid');
     my %ServiceList = $Self->ServiceList(
         Valid  => 0,
         UserID => $UserID,
     );
     my %ServiceLookup = reverse %ServiceList;
+
+# Rother OSS / ITSMCore
+    my $TypeList = $Kernel::OM->Get('Kernel::System::GeneralCatalog')->ItemList(
+        Class => 'ITSM::Service::Type',
+    );
+
+    my %TypeLookup = IsHashRefWithData($TypeList) ? reverse $TypeList->%* : ();
+# EO ITSMCore
 
     # sort services by parent attribute
     my @FirstLevelServices;
@@ -1677,15 +1680,11 @@ sub ImportServices {
                 Queue => $ServiceData->{DestQueue},
             );
         }
-        if ( IsArrayRefWithData( $ServiceData->{TicketTypes} ) ) {
-            my @TicketTypeIDs;
-            for my $TicketType ( $ServiceData->{TicketTypes}->@* ) {
-                push @TicketTypeIDs, $TypeObject->TypeLookup(
-                    Type => $TicketType,
-                );
-            }
-            $ServiceData->{TicketTypeIDs} = \@TicketTypeIDs;
+# Rother OSS / ITSMCore
+        if ( $ServiceData->{Type} ) {
+            $ServiceData->{TypeID} = $TypeLookup{$ServiceData->{Type}};
         }
+# EO ITSMCore
         $ServiceData->{ValidID} = $ValidObject->ValidLookup(
             Valid => $ServiceData->{Valid},
         );
