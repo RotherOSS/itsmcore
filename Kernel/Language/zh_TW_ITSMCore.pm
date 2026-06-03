@@ -71,6 +71,9 @@ sub Data {
     # Perl Module: Kernel/Output/HTML/LinkObject/Service.pm
     $Self->{Translation}->{'Incident State'} = '故障狀態';
 
+    # Perl Module: Kernel/System/DynamicField/Driver/Service.pm
+    $Self->{Translation}->{'External-source key'} = '';
+
     # Database XML / SOPM Definition: ITSMCore.sopm
     $Self->{Translation}->{'Operational'} = '正常';
     $Self->{Translation}->{'Incident'} = '故障';
@@ -93,7 +96,6 @@ sub Data {
 
     # SysConfig
     $Self->{Translation}->{'Alternative to'} = '可供選擇';
-    $Self->{Translation}->{'Both'} = '';
     $Self->{Translation}->{'CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault.'} =
         '';
     $Self->{Translation}->{'Connected to'} = '連接';

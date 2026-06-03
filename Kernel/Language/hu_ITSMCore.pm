@@ -27,7 +27,7 @@ sub Data {
     $Self->{Translation}->{'Criticality ↔ Impact ↔ Priority'} = 'Kritikusság ↔ Hatás ↔ Prioritás';
     $Self->{Translation}->{'Manage the priority result of combinating Criticality ↔ Impact.'} =
         'A Kritikusság ↔ Hatás összetétel prioritás eredményének kezelése.';
-    $Self->{Translation}->{'Priority allocation'} = 'Prioritás lefoglalás';
+    $Self->{Translation}->{'Priority allocation'} = 'Prioritáslefoglalás';
 
     # Template: AdminSLA
     $Self->{Translation}->{'Minimum Time Between Incidents'} = 'Az incidensek közti legkisebb idő';
@@ -37,12 +37,12 @@ sub Data {
 
     # Template: AgentITSMSLAZoom
     $Self->{Translation}->{'SLA Information'} = 'SLA információk';
-    $Self->{Translation}->{'Last changed'} = 'Utolsó módosítás';
+    $Self->{Translation}->{'Last changed'} = 'Utoljára módosítva';
     $Self->{Translation}->{'Last changed by'} = 'Utoljára módosította';
     $Self->{Translation}->{'Associated Services'} = 'Hozzárendelt szolgáltatások';
 
     # Template: AgentITSMServiceZoom
-    $Self->{Translation}->{'Service Information'} = 'Szolgáltatás információk';
+    $Self->{Translation}->{'Service Information'} = 'Szolgáltatásinformációk';
     $Self->{Translation}->{'Current incident state'} = 'Jelenlegi incidensállapot';
     $Self->{Translation}->{'Associated SLAs'} = 'Hozzárendelt SLA-k';
 
@@ -71,6 +71,9 @@ sub Data {
     # Perl Module: Kernel/Output/HTML/LinkObject/Service.pm
     $Self->{Translation}->{'Incident State'} = 'Incidensállapot';
 
+    # Perl Module: Kernel/System/DynamicField/Driver/Service.pm
+    $Self->{Translation}->{'External-source key'} = '';
+
     # Database XML / SOPM Definition: ITSMCore.sopm
     $Self->{Translation}->{'Operational'} = 'Üzemképes';
     $Self->{Translation}->{'Incident'} = 'Incidens';
@@ -93,7 +96,6 @@ sub Data {
 
     # SysConfig
     $Self->{Translation}->{'Alternative to'} = 'Alternatíva erre';
-    $Self->{Translation}->{'Both'} = 'Mindkettő';
     $Self->{Translation}->{'CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault.'} =
         '';
     $Self->{Translation}->{'Connected to'} = 'Csatlakoztatva ide';
@@ -105,7 +107,7 @@ sub Data {
         'Annak meghatározása, hogy mely oszlopok legyenek láthatók a kapcsolt szolgáltatások felületi elemen (LinkObject::ViewMode = „összetett”). Megjegyzés: csak szolgáltatás attribútumok engedélyezettek az alapértelmezett oszlopoknál. Lehetséges beállítások: 0 = letiltva, 1 = elérhető, 2 = alapértelmezetten engedélyezett.';
     $Self->{Translation}->{'Defines the list of online repositories. Another installation can be used as repository, for example: Key="http://example.com/otobo/public.pl?Action=PublicRepository;File=" and Content="Some Name".'} =
         '';
-    $Self->{Translation}->{'Depends on'} = 'Ettől függ';
+    $Self->{Translation}->{'Depends on'} = 'Függ ettől';
     $Self->{Translation}->{'Enforce'} = '';
     $Self->{Translation}->{'Frontend module registration for the AdminITSMCIPAllocate configuration in the admin area.'} =
         'Előtétprogram modul regisztráció az adminisztrációs területen lévő kritikusság ↔ hatás ↔ prioritás lefoglalás beállításhoz.';
@@ -123,7 +125,7 @@ sub Data {
         'Előtétprogram modul regisztráció az ügyintézői felületen lévő szolgáltatás nagyítás objektumhoz.';
     $Self->{Translation}->{'ITSM SLA Overview.'} = 'ITSM SLA áttekintés.';
     $Self->{Translation}->{'ITSM Service Overview.'} = 'ITSM szolgáltatás áttekintés.';
-    $Self->{Translation}->{'Incident State Type'} = 'Incidensállapot típus';
+    $Self->{Translation}->{'Incident State Type'} = 'Incidensállapot típusa';
     $Self->{Translation}->{'Includes'} = 'Tartalmazza';
     $Self->{Translation}->{'Located in'} = '';
     $Self->{Translation}->{'Location of'} = '';
@@ -147,7 +149,7 @@ sub Data {
     $Self->{Translation}->{'Service Zoom.'} = 'Szolgáltatás nagyítás.';
     $Self->{Translation}->{'Service-Area'} = 'Szolgáltatás terület';
     $Self->{Translation}->{'Set the type and direction of links to be used to calculate the incident state. The key is the name of the link type (as defined in LinkObject::Type), and the value is the direction of the IncidentLinkType that should be followed to calculate the incident state. For example if the IncidentLinkType is set to \'DependsOn\', and the Direction is \'Source\', only \'Depends on\' links will be followed (and not the opposite link \'Required for\') to calculate the incident state. You can add more link types ad directions as you like, e.g. \'Includes\' with the direction \'Target\'. All link types defined in the sysconfig options LinkObject::Type are possible and the direction can be \'Source\', \'Target\', or \'Both\'. IMPORTANT: AFTER YOU MAKE CHANGES TO THIS SYSCONFIG OPTION YOU NEED TO RUN THE CONSOLE COMMAND bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!'} =
-        'A hivatkozások típusának és irányának beállítása, hogy használható legyen az incidensállapot kiszámításához. A kulcs a hivatkozástípus neve (ahogy a LinkObject::Type értékében van meghatározva), és az érték az IncidentLinkType iránya, amelyet követnie kell az incidensállapot kiszámításához. Például ha az IncidentLinkType „DependsOn” értékre van állítva, és az irány „Forrás”, akkor csak a „Depends on” hivatkozások lesznek követve (és nem az ellentétes „Required for” hivatkozás) az incidensállapot kiszámításához. Hozzáadhat további hivatkozástípusokat és irányokat, ahogy csak szeretné, például „Includes” a „Cél” iránnyal. Minden LinkObject::Type rendszerbeállítási lehetőségben meghatározott hivatkozástípus lehetséges, és az irány „Forrás”, „Cél” vagy „Mindkettő” lehet. FONTOS: MIUTÁN MÓDOSÍTÁSOKAT HAJTOTT VÉGRE EZEN A RENDSZERBEÁLLÍTÁSON, LE KELL FUTTATNIA A bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate KONZOLPARANCSOT AZÉRT, HOGY MINDEN INCIDENSÁLLAPOT ÚJRA KISZÁMÍTÁSRA KERÜLJÖN AZ ÚJ BEÁLLÍTÁSOK ALAPJÁN!';
+        'A hivatkozások típusának és irányának beállítása, hogy használható legyen az incidensállapot kiszámításához A kulcs a hivatkozástípus neve (ahogy a LinkObject::Type értékében van meghatározva), és az érték az IncidentLinkType iránya, amelyet követnie kell az incidensállapot kiszámításához. Például ha az IncidentLinkType „DependsOn” értékre van állítva, és az irány „Forrás”, akkor csak a „Depends on” hivatkozások lesznek követve (és nem az ellentétes „Required for” hivatkozás) az incidensállapot kiszámításához. Hozzáadhat további hivatkozástípusokat és irányokat, ahogy csak szeretné, például „Includes” a „Cél” iránnyal. Minden LinkObject::Type rendszerbeállítási lehetőségben meghatározott hivatkozástípus lehetséges, és az irány „Forrás”, „Cél” vagy „Mindkettő” lehet. FONTOS: MIUTÁN VÁLTOZTATÁSOKAT HAJTOTT VÉGRE EZEN A RENDSZERBEÁLLÍTÁSON, LE KELL FUTTATNIA a „bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate” KONZOLPARANCSOT AZÉRT, HOGY MINDEN INCIDENSÁLLAPOT ÚJRA KISZÁMÍTÁSRA KERÜLJÖN AZ ÚJ BEÁLLÍTÁSOK ALAPJÁN!';
     $Self->{Translation}->{'Show the current service incident state signal in the ticket information.'} =
         '';
     $Self->{Translation}->{'Source'} = 'Forrás';

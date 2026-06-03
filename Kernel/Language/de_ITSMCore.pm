@@ -65,11 +65,14 @@ sub Data {
 
     # Perl Module: Kernel/Modules/AgentITSMServicePrint.pm
     $Self->{Translation}->{'No ServiceID is given!'} = 'Keine ServiceID vorhanden!';
-    $Self->{Translation}->{'ServiceID %s not found in database!'} = 'ServiceID "%s" in der Datenbank nicht gefunden!';
+    $Self->{Translation}->{'ServiceID %s not found in database!'} = 'ServiceID %s nicht in Datenbank gefunden!';
     $Self->{Translation}->{'Current Incident State'} = 'Aktueller Vorfallstatus';
 
     # Perl Module: Kernel/Output/HTML/LinkObject/Service.pm
     $Self->{Translation}->{'Incident State'} = 'Vorfallstatus';
+
+    # Perl Module: Kernel/System/DynamicField/Driver/Service.pm
+    $Self->{Translation}->{'External-source key'} = '';
 
     # Database XML / SOPM Definition: ITSMCore.sopm
     $Self->{Translation}->{'Operational'} = 'Operativ';
@@ -93,7 +96,6 @@ sub Data {
 
     # SysConfig
     $Self->{Translation}->{'Alternative to'} = 'Alternativ zu';
-    $Self->{Translation}->{'Both'} = 'Beide';
     $Self->{Translation}->{'CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault.'} =
         '';
     $Self->{Translation}->{'Connected to'} = 'Verbunden mit';
