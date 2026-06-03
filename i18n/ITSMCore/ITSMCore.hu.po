@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
-"POT-Creation-Date: 2020-01-24 12:24+0000\n"
+"POT-Creation-Date: 2026-03-06 11:43+0000\n"
 "PO-Revision-Date: 2026-05-22 18:00+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/opm-packages/"
@@ -194,7 +194,9 @@ msgid "Both"
 msgstr "Mindkettő"
 
 #. SysConfig
-msgid "CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault."
+msgid ""
+"CIPAllocation: Overwrite priority based on Criticality and Impact. Default "
+"fallback: Frontend::CIPAllocationDefault."
 msgstr ""
 
 #. SysConfig
@@ -202,19 +204,45 @@ msgid "Connected to"
 msgstr "Csatlakoztatva ide"
 
 #. SysConfig
-msgid "Default behavior of priority allocation in the frontends based on Criticality and Impact. Can be overruled by frontend specific PriorityByCIP settings."
+msgid ""
+"Default behavior of priority allocation in the frontends based on "
+"Criticality and Impact. Can be overruled by frontend specific PriorityByCIP "
+"settings."
 msgstr ""
 
 #. SysConfig
-msgid "Define Actions where a settings button is available in the linked objects widget (LinkObject::ViewMode = \"complex\"). Please note that these Actions must have registered the following JS and CSS files: Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, Core.Agent.TableFilters.js and Core.Agent.LinkObject.js."
-msgstr "Műveletek meghatározása, ahol egy beállítások gomb érhető el a kapcsolt objektumok felületi elemen (LinkObject::ViewMode = „összetett”). Ne feledje, hogy ezeknek a műveleteknek rendelkezniük kell a következő JS és CSS fájlok regisztrálásával: Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, Core.Agent.TableFilters.js és Core.Agent.LinkObject.js."
+msgid ""
+"Define Actions where a settings button is available in the linked objects "
+"widget (LinkObject::ViewMode = \"complex\"). Please note that these Actions "
+"must have registered the following JS and CSS files: "
+"Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, "
+"Core.Agent.TableFilters.js and Core.Agent.LinkObject.js."
+msgstr ""
+"Műveletek meghatározása, ahol egy beállítások gomb érhető el a kapcsolt "
+"objektumok felületi elemen (LinkObject::ViewMode = „összetett”). Ne feledje, "
+"hogy ezeknek a műveleteknek rendelkezniük kell a következő JS és CSS fájlok "
+"regisztrálásával: Core.AllocationList.css, Core.UI.AllocationList.js, "
+"Core.UI.Table.Sort.js, Core.Agent.TableFilters.js és "
+"Core.Agent.LinkObject.js."
 
 #. SysConfig
-msgid "Define which columns are shown in the linked Services widget (LinkObject::ViewMode = \"complex\"). Note: Only Service attributes are allowed for DefaultColumns. Possible settings: 0 = Disabled, 1 = Available, 2 = Enabled by default."
-msgstr "Annak meghatározása, hogy mely oszlopok legyenek láthatók a kapcsolt szolgáltatások felületi elemen (LinkObject::ViewMode = „összetett”). Megjegyzés: csak szolgáltatás attribútumok engedélyezettek az alapértelmezett oszlopoknál. Lehetséges beállítások: 0 = letiltva, 1 = elérhető, 2 = alapértelmezetten engedélyezett."
+msgid ""
+"Define which columns are shown in the linked Services widget "
+"(LinkObject::ViewMode = \"complex\"). Note: Only Service attributes are "
+"allowed for DefaultColumns. Possible settings: 0 = Disabled, 1 = Available, "
+"2 = Enabled by default."
+msgstr ""
+"Annak meghatározása, hogy mely oszlopok legyenek láthatók a kapcsolt "
+"szolgáltatások felületi elemen (LinkObject::ViewMode = „összetett”). "
+"Megjegyzés: csak szolgáltatás attribútumok engedélyezettek az "
+"alapértelmezett oszlopoknál. Lehetséges beállítások: 0 = letiltva, 1 = "
+"elérhető, 2 = alapértelmezetten engedélyezett."
 
 #. SysConfig
-msgid "Defines the list of online repositories. Another installation can be used as repository, for example: Key=\"http://example.com/otobo/public.pl?Action=PublicRepository;File=\" and Content=\"Some Name\"."
+msgid ""
+"Defines the list of online repositories. Another installation can be used as "
+"repository, for example: Key=\"http://example.com/otobo/public.pl?"
+"Action=PublicRepository;File=\" and Content=\"Some Name\"."
 msgstr ""
 
 #. SysConfig
@@ -226,32 +254,60 @@ msgid "Enforce"
 msgstr ""
 
 #. SysConfig
-msgid "Frontend module registration for the AdminITSMCIPAllocate configuration in the admin area."
-msgstr "Előtétprogram modul regisztráció az adminisztrációs területen lévő kritikusság ↔ hatás ↔ prioritás lefoglalás beállításhoz."
+msgid ""
+"Frontend module registration for the AdminITSMCIPAllocate configuration in "
+"the admin area."
+msgstr ""
+"Előtétprogram modul regisztráció az adminisztrációs területen lévő "
+"kritikusság ↔ hatás ↔ prioritás lefoglalás beállításhoz."
 
 #. SysConfig
-msgid "Frontend module registration for the AgentITSMSLA object in the agent interface."
-msgstr "Előtétprogram modul regisztráció az ügyintézői felületen lévő SLA objektumhoz."
+msgid ""
+"Frontend module registration for the AgentITSMSLA object in the agent "
+"interface."
+msgstr ""
+"Előtétprogram modul regisztráció az ügyintézői felületen lévő SLA "
+"objektumhoz."
 
 #. SysConfig
-msgid "Frontend module registration for the AgentITSMSLAPrint object in the agent interface."
-msgstr "Előtétprogram modul regisztráció az ügyintézői felületen lévő SLA nyomtatás objektumhoz."
+msgid ""
+"Frontend module registration for the AgentITSMSLAPrint object in the agent "
+"interface."
+msgstr ""
+"Előtétprogram modul regisztráció az ügyintézői felületen lévő SLA nyomtatás "
+"objektumhoz."
 
 #. SysConfig
-msgid "Frontend module registration for the AgentITSMSLAZoom object in the agent interface."
-msgstr "Előtétprogram modul regisztráció az ügyintézői felületen lévő SLA nagyítás objektumhoz."
+msgid ""
+"Frontend module registration for the AgentITSMSLAZoom object in the agent "
+"interface."
+msgstr ""
+"Előtétprogram modul regisztráció az ügyintézői felületen lévő SLA nagyítás "
+"objektumhoz."
 
 #. SysConfig
-msgid "Frontend module registration for the AgentITSMService object in the agent interface."
-msgstr "Előtétprogram modul regisztráció az ügyintézői felületen lévő szolgáltatás objektumhoz."
+msgid ""
+"Frontend module registration for the AgentITSMService object in the agent "
+"interface."
+msgstr ""
+"Előtétprogram modul regisztráció az ügyintézői felületen lévő szolgáltatás "
+"objektumhoz."
 
 #. SysConfig
-msgid "Frontend module registration for the AgentITSMServicePrint object in the agent interface."
-msgstr "Előtétprogram modul regisztráció az ügyintézői felületen lévő szolgáltatás nyomtatás objektumhoz."
+msgid ""
+"Frontend module registration for the AgentITSMServicePrint object in the "
+"agent interface."
+msgstr ""
+"Előtétprogram modul regisztráció az ügyintézői felületen lévő szolgáltatás "
+"nyomtatás objektumhoz."
 
 #. SysConfig
-msgid "Frontend module registration for the AgentITSMServiceZoom object in the agent interface."
-msgstr "Előtétprogram modul regisztráció az ügyintézői felületen lévő szolgáltatás nagyítás objektumhoz."
+msgid ""
+"Frontend module registration for the AgentITSMServiceZoom object in the "
+"agent interface."
+msgstr ""
+"Előtétprogram modul regisztráció az ügyintézői felületen lévő szolgáltatás "
+"nagyítás objektumhoz."
 
 #. SysConfig
 msgid "ITSM SLA Overview."
@@ -295,7 +351,8 @@ msgstr "Egy modul a Vissza menüpont megjelenítéséhez a szolgáltatás menüb
 
 #. SysConfig
 msgid "Module to show the Link menu item in service menu."
-msgstr "Egy modul az Összekapcsolás menüpont megjelenítéséhez a szolgáltatás menüben."
+msgstr ""
+"Egy modul az Összekapcsolás menüpont megjelenítéséhez a szolgáltatás menüben."
 
 #. SysConfig
 msgid "Module to show the Print menu item in SLA menu."
@@ -303,7 +360,8 @@ msgstr "Egy modul a Nyomtatás menüpont megjelenítéséhez az SLA menüben."
 
 #. SysConfig
 msgid "Module to show the Print menu item in service menu."
-msgstr "Egy modul a Nyomtatás menüpont megjelenítéséhez a szolgáltatás menüben."
+msgstr ""
+"Egy modul a Nyomtatás menüpont megjelenítéséhez a szolgáltatás menüben."
 
 #. SysConfig
 msgid "Off"
@@ -354,7 +412,20 @@ msgid "Service-Area"
 msgstr "Szolgáltatás terület"
 
 #. SysConfig
-msgid "Set the type and direction of links to be used to calculate the incident state. The key is the name of the link type (as defined in LinkObject::Type), and the value is the direction of the IncidentLinkType that should be followed to calculate the incident state. For example if the IncidentLinkType is set to 'DependsOn', and the Direction is 'Source', only 'Depends on' links will be followed (and not the opposite link 'Required for') to calculate the incident state. You can add more link types ad directions as you like, e.g. 'Includes' with the direction 'Target'. All link types defined in the sysconfig options LinkObject::Type are possible and the direction can be 'Source', 'Target', or 'Both'. IMPORTANT: AFTER YOU MAKE CHANGES TO THIS SYSCONFIG OPTION YOU NEED TO RUN THE CONSOLE COMMAND bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!"
+msgid ""
+"Set the type and direction of links to be used to calculate the incident "
+"state. The key is the name of the link type (as defined in "
+"LinkObject::Type), and the value is the direction of the IncidentLinkType "
+"that should be followed to calculate the incident state. For example if the "
+"IncidentLinkType is set to 'DependsOn', and the Direction is 'Source', only "
+"'Depends on' links will be followed (and not the opposite link 'Required "
+"for') to calculate the incident state. You can add more link types ad "
+"directions as you like, e.g. 'Includes' with the direction 'Target'. All "
+"link types defined in the sysconfig options LinkObject::Type are possible "
+"and the direction can be 'Source', 'Target', or 'Both'. IMPORTANT: AFTER YOU "
+"MAKE CHANGES TO THIS SYSCONFIG OPTION YOU NEED TO RUN THE CONSOLE COMMAND "
+"bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL "
+"INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!"
 msgstr ""
 "A hivatkozások típusának és irányának beállítása, hogy használható legyen az "
 "incidensállapot kiszámításához A kulcs a hivatkozástípus neve (ahogy a "
@@ -373,7 +444,8 @@ msgstr ""
 "INCIDENSÁLLAPOT ÚJRA KISZÁMÍTÁSRA KERÜLJÖN AZ ÚJ BEÁLLÍTÁSOK ALAPJÁN!"
 
 #. SysConfig
-msgid "Show the current service incident state signal in the ticket information."
+msgid ""
+"Show the current service incident state signal in the ticket information."
 msgstr ""
 
 #. SysConfig
@@ -385,126 +457,273 @@ msgid "Suggest"
 msgstr ""
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMChange' object can be linked with 'Ticket' objects using the 'Normal' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMChange” objektum összeköthető-e a „Ticket” objektumokkal a „Normal” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMChange' object can be linked with 'Ticket' "
+"objects using the 'Normal' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMChange” objektum összeköthető-e "
+"a „Ticket” objektumokkal a „Normal” hivatkozástípus használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' objects using the 'Normal' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e a „FAQ” objektumokkal a „Normal” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' "
+"objects using the 'Normal' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „FAQ” objektumokkal a „Normal” hivatkozástípus "
+"használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' objects using the 'ParentChild' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e a „FAQ” objektumokkal a „ParentChild” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' "
+"objects using the 'ParentChild' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „FAQ” objektumokkal a „ParentChild” hivatkozástípus "
+"használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' objects using the 'RelevantTo' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e a „FAQ” objektumokkal a „RelevantTo” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' "
+"objects using the 'RelevantTo' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „FAQ” objektumokkal a „RelevantTo” hivatkozástípus "
+"használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'Service' objects using the 'AlternativeTo' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e a „Service” objektumokkal az „AlternativeTo” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with "
+"'Service' objects using the 'AlternativeTo' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „Service” objektumokkal az „AlternativeTo” hivatkozástípus "
+"használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'Service' objects using the 'DependsOn' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e a „Service” objektumokkal a „DependsOn” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with "
+"'Service' objects using the 'DependsOn' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „Service” objektumokkal a „DependsOn” hivatkozástípus "
+"használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'Service' objects using the 'RelevantTo' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e a „Service” objektumokkal a „RelevantTo” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with "
+"'Service' objects using the 'RelevantTo' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „Service” objektumokkal a „RelevantTo” hivatkozástípus "
+"használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'Ticket' objects using the 'AlternativeTo' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e a „Ticket” objektumokkal az „AlternativeTo” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with "
+"'Ticket' objects using the 'AlternativeTo' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „Ticket” objektumokkal az „AlternativeTo” hivatkozástípus "
+"használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'Ticket' objects using the 'DependsOn' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e a „Ticket” objektumokkal a „DependsOn” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with "
+"'Ticket' objects using the 'DependsOn' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „Ticket” objektumokkal a „DependsOn” hivatkozástípus "
+"használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'Ticket' objects using the 'RelevantTo' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e a „Ticket” objektumokkal a „RelevantTo” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with "
+"'Ticket' objects using the 'RelevantTo' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „Ticket” objektumokkal a „RelevantTo” hivatkozástípus "
+"használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'AlternativeTo' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e más „ITSMConfigItem” objektumokkal az „AlternativeTo” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with other "
+"'ITSMConfigItem' objects using the 'AlternativeTo' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e más „ITSMConfigItem” objektumokkal az „AlternativeTo” "
+"hivatkozástípus használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'ConnectedTo' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e más „ITSMConfigItem” objektumokkal a „ConnectedTo” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with other "
+"'ITSMConfigItem' objects using the 'ConnectedTo' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e más „ITSMConfigItem” objektumokkal a „ConnectedTo” "
+"hivatkozástípus használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'DependsOn' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e más „ITSMConfigItem” objektumokkal a „DependsOn” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with other "
+"'ITSMConfigItem' objects using the 'DependsOn' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e más „ITSMConfigItem” objektumokkal a „DependsOn” "
+"hivatkozástípus használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'Includes' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e más „ITSMConfigItem” objektumokkal az „Includes” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with other "
+"'ITSMConfigItem' objects using the 'Includes' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e más „ITSMConfigItem” objektumokkal az „Includes” "
+"hivatkozástípus használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'LocationOf' link type."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with other "
+"'ITSMConfigItem' objects using the 'LocationOf' link type."
 msgstr ""
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'RelevantTo' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum összeköthető-e más „ITSMConfigItem” objektumokkal a „RelevantTo” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMConfigItem' object can be linked with other "
+"'ITSMConfigItem' objects using the 'RelevantTo' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e más „ITSMConfigItem” objektumokkal a „RelevantTo” "
+"hivatkozástípus használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'ITSMConfigItem' objects using the 'DependsOn' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-e az „ITSMConfigItem” objektumokkal a „DependsOn” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMWorkOrder' object can be linked with "
+"'ITSMConfigItem' objects using the 'DependsOn' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-"
+"e az „ITSMConfigItem” objektumokkal a „DependsOn” hivatkozástípus "
+"használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'ITSMConfigItem' objects using the 'Normal' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-e az „ITSMConfigItem” objektumokkal a „Normal” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMWorkOrder' object can be linked with "
+"'ITSMConfigItem' objects using the 'Normal' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-"
+"e az „ITSMConfigItem” objektumokkal a „Normal” hivatkozástípus használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'Service' objects using the 'DependsOn' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-e a „Service” objektumokkal a „DependsOn” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMWorkOrder' object can be linked with "
+"'Service' objects using the 'DependsOn' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-"
+"e a „Service” objektumokkal a „DependsOn” hivatkozástípus használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'Service' objects using the 'Normal' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-e a „Service” objektumokkal a „Normal” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMWorkOrder' object can be linked with "
+"'Service' objects using the 'Normal' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-"
+"e a „Service” objektumokkal a „Normal” hivatkozástípus használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'Ticket' objects using the 'Normal' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-e a „Ticket” objektumokkal a „Normal” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'ITSMWorkOrder' object can be linked with "
+"'Ticket' objects using the 'Normal' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-"
+"e a „Ticket” objektumokkal a „Normal” hivatkozástípus használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'Service' object can be linked with 'FAQ' objects using the 'Normal' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a „FAQ” objektumokkal a „Normal” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'Service' object can be linked with 'FAQ' "
+"objects using the 'Normal' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a "
+"„FAQ” objektumokkal a „Normal” hivatkozástípus használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'Service' object can be linked with 'FAQ' objects using the 'ParentChild' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a „FAQ” objektumokkal a „ParentChild” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'Service' object can be linked with 'FAQ' "
+"objects using the 'ParentChild' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a "
+"„FAQ” objektumokkal a „ParentChild” hivatkozástípus használatával."
 
 #. SysConfig
-msgid "This setting defines that a 'Service' object can be linked with 'FAQ' objects using the 'RelevantTo' link type."
-msgstr "Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a „FAQ” objektumokkal a „RelevantTo” hivatkozástípus használatával."
+msgid ""
+"This setting defines that a 'Service' object can be linked with 'FAQ' "
+"objects using the 'RelevantTo' link type."
+msgstr ""
+"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a "
+"„FAQ” objektumokkal a „RelevantTo” hivatkozástípus használatával."
 
 #. SysConfig
-msgid "This setting defines the link type 'AlternativeTo'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
-msgstr "Ez a beállítás határozza meg az „AlternativeTo” hivatkozástípust. Ha a forrásnév a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül kapott hivatkozás irányított hivatkozás lesz."
+msgid ""
+"This setting defines the link type 'AlternativeTo'. If the source name and "
+"the target name contain the same value, the resulting link is a non-"
+"directional one. If the values are different, the resulting link is a "
+"directional link."
+msgstr ""
+"Ez a beállítás határozza meg az „AlternativeTo” hivatkozástípust. Ha a "
+"forrásnév a célnév ugyanazt az értéket tartalmazza, akkor az eredményül "
+"kapott hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az "
+"eredményül kapott hivatkozás irányított hivatkozás lesz."
 
 #. SysConfig
-msgid "This setting defines the link type 'ConnectedTo'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
-msgstr "Ez a beállítás határozza meg a „ConnectedTo” hivatkozástípust. Ha a forrásnév a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül kapott hivatkozás irányított hivatkozás lesz."
+msgid ""
+"This setting defines the link type 'ConnectedTo'. If the source name and the "
+"target name contain the same value, the resulting link is a non-directional "
+"one. If the values are different, the resulting link is a directional link."
+msgstr ""
+"Ez a beállítás határozza meg a „ConnectedTo” hivatkozástípust. Ha a "
+"forrásnév a célnév ugyanazt az értéket tartalmazza, akkor az eredményül "
+"kapott hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az "
+"eredményül kapott hivatkozás irányított hivatkozás lesz."
 
 #. SysConfig
-msgid "This setting defines the link type 'DependsOn'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
-msgstr "Ez a beállítás határozza meg a „DependsOn” hivatkozástípust. Ha a forrásnév a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül kapott hivatkozás irányított hivatkozás lesz."
+msgid ""
+"This setting defines the link type 'DependsOn'. If the source name and the "
+"target name contain the same value, the resulting link is a non-directional "
+"one. If the values are different, the resulting link is a directional link."
+msgstr ""
+"Ez a beállítás határozza meg a „DependsOn” hivatkozástípust. Ha a forrásnév "
+"a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott "
+"hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül "
+"kapott hivatkozás irányított hivatkozás lesz."
 
 #. SysConfig
-msgid "This setting defines the link type 'Includes'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
-msgstr "Ez a beállítás határozza meg az „Includes” hivatkozástípust. Ha a forrásnév a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül kapott hivatkozás irányított hivatkozás lesz."
+msgid ""
+"This setting defines the link type 'Includes'. If the source name and the "
+"target name contain the same value, the resulting link is a non-directional "
+"one. If the values are different, the resulting link is a directional link."
+msgstr ""
+"Ez a beállítás határozza meg az „Includes” hivatkozástípust. Ha a forrásnév "
+"a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott "
+"hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül "
+"kapott hivatkozás irányított hivatkozás lesz."
 
 #. SysConfig
-msgid "This setting defines the link type 'LocationOf'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
+msgid ""
+"This setting defines the link type 'LocationOf'. If the source name and the "
+"target name contain the same value, the resulting link is a non-directional "
+"one. If the values are different, the resulting link is a directional link."
 msgstr ""
 
 #. SysConfig
-msgid "This setting defines the link type 'RelevantTo'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
-msgstr "Ez a beállítás határozza meg a „RelevantTo” hivatkozástípust. Ha a forrásnév a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül kapott hivatkozás irányított hivatkozás lesz."
+msgid ""
+"This setting defines the link type 'RelevantTo'. If the source name and the "
+"target name contain the same value, the resulting link is a non-directional "
+"one. If the values are different, the resulting link is a directional link."
+msgstr ""
+"Ez a beállítás határozza meg a „RelevantTo” hivatkozástípust. Ha a forrásnév "
+"a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott "
+"hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül "
+"kapott hivatkozás irányított hivatkozás lesz."
 
 #. SysConfig
 msgid "Width of ITSM textareas."
 msgstr "Az ITSM szövegdobozok szélessége."
-
