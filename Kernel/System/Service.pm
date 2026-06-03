@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 10ae9089b8e8e9b8f6cee94cf666251d5ea5b123 - Kernel/System/Service.pm
+# $origin: otobo - 5aa4852713ee4b3845891682f4385939fd086546 - Kernel/System/Service.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -35,7 +35,6 @@ our @ObjectDependencies = (
 # EO ITSMCore
     'Kernel::System::Log',
     'Kernel::System::Main',
-    'Kernel::System::Queue',
     'Kernel::System::Translations',
     'Kernel::System::Valid',
 );
@@ -1539,7 +1538,6 @@ sub ExportServices {
         }
 
         # translate IDs into names or name-like identifiers
-        my $QueueObject = $Kernel::OM->Get('Kernel::System::Queue');
         my $ValidObject = $Kernel::OM->Get('Kernel::System::Valid');
 
         ATTRIBUTE:
@@ -1560,13 +1558,6 @@ sub ExportServices {
                 );
                 $ServiceData{Valid} = $Valid;
                 delete $ServiceData{ValidID};
-            }
-            elsif ( $Attribute eq 'DestQueueID' ) {
-                my $Queue = $QueueObject->QueueLookup(
-                    QueueID => $ServiceData{DestQueueID},
-                );
-                $ServiceData{DestQueue} = $Queue;
-                delete $ServiceData{DestQueueID};
             }
 # Rother OSS / ITSMCore
             elsif ( $Attribute eq 'TypeID' && IsHashRefWithData($TypeList) ) {
@@ -1594,7 +1585,6 @@ sub ImportServices {
 
     my $UserID = $Self->{UserID} || $Param{UserID};
 
-    my $QueueObject = $Kernel::OM->Get('Kernel::System::Queue');
     my $ValidObject = $Kernel::OM->Get('Kernel::System::Valid');
     my %ServiceList = $Self->ServiceList(
         Valid  => 0,
@@ -1675,11 +1665,6 @@ sub ImportServices {
         next SERVICENAME if ( !$Param{OverwriteExistingEntities} && $ServiceID );
 
         # translate named data back to IDs
-        if ( $ServiceData->{DestQueue} ) {
-            $ServiceData->{DestQueueID} = $QueueObject->QueueLookup(
-                Queue => $ServiceData->{DestQueue},
-            );
-        }
 # Rother OSS / ITSMCore
         if ( $ServiceData->{Type} ) {
             $ServiceData->{TypeID} = $TypeLookup{$ServiceData->{Type}};
