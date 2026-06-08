@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OTOBO Documentation dev\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-24 08:45+0000\n"
+"POT-Creation-Date: 2026-06-08 07:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,617 +21,698 @@ msgid "Contents"
 msgstr ""
 
 #: ../content/index.rst:10
-msgid "OTOBO::ITSM Core"
-msgstr ""
-
-#: ../content/index.rst:13
 msgid "Description"
 msgstr ""
 
-#: ../content/index.rst:14
+#: ../content/index.rst:11
 msgid "The OTOBO::ITSM Core package."
 msgstr ""
 
-#: ../content/index.rst:17
+#: ../content/index.rst:14
 msgid "System requirements"
 msgstr ""
 
-#: ../content/index.rst:20
+#: ../content/index.rst:17
 msgid "Framework"
 msgstr ""
 
-#: ../content/index.rst:21
+#: ../content/index.rst:18
 msgid "OTOBO 11.0.x"
 msgstr ""
 
-#: ../content/index.rst:24
+#: ../content/index.rst:21
 msgid "Packages"
 msgstr ""
 
-#: ../content/index.rst:25
+#: ../content/index.rst:22
 msgid "GeneralCatalog 11.0.0"
 msgstr ""
 
-#: ../content/index.rst:28
+#: ../content/index.rst:25
 msgid "Third-party software"
 msgstr ""
 
-#: ../content/index.rst:29
+#: ../content/index.rst:26
 msgid "\\-"
 msgstr ""
 
-#: ../content/index.rst:32
+#: ../content/index.rst:29
 msgid "Usage"
 msgstr ""
 
-#: ../content/index.rst:35
+#: ../content/index.rst:32
 msgid "Setup"
 msgstr ""
 
-#: ../content/index.rst:38
+#: ../content/index.rst:35
 msgid "Configuration Reference"
 msgstr ""
 
-#: ../content/index.rst:41
+#: ../content/index.rst:38
 msgid "Core"
 msgstr ""
 
-#: ../content/index.rst:44
+#: ../content/index.rst:41
 msgid "ProductName"
 msgstr ""
 
-#: ../content/index.rst:45
+#: ../content/index.rst:42
 msgid "Defines the name of the application, shown in the web interface, tabs and title bar of the web browser."
 msgstr ""
 
-#: ../content/index.rst:48
-msgid "Core::GeneralCatalog"
+#: ../content/index.rst:45
+msgid "Core::DynamicFields::DriverRegistration"
 msgstr ""
 
-#: ../content/index.rst:51
-msgid "GeneralCatalogPreferences###IncidentStates"
+#: ../content/index.rst:48
+msgid "DynamicFields::Driver###Service"
+msgstr ""
+
+#: ../content/index.rst:49
+msgid "DynamicField backend registration."
 msgstr ""
 
 #: ../content/index.rst:52
-msgid "Parameters for the incident states in the preference view."
+msgid "Core::GeneralCatalog"
 msgstr ""
 
 #: ../content/index.rst:55
-msgid "Core::ITSMCore"
+msgid "GeneralCatalogPreferences###IncidentStates"
 msgstr ""
 
-#: ../content/index.rst:58
-msgid "ITSM::Core::IncidentLinkTypeDirection"
+#: ../content/index.rst:56
+msgid "Parameters for the incident states in the preference view."
 msgstr ""
 
 #: ../content/index.rst:59
-msgid "Set the type and direction of links to be used to calculate the incident state. The key is the name of the link type (as defined in LinkObject::Type), and the value is the direction of the IncidentLinkType that should be followed to calculate the incident state. For example if the IncidentLinkType is set to 'DependsOn', and the Direction is 'Source', only 'Depends on' links will be followed (and not the opposite link 'Required for') to calculate the incident state. You can add more link types ad directions as you like, e.g. 'Includes' with the direction 'Target'. All link types defined in the sysconfig options LinkObject::Type are possible and the direction can be 'Source', 'Target', or 'Both'. IMPORTANT: AFTER YOU MAKE CHANGES TO THIS SYSCONFIG OPTION YOU NEED TO RUN THE CONSOLE COMMAND bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!"
+msgid "Core::ITSMCore"
 msgstr ""
 
 #: ../content/index.rst:62
-msgid "Core::LinkObject"
+msgid "ITSM::Core::IncidentLinkTypeDirection"
 msgstr ""
 
-#: ../content/index.rst:65
-msgid "LinkObject::ViewMode"
+#: ../content/index.rst:63
+msgid "Set the type and direction of links to be used to calculate the incident state. The key is the name of the link type (as defined in LinkObject::Type), and the value is the direction of the IncidentLinkType that should be followed to calculate the incident state. For example if the IncidentLinkType is set to 'DependsOn', and the Direction is 'Source', only 'Depends on' links will be followed (and not the opposite link 'Required for') to calculate the incident state. You can add more link types ad directions as you like, e.g. 'Includes' with the direction 'Target'. All link types defined in the sysconfig options LinkObject::Type are possible and the direction can be 'Source', 'Target', or 'Both'. IMPORTANT: AFTER YOU MAKE CHANGES TO THIS SYSCONFIG OPTION YOU NEED TO RUN THE CONSOLE COMMAND bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!"
 msgstr ""
 
 #: ../content/index.rst:66
-msgid "Determines the way the linked objects are displayed in each zoom mask."
+msgid "ITSM::Frontend::CIPAllocationDefault"
 msgstr ""
 
-#: ../content/index.rst:69
-msgid "LinkObject::PossibleLink###3281"
+#: ../content/index.rst:67
+msgid "Default behavior of priority allocation in the frontends based on Criticality and Impact. Can be overruled by frontend specific PriorityByCIP settings."
 msgstr ""
 
 #: ../content/index.rst:70
-msgid "This setting defines that a 'Service' object can be linked with 'FAQ' objects using the 'ParentChild' link type."
+msgid "Core::LinkObject"
 msgstr ""
 
 #: ../content/index.rst:73
-msgid "LinkObject::PossibleLink###3282"
-msgstr ""
-
-#: ../content/index.rst:74
-msgid "This setting defines that a 'Service' object can be linked with 'FAQ' objects using the 'RelevantTo' link type."
-msgstr ""
-
-#: ../content/index.rst:77
-msgid "LinkObject::PossibleLink###3400"
-msgstr ""
-
-#: ../content/index.rst:78
-msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'Service' objects using the 'Normal' link type."
-msgstr ""
-
-#: ../content/index.rst:81
-msgid "LinkObject::PossibleLink###3401"
-msgstr ""
-
-#: ../content/index.rst:82
-msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'Service' objects using the 'DependsOn' link type."
-msgstr ""
-
-#: ../content/index.rst:85
-msgid "LinkObject::PossibleLink###3410"
-msgstr ""
-
-#: ../content/index.rst:86
-msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'ITSMConfigItem' objects using the 'Normal' link type."
-msgstr ""
-
-#: ../content/index.rst:89
-msgid "LinkObject::PossibleLink###3411"
-msgstr ""
-
-#: ../content/index.rst:90
-msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'ITSMConfigItem' objects using the 'DependsOn' link type."
-msgstr ""
-
-#: ../content/index.rst:93
-msgid "LinkObject::PossibleLink###3412"
-msgstr ""
-
-#: ../content/index.rst:94
-msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'Ticket' objects using the 'Normal' link type."
-msgstr ""
-
-#: ../content/index.rst:97
-msgid "LinkObject::PossibleLink###3420"
-msgstr ""
-
-#: ../content/index.rst:98
-msgid "This setting defines that a 'ITSMChange' object can be linked with 'Ticket' objects using the 'Normal' link type."
-msgstr ""
-
-#: ../content/index.rst:101
-msgid "LinkObject::Type###AlternativeTo"
-msgstr ""
-
-#: ../content/index.rst:102
-msgid "This setting defines the link type 'AlternativeTo'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
-msgstr ""
-
-#: ../content/index.rst:105
-msgid "LinkObject::Type###ConnectedTo"
-msgstr ""
-
-#: ../content/index.rst:106
-msgid "This setting defines the link type 'ConnectedTo'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
-msgstr ""
-
-#: ../content/index.rst:109
-msgid "LinkObject::Type###DependsOn"
-msgstr ""
-
-#: ../content/index.rst:110
-msgid "This setting defines the link type 'DependsOn'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
-msgstr ""
-
-#: ../content/index.rst:113
-msgid "LinkObject::Type###Includes"
-msgstr ""
-
-#: ../content/index.rst:114
-msgid "This setting defines the link type 'Includes'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
-msgstr ""
-
-#: ../content/index.rst:117
-msgid "LinkObject::Type###RelevantTo"
-msgstr ""
-
-#: ../content/index.rst:118
-msgid "This setting defines the link type 'RelevantTo'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
-msgstr ""
-
-#: ../content/index.rst:121
 msgid "LinkObject::PossibleLink###3200"
 msgstr ""
 
-#: ../content/index.rst:122
+#: ../content/index.rst:74
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'AlternativeTo' link type."
 msgstr ""
 
-#: ../content/index.rst:125
+#: ../content/index.rst:77
 msgid "LinkObject::PossibleLink###3201"
 msgstr ""
 
-#: ../content/index.rst:126
+#: ../content/index.rst:78
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'ConnectedTo' link type."
 msgstr ""
 
-#: ../content/index.rst:129
+#: ../content/index.rst:81
 msgid "LinkObject::PossibleLink###3202"
 msgstr ""
 
-#: ../content/index.rst:130
+#: ../content/index.rst:82
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'DependsOn' link type."
 msgstr ""
 
-#: ../content/index.rst:133
+#: ../content/index.rst:85
 msgid "LinkObject::PossibleLink###3203"
 msgstr ""
 
-#: ../content/index.rst:134
+#: ../content/index.rst:86
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'Includes' link type."
 msgstr ""
 
-#: ../content/index.rst:137
+#: ../content/index.rst:89
 msgid "LinkObject::PossibleLink###3204"
 msgstr ""
 
-#: ../content/index.rst:138
+#: ../content/index.rst:90
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'RelevantTo' link type."
 msgstr ""
 
-#: ../content/index.rst:141
+#: ../content/index.rst:93
+msgid "LinkObject::PossibleLink###3205"
+msgstr ""
+
+#: ../content/index.rst:94
+msgid "This setting defines that a 'ITSMConfigItem' object can be linked with other 'ITSMConfigItem' objects using the 'LocationOf' link type."
+msgstr ""
+
+#: ../content/index.rst:97
 msgid "LinkObject::PossibleLink###3220"
 msgstr ""
 
-#: ../content/index.rst:142
+#: ../content/index.rst:98
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'Ticket' objects using the 'AlternativeTo' link type."
 msgstr ""
 
-#: ../content/index.rst:145
+#: ../content/index.rst:101
 msgid "LinkObject::PossibleLink###3221"
 msgstr ""
 
-#: ../content/index.rst:146
+#: ../content/index.rst:102
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'Ticket' objects using the 'DependsOn' link type."
 msgstr ""
 
-#: ../content/index.rst:149
+#: ../content/index.rst:105
 msgid "LinkObject::PossibleLink###3222"
 msgstr ""
 
-#: ../content/index.rst:150
+#: ../content/index.rst:106
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'Ticket' objects using the 'RelevantTo' link type."
 msgstr ""
 
-#: ../content/index.rst:153
+#: ../content/index.rst:109
 msgid "LinkObject::PossibleLink###3240"
 msgstr ""
 
-#: ../content/index.rst:154
+#: ../content/index.rst:110
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'Service' objects using the 'AlternativeTo' link type."
 msgstr ""
 
-#: ../content/index.rst:157
+#: ../content/index.rst:113
 msgid "LinkObject::PossibleLink###3241"
 msgstr ""
 
-#: ../content/index.rst:158
+#: ../content/index.rst:114
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'Service' objects using the 'DependsOn' link type."
 msgstr ""
 
-#: ../content/index.rst:161
+#: ../content/index.rst:117
 msgid "LinkObject::PossibleLink###3242"
 msgstr ""
 
-#: ../content/index.rst:162
+#: ../content/index.rst:118
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'Service' objects using the 'RelevantTo' link type."
 msgstr ""
 
-#: ../content/index.rst:165
+#: ../content/index.rst:121
 msgid "LinkObject::PossibleLink###3260"
 msgstr ""
 
-#: ../content/index.rst:166
+#: ../content/index.rst:122
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' objects using the 'Normal' link type."
 msgstr ""
 
-#: ../content/index.rst:169
+#: ../content/index.rst:125
 msgid "LinkObject::PossibleLink###3261"
 msgstr ""
 
-#: ../content/index.rst:170
+#: ../content/index.rst:126
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' objects using the 'ParentChild' link type."
 msgstr ""
 
-#: ../content/index.rst:173
+#: ../content/index.rst:129
 msgid "LinkObject::PossibleLink###3262"
 msgstr ""
 
-#: ../content/index.rst:174
+#: ../content/index.rst:130
 msgid "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' objects using the 'RelevantTo' link type."
 msgstr ""
 
-#: ../content/index.rst:177
+#: ../content/index.rst:133
 msgid "LinkObject::PossibleLink###3280"
 msgstr ""
 
-#: ../content/index.rst:178
+#: ../content/index.rst:134
 msgid "This setting defines that a 'Service' object can be linked with 'FAQ' objects using the 'Normal' link type."
 msgstr ""
 
-#: ../content/index.rst:181
-msgid "Core::Package"
+#: ../content/index.rst:137
+msgid "LinkObject::PossibleLink###3281"
 msgstr ""
 
-#: ../content/index.rst:184
-#: ../content/index.rst:188
-msgid "Package::RepositoryList"
+#: ../content/index.rst:138
+msgid "This setting defines that a 'Service' object can be linked with 'FAQ' objects using the 'ParentChild' link type."
+msgstr ""
+
+#: ../content/index.rst:141
+msgid "LinkObject::PossibleLink###3282"
+msgstr ""
+
+#: ../content/index.rst:142
+msgid "This setting defines that a 'Service' object can be linked with 'FAQ' objects using the 'RelevantTo' link type."
+msgstr ""
+
+#: ../content/index.rst:145
+msgid "LinkObject::PossibleLink###3400"
+msgstr ""
+
+#: ../content/index.rst:146
+msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'Service' objects using the 'Normal' link type."
+msgstr ""
+
+#: ../content/index.rst:149
+msgid "LinkObject::PossibleLink###3401"
+msgstr ""
+
+#: ../content/index.rst:150
+msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'Service' objects using the 'DependsOn' link type."
+msgstr ""
+
+#: ../content/index.rst:153
+msgid "LinkObject::PossibleLink###3410"
+msgstr ""
+
+#: ../content/index.rst:154
+msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'ITSMConfigItem' objects using the 'Normal' link type."
+msgstr ""
+
+#: ../content/index.rst:157
+msgid "LinkObject::PossibleLink###3411"
+msgstr ""
+
+#: ../content/index.rst:158
+msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'ITSMConfigItem' objects using the 'DependsOn' link type."
+msgstr ""
+
+#: ../content/index.rst:161
+msgid "LinkObject::PossibleLink###3412"
+msgstr ""
+
+#: ../content/index.rst:162
+msgid "This setting defines that a 'ITSMWorkOrder' object can be linked with 'Ticket' objects using the 'Normal' link type."
+msgstr ""
+
+#: ../content/index.rst:165
+msgid "LinkObject::PossibleLink###3420"
+msgstr ""
+
+#: ../content/index.rst:166
+msgid "This setting defines that a 'ITSMChange' object can be linked with 'Ticket' objects using the 'Normal' link type."
+msgstr ""
+
+#: ../content/index.rst:169
+msgid "LinkObject::Type###AlternativeTo"
+msgstr ""
+
+#: ../content/index.rst:170
+msgid "This setting defines the link type 'AlternativeTo'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
+msgstr ""
+
+#: ../content/index.rst:173
+msgid "LinkObject::Type###ConnectedTo"
+msgstr ""
+
+#: ../content/index.rst:174
+msgid "This setting defines the link type 'ConnectedTo'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
+msgstr ""
+
+#: ../content/index.rst:177
+msgid "LinkObject::Type###DependsOn"
+msgstr ""
+
+#: ../content/index.rst:178
+msgid "This setting defines the link type 'DependsOn'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
+msgstr ""
+
+#: ../content/index.rst:181
+msgid "LinkObject::Type###Includes"
+msgstr ""
+
+#: ../content/index.rst:182
+msgid "This setting defines the link type 'Includes'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
 msgstr ""
 
 #: ../content/index.rst:185
+msgid "LinkObject::Type###LocationOf"
+msgstr ""
+
+#: ../content/index.rst:186
+msgid "This setting defines the link type 'LocationOf'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
+msgstr ""
+
 #: ../content/index.rst:189
+msgid "LinkObject::Type###RelevantTo"
+msgstr ""
+
+#: ../content/index.rst:190
+msgid "This setting defines the link type 'RelevantTo'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link."
+msgstr ""
+
+#: ../content/index.rst:193
+msgid "LinkObject::ViewMode"
+msgstr ""
+
+#: ../content/index.rst:194
+msgid "Determines the way the linked objects are displayed in each zoom mask."
+msgstr ""
+
+#: ../content/index.rst:197
+msgid "Core::Package"
+msgstr ""
+
+#: ../content/index.rst:200
+msgid "Package::RepositoryList"
+msgstr ""
+
+#: ../content/index.rst:201
 msgid "Defines the list of online repositories. Another installation can be used as repository, for example: Key=\"http://example.com/otobo/public.pl?Action=PublicRepository;File=\" and Content=\"Some Name\"."
 msgstr ""
 
-#: ../content/index.rst:192
+#: ../content/index.rst:204
 msgid "Core::Ticket"
 msgstr ""
 
-#: ../content/index.rst:195
+#: ../content/index.rst:207
 msgid "Ticket::Service"
 msgstr ""
 
-#: ../content/index.rst:196
+#: ../content/index.rst:208
 msgid "Allows defining services and SLAs for tickets (e. g. email, desktop, network, ...), and escalation attributes for SLAs (if ticket service/SLA feature is enabled)."
 msgstr ""
 
-#: ../content/index.rst:199
+#: ../content/index.rst:211
 msgid "Frontend::Admin::ModuleRegistration"
 msgstr ""
 
-#: ../content/index.rst:202
+#: ../content/index.rst:214
 msgid "Frontend::Module###AdminITSMCIPAllocate"
 msgstr ""
 
-#: ../content/index.rst:203
+#: ../content/index.rst:215
 msgid "Frontend module registration for the AdminITSMCIPAllocate configuration in the admin area."
 msgstr ""
 
-#: ../content/index.rst:206
+#: ../content/index.rst:218
 msgid "Frontend::Admin::ModuleRegistration::AdminOverview"
 msgstr ""
 
-#: ../content/index.rst:209
+#: ../content/index.rst:221
 msgid "Frontend::NavigationModule###AdminITSMCIPAllocate"
 msgstr ""
 
-#: ../content/index.rst:210
+#: ../content/index.rst:222
 msgid "Admin area navigation for the agent interface."
 msgstr ""
 
-#: ../content/index.rst:213
+#: ../content/index.rst:225
 msgid "Frontend::Admin::ModuleRegistration::Loader"
 msgstr ""
 
-#: ../content/index.rst:216
+#: ../content/index.rst:228
 msgid "Loader::Module::AdminITSMCIPAllocate###003-ITSMCore"
 msgstr ""
 
-#: ../content/index.rst:217
-#: ../content/index.rst:302
-#: ../content/index.rst:306
-#: ../content/index.rst:310
+#: ../content/index.rst:229
 #: ../content/index.rst:314
+#: ../content/index.rst:318
+#: ../content/index.rst:322
+#: ../content/index.rst:326
 msgid "Loader module registration for the agent interface."
 msgstr ""
 
-#: ../content/index.rst:220
+#: ../content/index.rst:232
 msgid "Frontend::Admin::ModuleRegistration::MainMenu"
 msgstr ""
 
-#: ../content/index.rst:223
+#: ../content/index.rst:235
 msgid "Frontend::Navigation###AdminITSMCIPAllocate###003-ITSMCore"
 msgstr ""
 
-#: ../content/index.rst:224
-#: ../content/index.rst:321
-#: ../content/index.rst:325
+#: ../content/index.rst:236
+#: ../content/index.rst:333
+#: ../content/index.rst:337
 msgid "Main menu item registration."
 msgstr ""
 
-#: ../content/index.rst:227
+#: ../content/index.rst:239
 msgid "Frontend::Agent"
 msgstr ""
 
-#: ../content/index.rst:230
+#: ../content/index.rst:242
 msgid "ITSM::Frontend::TextArea"
 msgstr ""
 
-#: ../content/index.rst:231
+#: ../content/index.rst:243
 msgid "Width of ITSM textareas."
 msgstr ""
 
-#: ../content/index.rst:234
+#: ../content/index.rst:246
 msgid "Frontend::Agent::ITSMSLA::MenuModule"
 msgstr ""
 
-#: ../content/index.rst:237
+#: ../content/index.rst:249
 msgid "ITSMSLA::Frontend::MenuModule###000-Back"
 msgstr ""
 
-#: ../content/index.rst:238
+#: ../content/index.rst:250
 msgid "Module to show the Back menu item in SLA menu."
 msgstr ""
 
-#: ../content/index.rst:241
+#: ../content/index.rst:253
 msgid "ITSMSLA::Frontend::MenuModule###100-Print"
 msgstr ""
 
-#: ../content/index.rst:242
+#: ../content/index.rst:254
 msgid "Module to show the Print menu item in SLA menu."
 msgstr ""
 
-#: ../content/index.rst:245
+#: ../content/index.rst:257
 msgid "Frontend::Agent::ITSMService::MenuModule"
 msgstr ""
 
-#: ../content/index.rst:248
+#: ../content/index.rst:260
 msgid "ITSMService::Frontend::MenuModule###000-Back"
 msgstr ""
 
-#: ../content/index.rst:249
+#: ../content/index.rst:261
 msgid "Module to show the Back menu item in service menu."
 msgstr ""
 
-#: ../content/index.rst:252
+#: ../content/index.rst:264
 msgid "ITSMService::Frontend::MenuModule###100-Print"
 msgstr ""
 
-#: ../content/index.rst:253
+#: ../content/index.rst:265
 msgid "Module to show the Print menu item in service menu."
 msgstr ""
 
-#: ../content/index.rst:256
+#: ../content/index.rst:268
 msgid "ITSMService::Frontend::MenuModule###200-Link"
 msgstr ""
 
-#: ../content/index.rst:257
+#: ../content/index.rst:269
 msgid "Module to show the Link menu item in service menu."
 msgstr ""
 
-#: ../content/index.rst:260
+#: ../content/index.rst:272
 msgid "Frontend::Agent::LinkObject"
 msgstr ""
 
-#: ../content/index.rst:263
-msgid "LinkObject::ComplexTable::SettingsVisibility###Service"
-msgstr ""
-
-#: ../content/index.rst:264
-msgid "Define Actions where a settings button is available in the linked objects widget (LinkObject::ViewMode = \"complex\"). Please note that these Actions must have registered the following JS and CSS files: Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, Core.Agent.TableFilters.js and Core.Agent.LinkObject.js."
-msgstr ""
-
-#: ../content/index.rst:267
+#: ../content/index.rst:275
 msgid "LinkObject::ComplexTable###Service"
 msgstr ""
 
-#: ../content/index.rst:268
+#: ../content/index.rst:276
 msgid "Define which columns are shown in the linked Services widget (LinkObject::ViewMode = \"complex\"). Note: Only Service attributes are allowed for DefaultColumns. Possible settings: 0 = Disabled, 1 = Available, 2 = Enabled by default."
 msgstr ""
 
-#: ../content/index.rst:271
-msgid "Frontend::Agent::ModuleRegistration"
-msgstr ""
-
-#: ../content/index.rst:274
-msgid "Frontend::Module###AgentITSMService"
-msgstr ""
-
-#: ../content/index.rst:275
-msgid "Frontend module registration for the AgentITSMService object in the agent interface."
-msgstr ""
-
-#: ../content/index.rst:278
-msgid "Frontend::Module###AgentITSMSLA"
-msgstr ""
-
 #: ../content/index.rst:279
-msgid "Frontend module registration for the AgentITSMSLA object in the agent interface."
+msgid "LinkObject::ComplexTable::SettingsVisibility###Service"
 msgstr ""
 
-#: ../content/index.rst:282
-msgid "Frontend::Module###AgentITSMServiceZoom"
+#: ../content/index.rst:280
+msgid "Define Actions where a settings button is available in the linked objects widget (LinkObject::ViewMode = \"complex\"). Please note that these Actions must have registered the following JS and CSS files: Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, Core.Agent.TableFilters.js and Core.Agent.LinkObject.js."
 msgstr ""
 
 #: ../content/index.rst:283
-msgid "Frontend module registration for the AgentITSMServiceZoom object in the agent interface."
+msgid "Frontend::Agent::ModuleRegistration"
 msgstr ""
 
 #: ../content/index.rst:286
-msgid "Frontend::Module###AgentITSMServicePrint"
+msgid "Frontend::Module###AgentITSMSLA"
 msgstr ""
 
 #: ../content/index.rst:287
-msgid "Frontend module registration for the AgentITSMServicePrint object in the agent interface."
+msgid "Frontend module registration for the AgentITSMSLA object in the agent interface."
 msgstr ""
 
 #: ../content/index.rst:290
-msgid "Frontend::Module###AgentITSMSLAZoom"
-msgstr ""
-
-#: ../content/index.rst:291
-msgid "Frontend module registration for the AgentITSMSLAZoom object in the agent interface."
-msgstr ""
-
-#: ../content/index.rst:294
 msgid "Frontend::Module###AgentITSMSLAPrint"
 msgstr ""
 
-#: ../content/index.rst:295
+#: ../content/index.rst:291
 msgid "Frontend module registration for the AgentITSMSLAPrint object in the agent interface."
 msgstr ""
 
+#: ../content/index.rst:294
+msgid "Frontend::Module###AgentITSMSLAZoom"
+msgstr ""
+
+#: ../content/index.rst:295
+msgid "Frontend module registration for the AgentITSMSLAZoom object in the agent interface."
+msgstr ""
+
 #: ../content/index.rst:298
+msgid "Frontend::Module###AgentITSMService"
+msgstr ""
+
+#: ../content/index.rst:299
+msgid "Frontend module registration for the AgentITSMService object in the agent interface."
+msgstr ""
+
+#: ../content/index.rst:302
+msgid "Frontend::Module###AgentITSMServicePrint"
+msgstr ""
+
+#: ../content/index.rst:303
+msgid "Frontend module registration for the AgentITSMServicePrint object in the agent interface."
+msgstr ""
+
+#: ../content/index.rst:306
+msgid "Frontend::Module###AgentITSMServiceZoom"
+msgstr ""
+
+#: ../content/index.rst:307
+msgid "Frontend module registration for the AgentITSMServiceZoom object in the agent interface."
+msgstr ""
+
+#: ../content/index.rst:310
 msgid "Frontend::Agent::ModuleRegistration::Loader"
 msgstr ""
 
-#: ../content/index.rst:301
-msgid "Loader::Module::AgentITSMService###003-ITSMService"
-msgstr ""
-
-#: ../content/index.rst:305
+#: ../content/index.rst:313
 msgid "Loader::Module::AgentITSMSLA###003-ITSMService"
 msgstr ""
 
-#: ../content/index.rst:309
-msgid "Loader::Module::AgentITSMServiceZoom###003-ITSMService"
-msgstr ""
-
-#: ../content/index.rst:313
+#: ../content/index.rst:317
 msgid "Loader::Module::AgentITSMSLAZoom###003-ITSMService"
 msgstr ""
 
-#: ../content/index.rst:317
+#: ../content/index.rst:321
+msgid "Loader::Module::AgentITSMService###003-ITSMService"
+msgstr ""
+
+#: ../content/index.rst:325
+msgid "Loader::Module::AgentITSMServiceZoom###003-ITSMService"
+msgstr ""
+
+#: ../content/index.rst:329
 msgid "Frontend::Agent::ModuleRegistration::MainMenu"
 msgstr ""
 
-#: ../content/index.rst:320
-msgid "Frontend::Navigation###AgentITSMService###003-ITSMService"
-msgstr ""
-
-#: ../content/index.rst:324
+#: ../content/index.rst:332
 msgid "Frontend::Navigation###AgentITSMSLA###003-ITSMService"
 msgstr ""
 
-#: ../content/index.rst:328
-msgid "Frontend::Base::Loader"
-msgstr ""
-
-#: ../content/index.rst:331
-msgid "Loader::Agent::CommonCSS###100-ITSM"
-msgstr ""
-
-#: ../content/index.rst:332
-msgid "List of CSS files to always be loaded for the agent interface."
-msgstr ""
-
-#: ../content/index.rst:335
-msgid "Loader::Agent::CommonJS###100-ITSM"
-msgstr ""
-
 #: ../content/index.rst:336
-msgid "List of JS files to always be loaded for the agent interface."
+msgid "Frontend::Navigation###AgentITSMService###003-ITSMService"
 msgstr ""
 
-#: ../content/index.rst:339
-msgid "About"
-msgstr ""
-
-#: ../content/index.rst:342
-msgid "Contact"
+#: ../content/index.rst:340
+msgid "Frontend::Agent::View::TicketEmailNew"
 msgstr ""
 
 #: ../content/index.rst:343
-msgid "Rother OSS GmbH"
+msgid "Ticket::Frontend::AgentTicketEmail###PriorityByCIP"
 msgstr ""
 
 #: ../content/index.rst:344
-msgid "Email: hello@otobo.de"
+#: ../content/index.rst:351
+#: ../content/index.rst:358
+#: ../content/index.rst:383
+msgid "CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault."
 msgstr ""
 
-#: ../content/index.rst:345
-msgid "Web: https://otobo.de"
+#: ../content/index.rst:347
+msgid "Frontend::Agent::View::TicketFreeText"
 msgstr ""
 
-#: ../content/index.rst:348
+#: ../content/index.rst:350
+msgid "Ticket::Frontend::AgentTicketFreeText###PriorityByCIP"
+msgstr ""
+
+#: ../content/index.rst:354
+msgid "Frontend::Agent::View::TicketPhoneNew"
+msgstr ""
+
+#: ../content/index.rst:357
+msgid "Ticket::Frontend::AgentTicketPhone###PriorityByCIP"
+msgstr ""
+
+#: ../content/index.rst:361
+msgid "Frontend::Agent::View::TicketZoom"
+msgstr ""
+
+#: ../content/index.rst:364
+msgid "Ticket::Frontend::AgentTicketZoom###ServiceInciStateSignal"
+msgstr ""
+
+#: ../content/index.rst:365
+msgid "Show the current service incident state signal in the ticket information."
+msgstr ""
+
+#: ../content/index.rst:368
+msgid "Frontend::Base::Loader"
+msgstr ""
+
+#: ../content/index.rst:371
+msgid "Loader::Agent::CommonCSS###100-ITSM"
+msgstr ""
+
+#: ../content/index.rst:372
+msgid "List of CSS files to always be loaded for the agent interface."
+msgstr ""
+
+#: ../content/index.rst:375
+msgid "Loader::Agent::CommonJS###100-ITSM"
+msgstr ""
+
+#: ../content/index.rst:376
+msgid "List of JS files to always be loaded for the agent interface."
+msgstr ""
+
+#: ../content/index.rst:379
+msgid "Frontend::Customer::View::TicketMessage"
+msgstr ""
+
+#: ../content/index.rst:382
+msgid "Ticket::Frontend::CustomerTicketMessage###PriorityByCIP"
+msgstr ""
+
+#: ../content/index.rst:386
+msgid "About"
+msgstr ""
+
+#: ../content/index.rst:389
+msgid "Contact"
+msgstr ""
+
+#: ../content/index.rst:390
+msgid "Rother OSS GmbH"
+msgstr ""
+
+#: ../content/index.rst:391
+msgid "Email: hello@otobo.io"
+msgstr ""
+
+#: ../content/index.rst:392
+msgid "Web: https://otobo.io"
+msgstr ""
+
+#: ../content/index.rst:395
 msgid "Version"
 msgstr ""
 
-#: ../content/index.rst:349
+#: ../content/index.rst:396
 msgid "Author: |doc-vendor| / Version: |doc-version| / Date of release: |doc-datestamp|"
 msgstr ""
