@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - e13dcd88cef388cb3a5ad0abeaac00807b5528c9 - Kernel/Modules/AgentTicketProcess.pm
+# $origin: otobo - f4a2fc11280f888d516cc323860e32bfc4bc3f9e - Kernel/Modules/AgentTicketProcess.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -897,7 +897,7 @@ sub _RenderAjax {
             $Param{GetParam}->%*,
             DynamicField => $DFParam,
         },
-        DynFieldStates      => \%DynFieldStates,
+        DynFieldStates => \%DynFieldStates,
     );
 
     push @JSONCollector, @DynamicFieldAJAX;
@@ -4261,7 +4261,6 @@ sub _RenderPriority {
             PriorityID => $PriorityIDParam,
         );
     }
-
 
 # Rother OSS / ITSMCore - calculate Priority via CIP matrix
     my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
