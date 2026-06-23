@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
-"POT-Creation-Date: 2026-03-06 11:43+0000\n"
+"POT-Creation-Date: 2026-06-03 15:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -112,6 +112,10 @@ msgstr "Текущо състояние на инцидента"
 msgid "Incident State"
 msgstr "Състояние на инцидента"
 
+#. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
+msgid "External-source key"
+msgstr ""
+
 #. Database XML / SOPM Definition: ITSMCore.sopm
 msgid "Operational"
 msgstr "Оперативен"
@@ -187,10 +191,6 @@ msgstr "Грешки"
 #. SysConfig
 msgid "Alternative to"
 msgstr "Алтернативен на"
-
-#. SysConfig
-msgid "Both"
-msgstr "И двете"
 
 #. SysConfig
 msgid ""
@@ -701,3 +701,6 @@ msgstr ""
 #. SysConfig
 msgid "Width of ITSM textareas."
 msgstr "Ширина на ITSM текстовите области."
+
+#~ msgid "Both"
+#~ msgstr "И двете"

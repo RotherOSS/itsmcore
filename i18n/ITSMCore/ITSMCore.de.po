@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
-"POT-Creation-Date: 2026-03-06 11:43+0000\n"
+"POT-Creation-Date: 2026-06-03 15:16+0000\n"
 "PO-Revision-Date: 2026-06-23 15:58+0000\n"
 "Last-Translator: Stefan Abel <sta@rother-oss.com>\n"
 "Language-Team: German <http://translate.otobo.org/projects/otobo-11-1/addons/"
@@ -115,6 +115,10 @@ msgstr "Aktueller Vorfallstatus"
 msgid "Incident State"
 msgstr "Vorfallstatus"
 
+#. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
+msgid "External-source key"
+msgstr ""
+
 #. Database XML / SOPM Definition: ITSMCore.sopm
 msgid "Operational"
 msgstr "Operativ"
@@ -190,10 +194,6 @@ msgstr "Fehler"
 #. SysConfig
 msgid "Alternative to"
 msgstr "Alternativ zu"
-
-#. SysConfig
-msgid "Both"
-msgstr "Beides"
 
 #. SysConfig
 msgid ""
@@ -706,3 +706,6 @@ msgstr ""
 #. SysConfig
 msgid "Width of ITSM textareas."
 msgstr "Anzahl der Zeichen pro Zeile in ITSM-Textfeldern."
+
+#~ msgid "Both"
+#~ msgstr "Beides"

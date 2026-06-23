@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
-"POT-Creation-Date: 2026-03-06 11:43+0000\n"
+"POT-Creation-Date: 2026-06-03 15:16+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -110,6 +110,10 @@ msgstr "وضعیت جاری رخداد"
 msgid "Incident State"
 msgstr "وضعیت رخداد"
 
+#. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
+msgid "External-source key"
+msgstr ""
+
 #. Database XML / SOPM Definition: ITSMCore.sopm
 msgid "Operational"
 msgstr "عملیاتی"
@@ -185,10 +189,6 @@ msgstr "خطاها"
 #. SysConfig
 msgid "Alternative to"
 msgstr "جایگزینی برای"
-
-#. SysConfig
-msgid "Both"
-msgstr ""
 
 #. SysConfig
 msgid ""
