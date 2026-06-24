@@ -71,6 +71,9 @@ sub Data {
     # Perl Module: Kernel/Output/HTML/LinkObject/Service.pm
     $Self->{Translation}->{'Incident State'} = 'Състояние на инцидента';
 
+    # Perl Module: Kernel/System/DynamicField/Driver/Service.pm
+    $Self->{Translation}->{'External-source key'} = '';
+
     # Database XML / SOPM Definition: ITSMCore.sopm
     $Self->{Translation}->{'Operational'} = 'Оперативен';
     $Self->{Translation}->{'Incident'} = 'Инцидент';
