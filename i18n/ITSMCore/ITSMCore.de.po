@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
 "POT-Creation-Date: 2026-06-03 15:16+0000\n"
-"PO-Revision-Date: 2026-06-23 15:58+0000\n"
+"PO-Revision-Date: 2026-06-24 13:00+0000\n"
 "Last-Translator: Stefan Abel <sta@rother-oss.com>\n"
 "Language-Team: German <http://translate.otobo.org/projects/otobo-11-1/addons/"
 "itsm-core/de/>\n"
@@ -65,11 +65,11 @@ msgstr "Zugehörige SLAs"
 
 #. Template: TicketInformation
 msgid "Service Incident State"
-msgstr ""
+msgstr "Service-Vorfallstatus"
 
 #. Template: TicketInformation
 msgid "Service Criticality"
-msgstr ""
+msgstr "Service-Kritikalität"
 
 #. Perl Module: Kernel/Modules/AdminITSMCIPAllocate.pm
 msgid "Impact"
@@ -117,7 +117,7 @@ msgstr "Vorfallstatus"
 
 #. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
 msgid "External-source key"
-msgstr ""
+msgstr "Schlüssel der externen Quelle"
 
 #. Database XML / SOPM Definition: ITSMCore.sopm
 msgid "Operational"
@@ -200,6 +200,8 @@ msgid ""
 "CIPAllocation: Overwrite priority based on Criticality and Impact. Default "
 "fallback: Frontend::CIPAllocationDefault."
 msgstr ""
+"CIPAllocation: Priorität basierend auf Kritikalität und Auswirkung "
+"überschreiben. Standard-Fallback: Frontend::CIPAllocationDefault."
 
 #. SysConfig
 msgid "Connected to"
@@ -211,6 +213,9 @@ msgid ""
 "Criticality and Impact. Can be overruled by frontend specific PriorityByCIP "
 "settings."
 msgstr ""
+"Standardverhalten der Prioritätszuweisung in den Frontends basierend auf "
+"Kritikalität und Auswirkung. Kann durch frontend-spezifische PriorityByCIP-"
+"Einstellungen überschrieben werden."
 
 #. SysConfig
 msgid ""
@@ -245,6 +250,9 @@ msgid ""
 "repository, for example: Key=\"http://example.com/otobo/public.pl?"
 "Action=PublicRepository;File=\" and Content=\"Some Name\"."
 msgstr ""
+"Definiert eine Liste von Online-Quellen. Andere Installationen können als "
+"Quelle genutzt werden z.B. Key=\"http://example.com/otobo/"
+"public.pl?Action=PublicRepository;File=\" und Content=\"Irgendein Name\"."
 
 #. SysConfig
 msgid "Depends on"
@@ -252,7 +260,7 @@ msgstr "Hängt ab von"
 
 #. SysConfig
 msgid "Enforce"
-msgstr ""
+msgstr "Forcieren"
 
 #. SysConfig
 msgid ""
@@ -324,11 +332,11 @@ msgstr "Beinhaltet"
 
 #. SysConfig
 msgid "Located in"
-msgstr ""
+msgstr "Angesiedelt in"
 
 #. SysConfig
 msgid "Location of"
-msgstr ""
+msgstr "Ort von"
 
 #. SysConfig
 msgid "Manage priority matrix."
@@ -360,7 +368,7 @@ msgstr "Modul, dass den \"Ausdrucken\"-Menüeintrag im Service-Menü anzeigt."
 
 #. SysConfig
 msgid "Off"
-msgstr ""
+msgstr "Aus"
 
 #. SysConfig
 msgid "Parameters for the incident states in the preference view."
@@ -441,6 +449,7 @@ msgstr ""
 msgid ""
 "Show the current service incident state signal in the ticket information."
 msgstr ""
+"Zeige den aktuellen Service-Vorfallstatus in den Ticketinformationen an."
 
 #. SysConfig
 msgid "Source"
@@ -448,7 +457,7 @@ msgstr "Quelle"
 
 #. SysConfig
 msgid "Suggest"
-msgstr ""
+msgstr "Vorschlag"
 
 #. SysConfig
 msgid ""
@@ -567,6 +576,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'LocationOf' link type."
 msgstr ""
+"Diese Einstellung legt fest, dass ein 'ITSMConfigItem'-Objekt mit anderen "
+"'ITSMConfigItem'-Objekten über den Linktyp 'LocationOf' verknüpft werden "
+"kann."
 
 #. SysConfig
 msgid ""
@@ -691,6 +703,10 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
+"Diese Einstellung definiert den Linktyp „LocationOf“. Wenn der Quellname und "
+"der Zielname denselben Wert enthalten, ergibt sich eine Verknüpfung ohne "
+"Richtung. Sind die Werte unterschiedlich, handelt es sich um eine gerichtete "
+"Verknüpfung."
 
 #. SysConfig
 msgid ""
