@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 5c05b50ba4f443c933021fcfbbd9e81605956494 - Kernel/Modules/AgentTicketActionCommon.pm
+# $origin: otobo - b4ce183271e1526614219126933f204c0196ab34 - Kernel/Modules/AgentTicketActionCommon.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -53,7 +53,7 @@ sub new {
     {
         $Self->{LoadedFormDraftID} = $ParamObject->LoadFormDraft(
             FormDraftID => $ParamObject->GetParam( Param => 'FormDraftID' ),
-            UserID      => $Self->{UserID},
+            ObjectID    => $Self->{TicketID},
         );
     }
 
@@ -329,8 +329,8 @@ sub Run {
     if ( $Self->{LoadedFormDraftID} ) {
         $LoadedFormDraft = $Kernel::OM->Get('Kernel::System::FormDraft')->FormDraftGet(
             FormDraftID => $Self->{LoadedFormDraftID},
+            ObjectID    => $Self->{TicketID},
             GetContent  => 0,
-            UserID      => $Self->{UserID},
         );
 
         my @Articles = $Kernel::OM->Get('Kernel::System::Ticket::Article')->ArticleList(
@@ -657,7 +657,6 @@ sub Run {
                     ObjectType => 'Ticket',
                     ObjectID   => $Self->{TicketID},
                     Action     => $Self->{Action},
-                    UserID     => $Self->{UserID},
                 );
                 DRAFT:
                 for my $FormDraft ( @{$FormDraftList} ) {
@@ -1577,7 +1576,7 @@ sub Run {
             $GetParam{FormDraftID}
             && !$Kernel::OM->Get('Kernel::System::FormDraft')->FormDraftDelete(
                 FormDraftID => $GetParam{FormDraftID},
-                UserID      => $Self->{UserID},
+                ObjectID    => $Self->{TicketID},
             )
             )
         {
@@ -2021,7 +2020,7 @@ sub Run {
                     );
                 }
 
-                # send a list of attachments in the upload cache back to the clientside JavaScript
+                # send a list of attachments in the upload cache back to the client-side JavaScript
                 # which renders then the list of currently uploaded attachments
                 @TicketAttachments = $UploadCacheObject->FormIDGetAllFilesMeta(
                     FormID => $Self->{FormID},
@@ -2103,7 +2102,7 @@ sub Run {
             $Body = $GetParam{Body} . $Body;
         }
 
-        # fillup configured default vars
+        # fill up configured default vars
         if ( $Body eq '' && $Config->{Body} ) {
             $Body = $LayoutObject->Output(
                 Template => $Config->{Body},
@@ -2194,7 +2193,7 @@ sub Run {
 
         my $Autoselect = $ConfigObject->Get('TicketACL::Autoselect') || undef;
 
-        # gather fields which are supposed to be hidden when autoselected
+        # gather fields which are supposed to be hidden when auto-selected
         my $HideAutoselectedJSON;
         if ($Autoselect) {
             my @HideAutoselected = grep { !ref( $Autoselect->{$_} ) && $Autoselect->{$_} == 2 } keys %{$Autoselect};
@@ -2937,10 +2936,10 @@ sub _Mask {
 
                 my $QuickDateButtons = $Config->{QuickDateButtons} // $ConfigObject->Get('Ticket::Frontend::DefaultQuickDateButtons');
 
-                # fetch actions to perform prefilling for
+                # fetch actions to perform pre-filling for
                 my $RestorePendingConfig = $ConfigObject->Get("Ticket::Frontend::RestorePendingInformation");
 
-                # only prefill pending information for actions defined in the corresponding system configuration setting
+                # only pre-fill pending information for actions defined in the corresponding system configuration setting
                 my %PendingTimeSettings = ();
                 if ( $RestorePendingConfig->{Actions}->{ $Self->{Action} } ) {
 
@@ -3660,7 +3659,7 @@ sub _GetQuotedReplyBody {
                 # quote text
                 $Param{Body} = "<blockquote type=\"cite\">$Param{Body}</blockquote>\n";
 
-                # cleanup not compat. tags
+                # cleanup non-compatible tags
                 $Param{Body} = $LayoutObject->RichTextDocumentCleanup(
                     String => $Param{Body},
                 );
