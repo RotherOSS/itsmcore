@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 9b816e1169e8d7a897d5b78d49ccf36bf5c6daaa - Kernel/Modules/AgentTicketPhone.pm
+# $origin: otobo - 8c7dfc2c7640699c8e02c0bab72813a4a7b8345a - Kernel/Modules/AgentTicketPhone.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -2004,8 +2004,8 @@ sub Run {
             );
         }
 
-        # remove all form data
-        $Kernel::OM->Get('Kernel::System::Web::FormCache')->FormIDRemove( FormID => $Self->{FormID} );
+        # remove pre submitted attachments
+        $UploadCacheObject->FormIDRemove( FormID => $Self->{FormID} );
 
         # delete hidden fields cache
         $Kernel::OM->Get('Kernel::System::Cache')->Delete(

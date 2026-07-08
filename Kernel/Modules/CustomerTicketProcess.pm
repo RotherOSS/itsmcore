@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 95feac0e5e90fe4a68819ea5bf98df81381d1826 - Kernel/Modules/CustomerTicketProcess.pm
+# $origin: otobo - 8c7dfc2c7640699c8e02c0bab72813a4a7b8345a - Kernel/Modules/CustomerTicketProcess.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -17,6 +17,7 @@
 # --
 
 package Kernel::Modules::CustomerTicketProcess;
+
 ## nofilter(TidyAll::Plugin::OTOBO::Perl::DBObject)
 
 use strict;
