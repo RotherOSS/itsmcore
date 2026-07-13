@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-07 14:14+0000\n"
-"PO-Revision-Date: 2026-07-13 12:00+0000\n"
+"PO-Revision-Date: 2026-07-13 16:00+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/otobo-11-1/"
 "addons/manuals/itsmcore-documentation/hu/>\n"
@@ -43,7 +43,7 @@ msgstr "Keretrendszer"
 
 #: ../content/index.rst:18
 msgid "OTOBO 11.1.x"
-msgstr ""
+msgstr "OTOBO 11.1.x"
 
 #: ../content/index.rst:21
 msgid "Packages"
@@ -151,7 +151,7 @@ msgstr ""
 
 #: ../content/index.rst:70
 msgid "Core::LinkObject"
-msgstr ""
+msgstr "Core::LinkObject"
 
 #: ../content/index.rst:73
 msgid "LinkObject::PossibleLink###3200"
@@ -551,7 +551,7 @@ msgstr "Főmenü elem regisztráció."
 
 #: ../content/index.rst:239
 msgid "Frontend::Agent"
-msgstr ""
+msgstr "Frontend::Agent"
 
 #: ../content/index.rst:242
 msgid "ITSM::Frontend::TextArea"
@@ -611,7 +611,7 @@ msgstr ""
 
 #: ../content/index.rst:272
 msgid "Frontend::Agent::LinkObject"
-msgstr ""
+msgstr "Frontend::Agent::LinkObject"
 
 #: ../content/index.rst:275
 msgid "LinkObject::ComplexTable###Service"
@@ -637,10 +637,16 @@ msgid ""
 "Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, "
 "Core.Agent.TableFilters.js and Core.Agent.LinkObject.js."
 msgstr ""
+"Műveletek meghatározása, ahol egy beállítások gomb érhető el a kapcsolt "
+"objektumok felületi elemen (LinkObject::ViewMode = „összetett”). Ne feledje, "
+"hogy ezeknek a műveleteknek rendelkezniük kell a következő JS és CSS fájlok "
+"regisztrálásával: Core.AllocationList.css, Core.UI.AllocationList.js, "
+"Core.UI.Table.Sort.js, Core.Agent.TableFilters.js és "
+"Core.Agent.LinkObject.js."
 
 #: ../content/index.rst:283
 msgid "Frontend::Agent::ModuleRegistration"
-msgstr ""
+msgstr "Frontend::Agent::ModuleRegistration"
 
 #: ../content/index.rst:286
 msgid "Frontend::Module###AgentITSMSLA"
@@ -704,7 +710,7 @@ msgstr ""
 
 #: ../content/index.rst:310
 msgid "Frontend::Agent::ModuleRegistration::Loader"
-msgstr ""
+msgstr "Frontend::Agent::ModuleRegistration::Loader"
 
 #: ../content/index.rst:313
 msgid "Loader::Module::AgentITSMSLA###003-ITSMService"
@@ -724,7 +730,7 @@ msgstr ""
 
 #: ../content/index.rst:329
 msgid "Frontend::Agent::ModuleRegistration::MainMenu"
-msgstr ""
+msgstr "Frontend::Agent::ModuleRegistration::MainMenu"
 
 #: ../content/index.rst:332
 msgid "Frontend::Navigation###AgentITSMSLA###003-ITSMService"
@@ -789,6 +795,7 @@ msgstr ""
 #: ../content/index.rst:372
 msgid "List of CSS files to always be loaded for the agent interface."
 msgstr ""
+"CSS-fájlok listája, amelyek mindig betöltődnek az ügyintézői felületnél."
 
 #: ../content/index.rst:375
 msgid "Loader::Agent::CommonJS###100-ITSM"
@@ -822,11 +829,11 @@ msgstr "Rother OSS GmbH"
 
 #: ../content/index.rst:391
 msgid "Email: hello@otobo.io"
-msgstr ""
+msgstr "E-mail: hello@otobo.io"
 
 #: ../content/index.rst:392
 msgid "Web: https://otobo.io"
-msgstr ""
+msgstr "Web: https://otobo.io"
 
 #: ../content/index.rst:395
 msgid "Version"
