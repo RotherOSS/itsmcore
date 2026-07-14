@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-07 14:14+0000\n"
-"PO-Revision-Date: 2026-07-14 10:21+0000\n"
+"PO-Revision-Date: 2026-07-14 15:21+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/otobo-11-1/"
 "addons/manuals/itsmcore-documentation/hu/>\n"
@@ -31,7 +31,7 @@ msgstr "Leírás"
 
 #: ../content/index.rst:11
 msgid "The OTOBO::ITSM Core package."
-msgstr ""
+msgstr "Az OTOBO::ITSM alapcsomag."
 
 #: ../content/index.rst:14
 msgid "System requirements"
@@ -51,7 +51,7 @@ msgstr "Csomagok"
 
 #: ../content/index.rst:22
 msgid "GeneralCatalog 11.1.0"
-msgstr ""
+msgstr "GeneralCatalog 11.1.0"
 
 #: ../content/index.rst:25
 msgid "Third-party software"
@@ -75,31 +75,31 @@ msgstr "Beállítások hivatkozása"
 
 #: ../content/index.rst:38
 msgid "Core"
-msgstr ""
+msgstr "Core"
 
 #: ../content/index.rst:41
 msgid "ProductName"
-msgstr ""
+msgstr "ProductName"
 
 #: ../content/index.rst:42
 msgid ""
 "Defines the name of the application, shown in the web interface, tabs and "
 "title bar of the web browser."
 msgstr ""
+"Meghatározza annak az alkalmazásnak a nevét, amely a webes felületen, a "
+"füleken és a webböngésző címsorában jelenik meg."
 
 #: ../content/index.rst:45
 msgid "Core::DynamicFields::DriverRegistration"
-msgstr ""
+msgstr "Core::DynamicFields::DriverRegistration"
 
 #: ../content/index.rst:48
 msgid "DynamicFields::Driver###Service"
-msgstr ""
+msgstr "DynamicFields::Driver###Service"
 
 #: ../content/index.rst:49
-#, fuzzy
-#| msgid "Main menu item registration."
 msgid "DynamicField backend registration."
-msgstr "Főmenü elem regisztráció."
+msgstr "Dinamikus mező háttérprogram regisztráció."
 
 #: ../content/index.rst:52
 msgid "Core::GeneralCatalog"
@@ -107,7 +107,7 @@ msgstr "Core::GeneralCatalog"
 
 #: ../content/index.rst:55
 msgid "GeneralCatalogPreferences###IncidentStates"
-msgstr ""
+msgstr "GeneralCatalogPreferences###IncidentStates"
 
 #: ../content/index.rst:56
 msgid "Parameters for the incident states in the preference view."
@@ -115,11 +115,11 @@ msgstr "Paraméterek az incidensállapotokhoz a beállítások nézetben."
 
 #: ../content/index.rst:59
 msgid "Core::ITSMCore"
-msgstr ""
+msgstr "Core::ITSMCore"
 
 #: ../content/index.rst:62
 msgid "ITSM::Core::IncidentLinkTypeDirection"
-msgstr ""
+msgstr "ITSM::Core::IncidentLinkTypeDirection"
 
 #: ../content/index.rst:63
 msgid ""
@@ -155,7 +155,7 @@ msgstr ""
 
 #: ../content/index.rst:66
 msgid "ITSM::Frontend::CIPAllocationDefault"
-msgstr ""
+msgstr "ITSM::Frontend::CIPAllocationDefault"
 
 #: ../content/index.rst:67
 msgid ""
@@ -173,7 +173,7 @@ msgstr "Core::LinkObject"
 
 #: ../content/index.rst:73
 msgid "LinkObject::PossibleLink###3200"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3200"
 
 #: ../content/index.rst:74
 msgid ""
@@ -186,7 +186,7 @@ msgstr ""
 
 #: ../content/index.rst:77
 msgid "LinkObject::PossibleLink###3201"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3201"
 
 #: ../content/index.rst:78
 msgid ""
@@ -199,7 +199,7 @@ msgstr ""
 
 #: ../content/index.rst:81
 msgid "LinkObject::PossibleLink###3202"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3202"
 
 #: ../content/index.rst:82
 msgid ""
@@ -212,7 +212,7 @@ msgstr ""
 
 #: ../content/index.rst:85
 msgid "LinkObject::PossibleLink###3203"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3203"
 
 #: ../content/index.rst:86
 msgid ""
@@ -225,7 +225,7 @@ msgstr ""
 
 #: ../content/index.rst:89
 msgid "LinkObject::PossibleLink###3204"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3204"
 
 #: ../content/index.rst:90
 msgid ""
@@ -238,7 +238,7 @@ msgstr ""
 
 #: ../content/index.rst:93
 msgid "LinkObject::PossibleLink###3205"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3205"
 
 #: ../content/index.rst:94
 msgid ""
@@ -251,7 +251,7 @@ msgstr ""
 
 #: ../content/index.rst:97
 msgid "LinkObject::PossibleLink###3220"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3220"
 
 #: ../content/index.rst:98
 msgid ""
@@ -264,7 +264,7 @@ msgstr ""
 
 #: ../content/index.rst:101
 msgid "LinkObject::PossibleLink###3221"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3221"
 
 #: ../content/index.rst:102
 msgid ""
@@ -277,7 +277,7 @@ msgstr ""
 
 #: ../content/index.rst:105
 msgid "LinkObject::PossibleLink###3222"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3222"
 
 #: ../content/index.rst:106
 msgid ""
@@ -290,7 +290,7 @@ msgstr ""
 
 #: ../content/index.rst:109
 msgid "LinkObject::PossibleLink###3240"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3240"
 
 #: ../content/index.rst:110
 msgid ""
@@ -303,7 +303,7 @@ msgstr ""
 
 #: ../content/index.rst:113
 msgid "LinkObject::PossibleLink###3241"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3241"
 
 #: ../content/index.rst:114
 msgid ""
@@ -316,7 +316,7 @@ msgstr ""
 
 #: ../content/index.rst:117
 msgid "LinkObject::PossibleLink###3242"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3242"
 
 #: ../content/index.rst:118
 msgid ""
@@ -329,7 +329,7 @@ msgstr ""
 
 #: ../content/index.rst:121
 msgid "LinkObject::PossibleLink###3260"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3260"
 
 #: ../content/index.rst:122
 msgid ""
@@ -342,7 +342,7 @@ msgstr ""
 
 #: ../content/index.rst:125
 msgid "LinkObject::PossibleLink###3261"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3261"
 
 #: ../content/index.rst:126
 msgid ""
@@ -355,7 +355,7 @@ msgstr ""
 
 #: ../content/index.rst:129
 msgid "LinkObject::PossibleLink###3262"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3262"
 
 #: ../content/index.rst:130
 msgid ""
@@ -368,7 +368,7 @@ msgstr ""
 
 #: ../content/index.rst:133
 msgid "LinkObject::PossibleLink###3280"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3280"
 
 #: ../content/index.rst:134
 msgid ""
@@ -380,7 +380,7 @@ msgstr ""
 
 #: ../content/index.rst:137
 msgid "LinkObject::PossibleLink###3281"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3281"
 
 #: ../content/index.rst:138
 msgid ""
@@ -392,7 +392,7 @@ msgstr ""
 
 #: ../content/index.rst:141
 msgid "LinkObject::PossibleLink###3282"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3282"
 
 #: ../content/index.rst:142
 msgid ""
@@ -404,7 +404,7 @@ msgstr ""
 
 #: ../content/index.rst:145
 msgid "LinkObject::PossibleLink###3400"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3400"
 
 #: ../content/index.rst:146
 msgid ""
@@ -416,7 +416,7 @@ msgstr ""
 
 #: ../content/index.rst:149
 msgid "LinkObject::PossibleLink###3401"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3401"
 
 #: ../content/index.rst:150
 msgid ""
@@ -428,7 +428,7 @@ msgstr ""
 
 #: ../content/index.rst:153
 msgid "LinkObject::PossibleLink###3410"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3410"
 
 #: ../content/index.rst:154
 msgid ""
@@ -440,7 +440,7 @@ msgstr ""
 
 #: ../content/index.rst:157
 msgid "LinkObject::PossibleLink###3411"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3411"
 
 #: ../content/index.rst:158
 msgid ""
@@ -453,7 +453,7 @@ msgstr ""
 
 #: ../content/index.rst:161
 msgid "LinkObject::PossibleLink###3412"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3412"
 
 #: ../content/index.rst:162
 msgid ""
@@ -465,7 +465,7 @@ msgstr ""
 
 #: ../content/index.rst:165
 msgid "LinkObject::PossibleLink###3420"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3420"
 
 #: ../content/index.rst:166
 msgid ""
@@ -477,7 +477,7 @@ msgstr ""
 
 #: ../content/index.rst:169
 msgid "LinkObject::Type###AlternativeTo"
-msgstr ""
+msgstr "LinkObject::Type###AlternativeTo"
 
 #: ../content/index.rst:170
 msgid ""
@@ -493,7 +493,7 @@ msgstr ""
 
 #: ../content/index.rst:173
 msgid "LinkObject::Type###ConnectedTo"
-msgstr ""
+msgstr "LinkObject::Type###ConnectedTo"
 
 #: ../content/index.rst:174
 msgid ""
@@ -508,7 +508,7 @@ msgstr ""
 
 #: ../content/index.rst:177
 msgid "LinkObject::Type###DependsOn"
-msgstr ""
+msgstr "LinkObject::Type###DependsOn"
 
 #: ../content/index.rst:178
 msgid ""
@@ -523,7 +523,7 @@ msgstr ""
 
 #: ../content/index.rst:181
 msgid "LinkObject::Type###Includes"
-msgstr ""
+msgstr "LinkObject::Type###Includes"
 
 #: ../content/index.rst:182
 msgid ""
@@ -538,7 +538,7 @@ msgstr ""
 
 #: ../content/index.rst:185
 msgid "LinkObject::Type###LocationOf"
-msgstr ""
+msgstr "LinkObject::Type###LocationOf"
 
 #: ../content/index.rst:186
 msgid ""
@@ -553,7 +553,7 @@ msgstr ""
 
 #: ../content/index.rst:189
 msgid "LinkObject::Type###RelevantTo"
-msgstr ""
+msgstr "LinkObject::Type###RelevantTo"
 
 #: ../content/index.rst:190
 msgid ""
@@ -568,19 +568,21 @@ msgstr ""
 
 #: ../content/index.rst:193
 msgid "LinkObject::ViewMode"
-msgstr ""
+msgstr "LinkObject::ViewMode"
 
 #: ../content/index.rst:194
 msgid "Determines the way the linked objects are displayed in each zoom mask."
 msgstr ""
+"Meghatározza annak a módját, ahogyan a kapcsolt objektumok megjelenítésre "
+"kerülnek minden egyes nagyítási maszkban."
 
 #: ../content/index.rst:197
 msgid "Core::Package"
-msgstr ""
+msgstr "Core::Package"
 
 #: ../content/index.rst:200
 msgid "Package::RepositoryList"
-msgstr ""
+msgstr "Package::RepositoryList"
 
 #: ../content/index.rst:201
 msgid ""
@@ -594,11 +596,11 @@ msgstr ""
 
 #: ../content/index.rst:204
 msgid "Core::Ticket"
-msgstr ""
+msgstr "Core::Ticket"
 
 #: ../content/index.rst:207
 msgid "Ticket::Service"
-msgstr ""
+msgstr "Ticket::Service"
 
 #: ../content/index.rst:208
 msgid ""
@@ -606,6 +608,9 @@ msgid ""
 "network, ...), and escalation attributes for SLAs (if ticket service/SLA "
 "feature is enabled)."
 msgstr ""
+"Lehetővé teszi szolgáltatások és SLA-k meghatározását a jegyekhez (például e-"
+"mail, asztali, hálózat, …), és eszkalációs attribútumokat az SLA-khoz (ha a "
+"jegy szolgáltatás/SLA funkció engedélyezve van)."
 
 #: ../content/index.rst:211
 msgid "Frontend::Admin::ModuleRegistration"
@@ -613,7 +618,7 @@ msgstr "Frontend::Admin::ModuleRegistration"
 
 #: ../content/index.rst:214
 msgid "Frontend::Module###AdminITSMCIPAllocate"
-msgstr ""
+msgstr "Frontend::Module###AdminITSMCIPAllocate"
 
 #: ../content/index.rst:215
 msgid ""
@@ -629,7 +634,7 @@ msgstr "Frontend::Admin::ModuleRegistration::AdminOverview"
 
 #: ../content/index.rst:221
 msgid "Frontend::NavigationModule###AdminITSMCIPAllocate"
-msgstr ""
+msgstr "Frontend::NavigationModule###AdminITSMCIPAllocate"
 
 #: ../content/index.rst:222
 msgid "Admin area navigation for the agent interface."
@@ -641,7 +646,7 @@ msgstr "Frontend::Admin::ModuleRegistration::Loader"
 
 #: ../content/index.rst:228
 msgid "Loader::Module::AdminITSMCIPAllocate###003-ITSMCore"
-msgstr ""
+msgstr "Loader::Module::AdminITSMCIPAllocate###003-ITSMCore"
 
 #: ../content/index.rst:229 ../content/index.rst:314 ../content/index.rst:318
 #: ../content/index.rst:322 ../content/index.rst:326
@@ -654,7 +659,7 @@ msgstr "Frontend::Admin::ModuleRegistration::MainMenu"
 
 #: ../content/index.rst:235
 msgid "Frontend::Navigation###AdminITSMCIPAllocate###003-ITSMCore"
-msgstr ""
+msgstr "Frontend::Navigation###AdminITSMCIPAllocate###003-ITSMCore"
 
 #: ../content/index.rst:236 ../content/index.rst:333 ../content/index.rst:337
 msgid "Main menu item registration."
@@ -666,7 +671,7 @@ msgstr "Frontend::Agent"
 
 #: ../content/index.rst:242
 msgid "ITSM::Frontend::TextArea"
-msgstr ""
+msgstr "ITSM::Frontend::TextArea"
 
 #: ../content/index.rst:243
 msgid "Width of ITSM textareas."
@@ -674,11 +679,11 @@ msgstr "Az ITSM szövegdobozok szélessége."
 
 #: ../content/index.rst:246
 msgid "Frontend::Agent::ITSMSLA::MenuModule"
-msgstr ""
+msgstr "Frontend::Agent::ITSMSLA::MenuModule"
 
 #: ../content/index.rst:249
 msgid "ITSMSLA::Frontend::MenuModule###000-Back"
-msgstr ""
+msgstr "ITSMSLA::Frontend::MenuModule###000-Back"
 
 #: ../content/index.rst:250
 msgid "Module to show the Back menu item in SLA menu."
@@ -686,7 +691,7 @@ msgstr "Egy modul a Vissza menüpont megjelenítéséhez az SLA menüben."
 
 #: ../content/index.rst:253
 msgid "ITSMSLA::Frontend::MenuModule###100-Print"
-msgstr ""
+msgstr "ITSMSLA::Frontend::MenuModule###100-Print"
 
 #: ../content/index.rst:254
 msgid "Module to show the Print menu item in SLA menu."
@@ -694,11 +699,11 @@ msgstr "Egy modul a Nyomtatás menüpont megjelenítéséhez az SLA menüben."
 
 #: ../content/index.rst:257
 msgid "Frontend::Agent::ITSMService::MenuModule"
-msgstr ""
+msgstr "Frontend::Agent::ITSMService::MenuModule"
 
 #: ../content/index.rst:260
 msgid "ITSMService::Frontend::MenuModule###000-Back"
-msgstr ""
+msgstr "ITSMService::Frontend::MenuModule###000-Back"
 
 #: ../content/index.rst:261
 msgid "Module to show the Back menu item in service menu."
@@ -706,7 +711,7 @@ msgstr "Egy modul a Vissza menüpont megjelenítéséhez a szolgáltatás menüb
 
 #: ../content/index.rst:264
 msgid "ITSMService::Frontend::MenuModule###100-Print"
-msgstr ""
+msgstr "ITSMService::Frontend::MenuModule###100-Print"
 
 #: ../content/index.rst:265
 msgid "Module to show the Print menu item in service menu."
@@ -714,7 +719,7 @@ msgstr "Egy modul a Nyomtatás menüpont megjelenítéséhez a szolgáltatás me
 
 #: ../content/index.rst:268
 msgid "ITSMService::Frontend::MenuModule###200-Link"
-msgstr ""
+msgstr "ITSMService::Frontend::MenuModule###200-Link"
 
 #: ../content/index.rst:269
 msgid "Module to show the Link menu item in service menu."
@@ -727,7 +732,7 @@ msgstr "Frontend::Agent::LinkObject"
 
 #: ../content/index.rst:275
 msgid "LinkObject::ComplexTable###Service"
-msgstr ""
+msgstr "LinkObject::ComplexTable###Service"
 
 #: ../content/index.rst:276
 msgid ""
@@ -744,7 +749,7 @@ msgstr ""
 
 #: ../content/index.rst:279
 msgid "LinkObject::ComplexTable::SettingsVisibility###Service"
-msgstr ""
+msgstr "LinkObject::ComplexTable::SettingsVisibility###Service"
 
 #: ../content/index.rst:280
 msgid ""
@@ -767,7 +772,7 @@ msgstr "Frontend::Agent::ModuleRegistration"
 
 #: ../content/index.rst:286
 msgid "Frontend::Module###AgentITSMSLA"
-msgstr ""
+msgstr "Frontend::Module###AgentITSMSLA"
 
 #: ../content/index.rst:287
 msgid ""
@@ -779,7 +784,7 @@ msgstr ""
 
 #: ../content/index.rst:290
 msgid "Frontend::Module###AgentITSMSLAPrint"
-msgstr ""
+msgstr "Frontend::Module###AgentITSMSLAPrint"
 
 #: ../content/index.rst:291
 msgid ""
@@ -791,7 +796,7 @@ msgstr ""
 
 #: ../content/index.rst:294
 msgid "Frontend::Module###AgentITSMSLAZoom"
-msgstr ""
+msgstr "Frontend::Module###AgentITSMSLAZoom"
 
 #: ../content/index.rst:295
 msgid ""
@@ -803,7 +808,7 @@ msgstr ""
 
 #: ../content/index.rst:298
 msgid "Frontend::Module###AgentITSMService"
-msgstr ""
+msgstr "Frontend::Module###AgentITSMService"
 
 #: ../content/index.rst:299
 msgid ""
@@ -815,7 +820,7 @@ msgstr ""
 
 #: ../content/index.rst:302
 msgid "Frontend::Module###AgentITSMServicePrint"
-msgstr ""
+msgstr "Frontend::Module###AgentITSMServicePrint"
 
 #: ../content/index.rst:303
 msgid ""
@@ -827,7 +832,7 @@ msgstr ""
 
 #: ../content/index.rst:306
 msgid "Frontend::Module###AgentITSMServiceZoom"
-msgstr ""
+msgstr "Frontend::Module###AgentITSMServiceZoom"
 
 #: ../content/index.rst:307
 msgid ""
@@ -843,19 +848,19 @@ msgstr "Frontend::Agent::ModuleRegistration::Loader"
 
 #: ../content/index.rst:313
 msgid "Loader::Module::AgentITSMSLA###003-ITSMService"
-msgstr ""
+msgstr "Loader::Module::AgentITSMSLA###003-ITSMService"
 
 #: ../content/index.rst:317
 msgid "Loader::Module::AgentITSMSLAZoom###003-ITSMService"
-msgstr ""
+msgstr "Loader::Module::AgentITSMSLAZoom###003-ITSMService"
 
 #: ../content/index.rst:321
 msgid "Loader::Module::AgentITSMService###003-ITSMService"
-msgstr ""
+msgstr "Loader::Module::AgentITSMService###003-ITSMService"
 
 #: ../content/index.rst:325
 msgid "Loader::Module::AgentITSMServiceZoom###003-ITSMService"
-msgstr ""
+msgstr "Loader::Module::AgentITSMServiceZoom###003-ITSMService"
 
 #: ../content/index.rst:329
 msgid "Frontend::Agent::ModuleRegistration::MainMenu"
@@ -863,19 +868,19 @@ msgstr "Frontend::Agent::ModuleRegistration::MainMenu"
 
 #: ../content/index.rst:332
 msgid "Frontend::Navigation###AgentITSMSLA###003-ITSMService"
-msgstr ""
+msgstr "Frontend::Navigation###AgentITSMSLA###003-ITSMService"
 
 #: ../content/index.rst:336
 msgid "Frontend::Navigation###AgentITSMService###003-ITSMService"
-msgstr ""
+msgstr "Frontend::Navigation###AgentITSMService###003-ITSMService"
 
 #: ../content/index.rst:340
 msgid "Frontend::Agent::View::TicketEmailNew"
-msgstr ""
+msgstr "Frontend::Agent::View::TicketEmailNew"
 
 #: ../content/index.rst:343
 msgid "Ticket::Frontend::AgentTicketEmail###PriorityByCIP"
-msgstr ""
+msgstr "Ticket::Frontend::AgentTicketEmail###PriorityByCIP"
 
 #: ../content/index.rst:344 ../content/index.rst:351 ../content/index.rst:358
 #: ../content/index.rst:383
@@ -888,27 +893,27 @@ msgstr ""
 
 #: ../content/index.rst:347
 msgid "Frontend::Agent::View::TicketFreeText"
-msgstr ""
+msgstr "Frontend::Agent::View::TicketFreeText"
 
 #: ../content/index.rst:350
 msgid "Ticket::Frontend::AgentTicketFreeText###PriorityByCIP"
-msgstr ""
+msgstr "Ticket::Frontend::AgentTicketFreeText###PriorityByCIP"
 
 #: ../content/index.rst:354
 msgid "Frontend::Agent::View::TicketPhoneNew"
-msgstr ""
+msgstr "Frontend::Agent::View::TicketPhoneNew"
 
 #: ../content/index.rst:357
 msgid "Ticket::Frontend::AgentTicketPhone###PriorityByCIP"
-msgstr ""
+msgstr "Ticket::Frontend::AgentTicketPhone###PriorityByCIP"
 
 #: ../content/index.rst:361
 msgid "Frontend::Agent::View::TicketZoom"
-msgstr ""
+msgstr "Frontend::Agent::View::TicketZoom"
 
 #: ../content/index.rst:364
 msgid "Ticket::Frontend::AgentTicketZoom###ServiceInciStateSignal"
-msgstr ""
+msgstr "Ticket::Frontend::AgentTicketZoom###ServiceInciStateSignal"
 
 #: ../content/index.rst:365
 msgid ""
@@ -923,7 +928,7 @@ msgstr "Frontend::Base::Loader"
 
 #: ../content/index.rst:371
 msgid "Loader::Agent::CommonCSS###100-ITSM"
-msgstr ""
+msgstr "Loader::Agent::CommonCSS###100-ITSM"
 
 #: ../content/index.rst:372
 msgid "List of CSS files to always be loaded for the agent interface."
@@ -932,7 +937,7 @@ msgstr ""
 
 #: ../content/index.rst:375
 msgid "Loader::Agent::CommonJS###100-ITSM"
-msgstr ""
+msgstr "Loader::Agent::CommonJS###100-ITSM"
 
 #: ../content/index.rst:376
 msgid "List of JS files to always be loaded for the agent interface."
@@ -942,11 +947,11 @@ msgstr ""
 
 #: ../content/index.rst:379
 msgid "Frontend::Customer::View::TicketMessage"
-msgstr ""
+msgstr "Frontend::Customer::View::TicketMessage"
 
 #: ../content/index.rst:382
 msgid "Ticket::Frontend::CustomerTicketMessage###PriorityByCIP"
-msgstr ""
+msgstr "Ticket::Frontend::CustomerTicketMessage###PriorityByCIP"
 
 #: ../content/index.rst:386
 msgid "About"
