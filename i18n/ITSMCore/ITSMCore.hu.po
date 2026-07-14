@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
 "POT-Creation-Date: 2026-06-03 15:16+0000\n"
-"PO-Revision-Date: 2026-07-13 16:00+0000\n"
+"PO-Revision-Date: 2026-07-14 10:21+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/otobo-11-1/"
 "addons/itsm-core/hu/>\n"
@@ -39,7 +39,7 @@ msgstr "SLA információk"
 
 #. Template: AgentITSMSLAZoom
 msgid "Last changed"
-msgstr "Utoljára módosítva"
+msgstr "Utolsó módosítás"
 
 #. Template: AgentITSMSLAZoom
 msgid "Last changed by"
@@ -63,11 +63,11 @@ msgstr "Hozzárendelt SLA-k"
 
 #. Template: TicketInformation
 msgid "Service Incident State"
-msgstr ""
+msgstr "Szolgáltatás incidensállapota"
 
 #. Template: TicketInformation
 msgid "Service Criticality"
-msgstr ""
+msgstr "Szolgáltatás kritikussága"
 
 #. Perl Module: Kernel/Modules/AdminITSMCIPAllocate.pm
 msgid "Impact"
@@ -198,6 +198,8 @@ msgid ""
 "CIPAllocation: Overwrite priority based on Criticality and Impact. Default "
 "fallback: Frontend::CIPAllocationDefault."
 msgstr ""
+"CIPAllocation: prioritás felülírása a kritikusság és hatás alapján. "
+"Alapértelmezett tartalék: Frontend::CIPAllocationDefault."
 
 #. SysConfig
 msgid "Connected to"
@@ -209,6 +211,9 @@ msgid ""
 "Criticality and Impact. Can be overruled by frontend specific PriorityByCIP "
 "settings."
 msgstr ""
+"A prioritáslefoglalás alapértelmezett viselkedése az előtétprogramokon a "
+"kritikusság és hatás alapján. Ezt az előtétprogramra jellemző PriorityByCIP "
+"beállítások felülbírálhatják."
 
 #. SysConfig
 msgid ""
@@ -244,6 +249,9 @@ msgid ""
 "repository, for example: Key=\"http://example.com/otobo/public.pl?"
 "Action=PublicRepository;File=\" and Content=\"Some Name\"."
 msgstr ""
+"Meghatározza az interneten lévő tárolók listáját. Egy másik telepítés is "
+"használható tárolóként, például: Kulcs=„http://example.com/otobo/"
+"public.pl?Action=PublicRepository;File=” és Tartalom=„Valamilyen név”."
 
 #. SysConfig
 msgid "Depends on"
@@ -251,7 +259,7 @@ msgstr "Függ ettől"
 
 #. SysConfig
 msgid "Enforce"
-msgstr ""
+msgstr "Erőltetés"
 
 #. SysConfig
 msgid ""
@@ -327,11 +335,11 @@ msgstr "Tartalmazza"
 
 #. SysConfig
 msgid "Located in"
-msgstr ""
+msgstr "Ebben található"
 
 #. SysConfig
 msgid "Location of"
-msgstr ""
+msgstr "Ennek helye"
 
 #. SysConfig
 msgid "Manage priority matrix."
@@ -360,12 +368,11 @@ msgstr "Egy modul a Nyomtatás menüpont megjelenítéséhez az SLA menüben."
 
 #. SysConfig
 msgid "Module to show the Print menu item in service menu."
-msgstr ""
-"Egy modul a Nyomtatás menüpont megjelenítéséhez a szolgáltatás menüben."
+msgstr "Egy modul a Nyomtatás menüpont megjelenítéséhez a szolgáltatás menüben."
 
 #. SysConfig
 msgid "Off"
-msgstr ""
+msgstr "Ki"
 
 #. SysConfig
 msgid "Parameters for the incident states in the preference view."
@@ -447,6 +454,8 @@ msgstr ""
 msgid ""
 "Show the current service incident state signal in the ticket information."
 msgstr ""
+"A jelenlegi szolgáltatás incidensállapot-jelzőjének megjelenítése a "
+"jegyinformációkban."
 
 #. SysConfig
 msgid "Source"
@@ -454,7 +463,7 @@ msgstr "Forrás"
 
 #. SysConfig
 msgid "Suggest"
-msgstr ""
+msgstr "Javaslat"
 
 #. SysConfig
 msgid ""
@@ -586,6 +595,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'LocationOf' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e más „ITSMConfigItem” objektumokkal a „LocationOf” "
+"hivatkozástípus használatával."
 
 #. SysConfig
 msgid ""
@@ -642,24 +654,24 @@ msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'Normal' link type."
 msgstr ""
-"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a "
-"„FAQ” objektumokkal a „Normal” hivatkozástípus használatával."
+"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a „"
+"FAQ” objektumokkal a „Normal” hivatkozástípus használatával."
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'ParentChild' link type."
 msgstr ""
-"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a "
-"„FAQ” objektumokkal a „ParentChild” hivatkozástípus használatával."
+"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a „"
+"FAQ” objektumokkal a „ParentChild” hivatkozástípus használatával."
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'RelevantTo' link type."
 msgstr ""
-"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a "
-"„FAQ” objektumokkal a „RelevantTo” hivatkozástípus használatával."
+"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a „"
+"FAQ” objektumokkal a „RelevantTo” hivatkozástípus használatával."
 
 #. SysConfig
 msgid ""
@@ -712,6 +724,10 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
+"Ez a beállítás határozza meg a „LocationOf” hivatkozástípust. Ha a forrásnév "
+"a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott "
+"hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül "
+"kapott hivatkozás irányított hivatkozás lesz."
 
 #. SysConfig
 msgid ""
