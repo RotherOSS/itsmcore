@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-08 07:40+0000\n"
-"PO-Revision-Date: 2026-07-13 14:45+0000\n"
+"PO-Revision-Date: 2026-07-14 10:21+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/otobo-11-0/"
 "addons/manuals/itsmcore-documentation/hu/>\n"
@@ -111,7 +111,7 @@ msgstr ""
 
 #: ../content/index.rst:56
 msgid "Parameters for the incident states in the preference view."
-msgstr ""
+msgstr "Paraméterek az incidensállapotokhoz a beállítások nézetben."
 
 #: ../content/index.rst:59
 msgid "Core::ITSMCore"
@@ -137,6 +137,21 @@ msgid ""
 "bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL "
 "INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!"
 msgstr ""
+"A hivatkozások típusának és irányának beállítása, hogy használható legyen az "
+"incidensállapot kiszámításához A kulcs a hivatkozástípus neve (ahogy a "
+"LinkObject::Type értékében van meghatározva), és az érték az "
+"IncidentLinkType iránya, amelyet követnie kell az incidensállapot "
+"kiszámításához. Például ha az IncidentLinkType „DependsOn” értékre van "
+"állítva, és az irány „Forrás”, akkor csak a „Depends on” hivatkozások "
+"lesznek követve (és nem az ellentétes „Required for” hivatkozás) az "
+"incidensállapot kiszámításához. Hozzáadhat további hivatkozástípusokat és "
+"irányokat, ahogy csak szeretné, például „Includes” a „Cél” iránnyal. Minden "
+"LinkObject::Type rendszerbeállítási lehetőségben meghatározott "
+"hivatkozástípus lehetséges, és az irány „Forrás”, „Cél” vagy „Mindkettő” "
+"lehet. FONTOS: MIUTÁN VÁLTOZTATÁSOKAT HAJTOTT VÉGRE EZEN A "
+"RENDSZERBEÁLLÍTÁSON, LE KELL FUTTATNIA a „bin/otobo.Console.pl "
+"Admin::ITSM::IncidentState::Recalculate” KONZOLPARANCSOT AZÉRT, HOGY MINDEN "
+"INCIDENSÁLLAPOT ÚJRA KISZÁMÍTÁSRA KERÜLJÖN AZ ÚJ BEÁLLÍTÁSOK ALAPJÁN!"
 
 #: ../content/index.rst:66
 msgid "ITSM::Frontend::CIPAllocationDefault"
@@ -148,6 +163,9 @@ msgid ""
 "Criticality and Impact. Can be overruled by frontend specific PriorityByCIP "
 "settings."
 msgstr ""
+"A prioritáslefoglalás alapértelmezett viselkedése az előtétprogramokon a "
+"kritikusság és hatás alapján. Ezt az előtétprogramra jellemző PriorityByCIP "
+"beállítások felülbírálhatják."
 
 #: ../content/index.rst:70
 msgid "Core::LinkObject"
@@ -162,6 +180,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'AlternativeTo' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e más „ITSMConfigItem” objektumokkal az „AlternativeTo” "
+"hivatkozástípus használatával."
 
 #: ../content/index.rst:77
 msgid "LinkObject::PossibleLink###3201"
@@ -172,6 +193,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'ConnectedTo' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e más „ITSMConfigItem” objektumokkal a „ConnectedTo” "
+"hivatkozástípus használatával."
 
 #: ../content/index.rst:81
 msgid "LinkObject::PossibleLink###3202"
@@ -182,6 +206,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'DependsOn' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e más „ITSMConfigItem” objektumokkal a „DependsOn” "
+"hivatkozástípus használatával."
 
 #: ../content/index.rst:85
 msgid "LinkObject::PossibleLink###3203"
@@ -192,6 +219,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'Includes' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e más „ITSMConfigItem” objektumokkal az „Includes” "
+"hivatkozástípus használatával."
 
 #: ../content/index.rst:89
 msgid "LinkObject::PossibleLink###3204"
@@ -202,6 +232,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'RelevantTo' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e más „ITSMConfigItem” objektumokkal a „RelevantTo” "
+"hivatkozástípus használatával."
 
 #: ../content/index.rst:93
 msgid "LinkObject::PossibleLink###3205"
@@ -212,6 +245,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'LocationOf' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e más „ITSMConfigItem” objektumokkal a „LocationOf” "
+"hivatkozástípus használatával."
 
 #: ../content/index.rst:97
 msgid "LinkObject::PossibleLink###3220"
@@ -222,6 +258,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Ticket' objects using the 'AlternativeTo' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „Ticket” objektumokkal az „AlternativeTo” hivatkozástípus "
+"használatával."
 
 #: ../content/index.rst:101
 msgid "LinkObject::PossibleLink###3221"
@@ -232,6 +271,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Ticket' objects using the 'DependsOn' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „Ticket” objektumokkal a „DependsOn” hivatkozástípus "
+"használatával."
 
 #: ../content/index.rst:105
 msgid "LinkObject::PossibleLink###3222"
@@ -242,6 +284,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Ticket' objects using the 'RelevantTo' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „Ticket” objektumokkal a „RelevantTo” hivatkozástípus "
+"használatával."
 
 #: ../content/index.rst:109
 msgid "LinkObject::PossibleLink###3240"
@@ -252,6 +297,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Service' objects using the 'AlternativeTo' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „Service” objektumokkal az „AlternativeTo” hivatkozástípus "
+"használatával."
 
 #: ../content/index.rst:113
 msgid "LinkObject::PossibleLink###3241"
@@ -262,6 +310,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Service' objects using the 'DependsOn' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „Service” objektumokkal a „DependsOn” hivatkozástípus "
+"használatával."
 
 #: ../content/index.rst:117
 msgid "LinkObject::PossibleLink###3242"
@@ -272,6 +323,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Service' objects using the 'RelevantTo' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „Service” objektumokkal a „RelevantTo” hivatkozástípus "
+"használatával."
 
 #: ../content/index.rst:121
 msgid "LinkObject::PossibleLink###3260"
@@ -282,6 +336,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' "
 "objects using the 'Normal' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „FAQ” objektumokkal a „Normal” hivatkozástípus "
+"használatával."
 
 #: ../content/index.rst:125
 msgid "LinkObject::PossibleLink###3261"
@@ -292,6 +349,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' "
 "objects using the 'ParentChild' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „FAQ” objektumokkal a „ParentChild” hivatkozástípus "
+"használatával."
 
 #: ../content/index.rst:129
 msgid "LinkObject::PossibleLink###3262"
@@ -302,6 +362,9 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' "
 "objects using the 'RelevantTo' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMConfigItem” objektum "
+"összeköthető-e a „FAQ” objektumokkal a „RelevantTo” hivatkozástípus "
+"használatával."
 
 #: ../content/index.rst:133
 msgid "LinkObject::PossibleLink###3280"
@@ -312,6 +375,8 @@ msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'Normal' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a „"
+"FAQ” objektumokkal a „Normal” hivatkozástípus használatával."
 
 #: ../content/index.rst:137
 msgid "LinkObject::PossibleLink###3281"
@@ -322,6 +387,8 @@ msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'ParentChild' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a „"
+"FAQ” objektumokkal a „ParentChild” hivatkozástípus használatával."
 
 #: ../content/index.rst:141
 msgid "LinkObject::PossibleLink###3282"
@@ -332,6 +399,8 @@ msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'RelevantTo' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a „"
+"FAQ” objektumokkal a „RelevantTo” hivatkozástípus használatával."
 
 #: ../content/index.rst:145
 msgid "LinkObject::PossibleLink###3400"
@@ -342,6 +411,8 @@ msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'Service' objects using the 'Normal' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-"
+"e a „Service” objektumokkal a „Normal” hivatkozástípus használatával."
 
 #: ../content/index.rst:149
 msgid "LinkObject::PossibleLink###3401"
@@ -352,6 +423,8 @@ msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'Service' objects using the 'DependsOn' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-"
+"e a „Service” objektumokkal a „DependsOn” hivatkozástípus használatával."
 
 #: ../content/index.rst:153
 msgid "LinkObject::PossibleLink###3410"
@@ -362,6 +435,8 @@ msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'ITSMConfigItem' objects using the 'Normal' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-"
+"e az „ITSMConfigItem” objektumokkal a „Normal” hivatkozástípus használatával."
 
 #: ../content/index.rst:157
 msgid "LinkObject::PossibleLink###3411"
@@ -372,6 +447,9 @@ msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'ITSMConfigItem' objects using the 'DependsOn' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-"
+"e az „ITSMConfigItem” objektumokkal a „DependsOn” hivatkozástípus "
+"használatával."
 
 #: ../content/index.rst:161
 msgid "LinkObject::PossibleLink###3412"
@@ -382,6 +460,8 @@ msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'Ticket' objects using the 'Normal' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMWorkOrder” objektum összeköthető-"
+"e a „Ticket” objektumokkal a „Normal” hivatkozástípus használatával."
 
 #: ../content/index.rst:165
 msgid "LinkObject::PossibleLink###3420"
@@ -392,6 +472,8 @@ msgid ""
 "This setting defines that a 'ITSMChange' object can be linked with 'Ticket' "
 "objects using the 'Normal' link type."
 msgstr ""
+"Ez a beállítás határozza meg, hogy egy „ITSMChange” objektum összeköthető-e "
+"a „Ticket” objektumokkal a „Normal” hivatkozástípus használatával."
 
 #: ../content/index.rst:169
 msgid "LinkObject::Type###AlternativeTo"
@@ -404,6 +486,10 @@ msgid ""
 "directional one. If the values are different, the resulting link is a "
 "directional link."
 msgstr ""
+"Ez a beállítás határozza meg az „AlternativeTo” hivatkozástípust. Ha a "
+"forrásnév a célnév ugyanazt az értéket tartalmazza, akkor az eredményül "
+"kapott hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az "
+"eredményül kapott hivatkozás irányított hivatkozás lesz."
 
 #: ../content/index.rst:173
 msgid "LinkObject::Type###ConnectedTo"
@@ -415,6 +501,10 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
+"Ez a beállítás határozza meg a „ConnectedTo” hivatkozástípust. Ha a "
+"forrásnév a célnév ugyanazt az értéket tartalmazza, akkor az eredményül "
+"kapott hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az "
+"eredményül kapott hivatkozás irányított hivatkozás lesz."
 
 #: ../content/index.rst:177
 msgid "LinkObject::Type###DependsOn"
@@ -426,6 +516,10 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
+"Ez a beállítás határozza meg a „DependsOn” hivatkozástípust. Ha a forrásnév "
+"a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott "
+"hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül "
+"kapott hivatkozás irányított hivatkozás lesz."
 
 #: ../content/index.rst:181
 msgid "LinkObject::Type###Includes"
@@ -437,6 +531,10 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
+"Ez a beállítás határozza meg az „Includes” hivatkozástípust. Ha a forrásnév "
+"a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott "
+"hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül "
+"kapott hivatkozás irányított hivatkozás lesz."
 
 #: ../content/index.rst:185
 msgid "LinkObject::Type###LocationOf"
@@ -448,6 +546,10 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
+"Ez a beállítás határozza meg a „LocationOf” hivatkozástípust. Ha a forrásnév "
+"a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott "
+"hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül "
+"kapott hivatkozás irányított hivatkozás lesz."
 
 #: ../content/index.rst:189
 msgid "LinkObject::Type###RelevantTo"
@@ -459,6 +561,10 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
+"Ez a beállítás határozza meg a „RelevantTo” hivatkozástípust. Ha a forrásnév "
+"a célnév ugyanazt az értéket tartalmazza, akkor az eredményül kapott "
+"hivatkozás nem lesz irányított. Ha az értékek eltérnek, akkor az eredményül "
+"kapott hivatkozás irányított hivatkozás lesz."
 
 #: ../content/index.rst:193
 msgid "LinkObject::ViewMode"
@@ -482,6 +588,9 @@ msgid ""
 "repository, for example: Key=\"http://example.com/otobo/public.pl?"
 "Action=PublicRepository;File=\" and Content=\"Some Name\"."
 msgstr ""
+"Meghatározza az interneten lévő tárolók listáját. Egy másik telepítés is "
+"használható tárolóként, például: Kulcs=„http://example.com/otobo/"
+"public.pl?Action=PublicRepository;File=” és Tartalom=„Valamilyen név”."
 
 #: ../content/index.rst:204
 msgid "Core::Ticket"
@@ -511,6 +620,8 @@ msgid ""
 "Frontend module registration for the AdminITSMCIPAllocate configuration in "
 "the admin area."
 msgstr ""
+"Előtétprogram modul regisztráció az adminisztrációs területen lévő "
+"kritikusság ↔ hatás ↔ prioritás lefoglalás beállításhoz."
 
 #: ../content/index.rst:218
 msgid "Frontend::Admin::ModuleRegistration::AdminOverview"
@@ -559,7 +670,7 @@ msgstr ""
 
 #: ../content/index.rst:243
 msgid "Width of ITSM textareas."
-msgstr ""
+msgstr "Az ITSM szövegdobozok szélessége."
 
 #: ../content/index.rst:246
 msgid "Frontend::Agent::ITSMSLA::MenuModule"
@@ -571,7 +682,7 @@ msgstr ""
 
 #: ../content/index.rst:250
 msgid "Module to show the Back menu item in SLA menu."
-msgstr ""
+msgstr "Egy modul a Vissza menüpont megjelenítéséhez az SLA menüben."
 
 #: ../content/index.rst:253
 msgid "ITSMSLA::Frontend::MenuModule###100-Print"
@@ -579,7 +690,7 @@ msgstr ""
 
 #: ../content/index.rst:254
 msgid "Module to show the Print menu item in SLA menu."
-msgstr ""
+msgstr "Egy modul a Nyomtatás menüpont megjelenítéséhez az SLA menüben."
 
 #: ../content/index.rst:257
 msgid "Frontend::Agent::ITSMService::MenuModule"
@@ -591,7 +702,7 @@ msgstr ""
 
 #: ../content/index.rst:261
 msgid "Module to show the Back menu item in service menu."
-msgstr ""
+msgstr "Egy modul a Vissza menüpont megjelenítéséhez a szolgáltatás menüben."
 
 #: ../content/index.rst:264
 msgid "ITSMService::Frontend::MenuModule###100-Print"
@@ -599,7 +710,7 @@ msgstr ""
 
 #: ../content/index.rst:265
 msgid "Module to show the Print menu item in service menu."
-msgstr ""
+msgstr "Egy modul a Nyomtatás menüpont megjelenítéséhez a szolgáltatás menüben."
 
 #: ../content/index.rst:268
 msgid "ITSMService::Frontend::MenuModule###200-Link"
@@ -608,6 +719,7 @@ msgstr ""
 #: ../content/index.rst:269
 msgid "Module to show the Link menu item in service menu."
 msgstr ""
+"Egy modul az Összekapcsolás menüpont megjelenítéséhez a szolgáltatás menüben."
 
 #: ../content/index.rst:272
 msgid "Frontend::Agent::LinkObject"
@@ -624,6 +736,11 @@ msgid ""
 "allowed for DefaultColumns. Possible settings: 0 = Disabled, 1 = Available, "
 "2 = Enabled by default."
 msgstr ""
+"Annak meghatározása, hogy mely oszlopok legyenek láthatók a kapcsolt "
+"szolgáltatások felületi elemen (LinkObject::ViewMode = „összetett”). "
+"Megjegyzés: csak szolgáltatás attribútumok engedélyezettek az "
+"alapértelmezett oszlopoknál. Lehetséges beállítások: 0 = letiltva, 1 = "
+"elérhető, 2 = alapértelmezetten engedélyezett."
 
 #: ../content/index.rst:279
 msgid "LinkObject::ComplexTable::SettingsVisibility###Service"
@@ -657,6 +774,8 @@ msgid ""
 "Frontend module registration for the AgentITSMSLA object in the agent "
 "interface."
 msgstr ""
+"Előtétprogram modul regisztráció az ügyintézői felületen lévő SLA "
+"objektumhoz."
 
 #: ../content/index.rst:290
 msgid "Frontend::Module###AgentITSMSLAPrint"
@@ -667,6 +786,8 @@ msgid ""
 "Frontend module registration for the AgentITSMSLAPrint object in the agent "
 "interface."
 msgstr ""
+"Előtétprogram modul regisztráció az ügyintézői felületen lévő SLA nyomtatás "
+"objektumhoz."
 
 #: ../content/index.rst:294
 msgid "Frontend::Module###AgentITSMSLAZoom"
@@ -677,6 +798,8 @@ msgid ""
 "Frontend module registration for the AgentITSMSLAZoom object in the agent "
 "interface."
 msgstr ""
+"Előtétprogram modul regisztráció az ügyintézői felületen lévő SLA nagyítás "
+"objektumhoz."
 
 #: ../content/index.rst:298
 msgid "Frontend::Module###AgentITSMService"
@@ -687,6 +810,8 @@ msgid ""
 "Frontend module registration for the AgentITSMService object in the agent "
 "interface."
 msgstr ""
+"Előtétprogram modul regisztráció az ügyintézői felületen lévő szolgáltatás "
+"objektumhoz."
 
 #: ../content/index.rst:302
 msgid "Frontend::Module###AgentITSMServicePrint"
@@ -697,6 +822,8 @@ msgid ""
 "Frontend module registration for the AgentITSMServicePrint object in the "
 "agent interface."
 msgstr ""
+"Előtétprogram modul regisztráció az ügyintézői felületen lévő szolgáltatás "
+"nyomtatás objektumhoz."
 
 #: ../content/index.rst:306
 msgid "Frontend::Module###AgentITSMServiceZoom"
@@ -707,6 +834,8 @@ msgid ""
 "Frontend module registration for the AgentITSMServiceZoom object in the "
 "agent interface."
 msgstr ""
+"Előtétprogram modul regisztráció az ügyintézői felületen lévő szolgáltatás "
+"nagyítás objektumhoz."
 
 #: ../content/index.rst:310
 msgid "Frontend::Agent::ModuleRegistration::Loader"
@@ -754,6 +883,8 @@ msgid ""
 "CIPAllocation: Overwrite priority based on Criticality and Impact. Default "
 "fallback: Frontend::CIPAllocationDefault."
 msgstr ""
+"CIPAllocation: prioritás felülírása a kritikusság és hatás alapján. "
+"Alapértelmezett tartalék: Frontend::CIPAllocationDefault."
 
 #: ../content/index.rst:347
 msgid "Frontend::Agent::View::TicketFreeText"
@@ -783,6 +914,8 @@ msgstr ""
 msgid ""
 "Show the current service incident state signal in the ticket information."
 msgstr ""
+"A jelenlegi szolgáltatás incidensállapot-jelzőjének megjelenítése a "
+"jegyinformációkban."
 
 #: ../content/index.rst:368
 msgid "Frontend::Base::Loader"
