@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - b29efc250d16dc345e00f511cf904509bcd35d7c - Kernel/Modules/AgentTicketPhone.pm
+# $origin: otobo - c3bc6a2c08d7b7b7c24c608c25bf6eb489771034 - Kernel/Modules/AgentTicketPhone.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -1998,8 +1998,8 @@ sub Run {
             );
         }
 
-        # remove all form data
-        $Kernel::OM->Get('Kernel::System::Web::FormCache')->FormIDRemove( FormID => $Self->{FormID} );
+        # remove pre submitted attachments
+        $UploadCacheObject->FormIDRemove( FormID => $Self->{FormID} );
 
         # delete hidden fields cache
         $Kernel::OM->Get('Kernel::System::Cache')->Delete(
@@ -2071,11 +2071,11 @@ sub Run {
         }
 
         # get redirect screen
-        my $NextScreen = $Self->{Session}{UserCreateNextMask} || 'AgentTicketPhone';
+        my $NextScreen = $Self->{Session}{UserCreateNextMask} || 'AgentTicketPhone;Subaction=Created';
 
         # redirect
         return $LayoutObject->Redirect(
-            OP => "Action=$NextScreen;Subaction=Created;TicketID=$TicketID",
+            OP => "Action=$NextScreen;TicketID=$TicketID",
         );
     }
     elsif ( $Self->{Subaction} eq 'AJAXUpdate' ) {
