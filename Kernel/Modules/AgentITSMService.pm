@@ -55,6 +55,7 @@ sub Run {
         Translatable('operational') => 'greenled',
         Translatable('warning')     => 'yellowled',
         Translatable('incident')    => 'redled',
+        Translatable('unknown')     => 'grayled',
     );
 
     if ( @{$ServiceList} ) {
@@ -63,6 +64,8 @@ sub Run {
         @{$ServiceList} = sort { $a->{Name} . '::' cmp $b->{Name} . '::' } @{$ServiceList};
 
         for my $ServiceData ( @{$ServiceList} ) {
+
+            $ServiceData->{CurInciStateType} ||= 'unknown';
 
             # output overview row
             $LayoutObject->Block(
