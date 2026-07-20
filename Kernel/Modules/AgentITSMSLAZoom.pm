@@ -129,6 +129,8 @@ sub Run {
                 UserID        => $Self->{UserID},
             );
 
+            $Service{CurInciStateType} ||= 'unknown';
+
             # add service to hash
             $ServiceList{$ServiceID} = \%Service;
         }
@@ -138,6 +140,7 @@ sub Run {
             Translatable('operational') => 'greenled',
             Translatable('warning')     => 'yellowled',
             Translatable('incident')    => 'redled',
+            Translatable('unknown')     => 'grayled',
         );
 
         my $CssClass = '';

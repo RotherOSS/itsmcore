@@ -170,6 +170,7 @@ sub Run {
         Translatable('operational') => 'greenled',
         Translatable('warning')     => 'yellowled',
         Translatable('incident')    => 'redled',
+        Translatable('unknown')     => 'grayled',
     );
 
     # get user object
@@ -184,6 +185,8 @@ sub Run {
     $Service{ChangeByName} = $UserObject->UserName(
         UserID => $Service{ChangeBy},
     );
+
+    $Service{CurInciStateType} ||= 'unknown';
 
     # store last screen
     $Kernel::OM->Get('Kernel::System::AuthSession')->UpdateSessionID(

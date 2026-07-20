@@ -101,7 +101,10 @@ sub Run {
                 operational => 'greenled',
                 warning     => 'yellowled',
                 incident    => 'redled',
+                unknown     => 'grayled',
             );
+
+            $Service{CurInciStateType} ||= 'unknown';
 
             $LayoutObject->Block(
                 Name => 'ServiceInciSignal',
