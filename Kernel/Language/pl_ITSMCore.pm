@@ -62,6 +62,7 @@ sub Data {
     $Self->{Translation}->{'operational'} = '';
     $Self->{Translation}->{'warning'} = '';
     $Self->{Translation}->{'incident'} = '';
+    $Self->{Translation}->{'unknown'} = '';
 
     # Perl Module: Kernel/Modules/AgentITSMServicePrint.pm
     $Self->{Translation}->{'No ServiceID is given!'} = '';

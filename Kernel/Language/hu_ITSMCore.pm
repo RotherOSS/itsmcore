@@ -62,6 +62,7 @@ sub Data {
     $Self->{Translation}->{'operational'} = 'üzemképes';
     $Self->{Translation}->{'warning'} = 'figyelmeztetés';
     $Self->{Translation}->{'incident'} = 'incidens';
+    $Self->{Translation}->{'unknown'} = '';
 
     # Perl Module: Kernel/Modules/AgentITSMServicePrint.pm
     $Self->{Translation}->{'No ServiceID is given!'} = 'Nincs szolgáltatásazonosító megadva!';
