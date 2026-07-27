@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 8c7dfc2c7640699c8e02c0bab72813a4a7b8345a - Kernel/Modules/AgentTicketPhone.pm
+# $origin: otobo - 252758a41ef23e0f3a1b7237c6b102ae4d4d65b8 - Kernel/Modules/AgentTicketPhone.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -2077,11 +2077,11 @@ sub Run {
         }
 
         # get redirect screen
-        my $NextScreen = $Self->{Session}{UserCreateNextMask} || 'AgentTicketPhone';
+        my $NextScreen = $Self->{Session}{UserCreateNextMask} || 'AgentTicketPhone;Subaction=Created';
 
         # redirect
         return $LayoutObject->Redirect(
-            OP => "Action=$NextScreen;Subaction=Created;TicketID=$TicketID",
+            OP => "Action=$NextScreen;TicketID=$TicketID",
         );
     }
     elsif ( $Self->{Subaction} eq 'AJAXUpdate' ) {
