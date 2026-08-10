@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - c3bc6a2c08d7b7b7c24c608c25bf6eb489771034 - Kernel/Modules/AgentTicketPhone.pm
+# $origin: otobo - ee09a79ef879ffced5d149947b66b61962b544eb - Kernel/Modules/AgentTicketPhone.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -562,8 +562,12 @@ sub Run {
                 $CustomerError = 'ServerError';
             }
 
+            my $Phrase       = $EmailAddressObject->GetRealName( AddressObject => $Email ) || '';
+            my $CustomerKey  = '';
+            my $EmailAddress = $EmailAddressObject->GetAddress( AddressObject => $Email );
+
             # check for duplicated entries
-            if ( defined $AddressesList{$Email} && $CustomerError eq '' ) {
+            if ( defined $AddressesList{$EmailAddress} && $CustomerError eq '' ) {
                 $CustomerErrorMsg = 'IsDuplicatedServerErrorMsg';
                 $CustomerError    = 'ServerError';
             }
@@ -573,9 +577,7 @@ sub Run {
                 $CountAux         = $CountFrom . 'Error';
             }
 
-            my $Phrase       = $EmailAddressObject->GetRealName( AddressObject => $Email ) || '';
-            my $CustomerKey  = '';
-            my $EmailAddress = $EmailAddressObject->GetAddress( AddressObject => $Email );
+            # set correct CustomerKey
             if (
                 defined $CustomerDataFrom{UserEmail}
                 && $CustomerDataFrom{UserEmail} eq $EmailAddress
@@ -597,10 +599,7 @@ sub Run {
                 }
             }
 
-            my $CustomerElement = $EmailAddress;
-            if ($Phrase) {
-                $CustomerElement = $Phrase . " <$EmailAddress>";
-            }
+            my $CustomerElement = $EmailAddressObject->Format( AddressObject => $Email );
 
             if ( $CustomerSelected && $CustomerKey ) {
                 %CustomerData = $CustomerUserObject->CustomerUserDataGet(
