@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - ba2b8d4c3d1d2c75ac3e475af1adb5fafd50f378 - Kernel/Modules/AgentTicketProcess.pm
+# $origin: otobo - 967533807ff4664ef1d2bf81179fca89cfb51b53 - Kernel/Modules/AgentTicketProcess.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -408,7 +408,7 @@ sub Run {
         );
     }
 
-    # if invalid process is detected on a ActivityDilog pop-up screen show an error message
+    # if invalid process is detected on a ActivityDialog pop-up screen show an error message
     elsif (
         $Self->{Subaction} eq 'DisplayActivityDialog'
         && !$FollowupProcessList->{$ProcessEntityID}
@@ -562,7 +562,7 @@ sub _RenderAjax {
     my $ParamObject  = $Kernel::OM->Get('Kernel::System::Web::Request');
     my $TicketObject = $Kernel::OM->Get('Kernel::System::Ticket');
 
-    # Get the activity dialog's Submit Param's or Config Params
+    # Get the activity dialog's Submit Params or Config Params
     DIALOGFIELD:
     for my $CurrentField ( @{ $ActivityDialog->{FieldOrder} } ) {
 
@@ -1189,7 +1189,7 @@ sub _GetParam {
     $GetParam{ActivityEntityID}       = $ActivityEntityID // $ParamObject->GetParam( Param => 'ActivityEntityID' );
     $GetParam{ProcessEntityID}        = $ProcessEntityID;
 
-    # Get the activitydialogs's Submit Param's or Config Params
+    # Get the activitydialogs's Submit Params or Config Params
     DIALOGFIELD:
     for my $CurrentField ( @{ $ActivityDialog->{FieldOrder} } ) {
 
@@ -1272,7 +1272,7 @@ sub _GetParam {
                 )
             {
 
-                # map the GetParam's Date Values to our DateParamHash
+                # map the GetParam Date Values to our DateParamHash
                 my %DateParam = (
                     Prefix => $Prefix,
                     map {
@@ -1347,7 +1347,7 @@ sub _GetParam {
             }
         }
 
-        # if no Submitted nor Ticket Param get ActivityDialog Config's Param
+        # if no Submitted nor Ticket Param get ActivityDialog Config Param
         if ( $CurrentField ne 'CustomerID' ) {
             $Value = $ActivityDialog->{Fields}{$CurrentField}{DefaultValue};
         }
@@ -1523,7 +1523,7 @@ sub _OutputActivityDialog {
     my %Error         = ();
     my %ErrorMessages = ();
 
-    # If we had Errors, we got an Errorhash
+    # If we had Errors, we got an Error hash
     %Error         = %{ $Param{Error} }         if ( IsHashRefWithData( $Param{Error} ) );
     %ErrorMessages = %{ $Param{ErrorMessages} } if ( IsHashRefWithData( $Param{ErrorMessages} ) );
 
@@ -1684,7 +1684,7 @@ sub _OutputActivityDialog {
         );
     }
 
-    # Add PageHeader, Navbar, Formheader (Process/ActivityDialogHeader)
+    # Add Page Header, Nav bar, Form header (Process/ActivityDialogHeader)
     my $Output;
     my $MainBoxClass;
 
@@ -1921,6 +1921,25 @@ sub _OutputActivityDialog {
             if ( !$ACLPreselection ) {
                 $ACLPreselection = $FieldRestrictionsObject->SetACLPreselectionCache();
             }
+        }
+
+        # pre-filling cache for reference field - necessary for ACL calculation of lens fields
+        DYNAMICFIELDNAME:
+        for my $DynamicFieldName ( keys $Self->{DynamicField}->%* ) {
+            my $DynamicFieldConfig = $Self->{DynamicField}{$DynamicFieldName};
+            my $IsReferenceField   = $DynamicFieldBackendObject->HasBehavior(
+                Behavior           => 'IsReferenceField',
+                DynamicFieldConfig => $DynamicFieldConfig,
+            );
+
+            next DYNAMICFIELDNAME unless $IsReferenceField;
+
+            $Kernel::OM->Get('Kernel::System::Web::FormCache')->SetFormData(
+                LayoutObject => $LayoutObject,
+                FormID       => $Self->{FormID},
+                Key          => 'PossibleValues_DynamicField_' . $DynamicFieldConfig->{Name},
+                Value        => $Param{GetParam}{DynamicField}{"DynamicField_$DynamicFieldName"},
+            );
         }
 
         my $Autoselect     = $ConfigObject->Get('TicketACL::Autoselect') || undef;
@@ -3471,7 +3490,7 @@ sub _RenderResponsible {
     }
 
     # if we have a user already and the field is not mandatory and it is the same as in ticket, then
-    #    set it to none (as it doesn't need to be changed afterall)
+    #    set it to none (as it doesn't need to be changed after all)
     elsif (
         $SelectedValue
         && $Param{ActivityDialogField}{Display} != 2
@@ -3639,7 +3658,7 @@ sub _RenderOwner {
     }
 
     # if we have a user already and the field is not mandatory and it is the same as in ticket, then
-    #    set it to none (as it doesn't need to be changed afterall)
+    #    set it to none (as it doesn't need to be changed after all)
     elsif (
         $SelectedValue
         && $Param{ActivityDialogField}{Display} != 2
@@ -5096,7 +5115,7 @@ sub _StoreActivityDialog {
 
         $DynamicFieldPossibleValues{ 'DynamicField_' . $DynamicFieldName } = $PossibleValuesFilter;
 
-        # if we have an invisible field, use config's default value
+        # if we have an invisible field, use config default value
         if ( $ActivityDialog->{Fields}{ 'DynamicField_' . $DynamicFieldName } && $ActivityDialog->{Fields}{ 'DynamicField_' . $DynamicFieldName }{Display} == 0 )
         {
             if (
@@ -6020,7 +6039,7 @@ sub _DisplayProcessList {
         },
     );
 
-    # on initial screen from navbar there is no IsMainWinow but also no IsProcessEnroll,
+    # on initial screen from navbar there is no IsMainWindow but also no IsProcessEnroll,
     # then it must be a MainWindow
     if ( !$Self->{IsMainWindow} && !$Self->{IsProcessEnroll} ) {
         $Self->{IsMainWindow} = 1;
