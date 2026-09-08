@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - f4a2fc11280f888d516cc323860e32bfc4bc3f9e - Kernel/Modules/AgentTicketProcess.pm
+# $origin: otobo - bd638ceea3f14f40393fe4cc6aea7091eb59b889 - Kernel/Modules/AgentTicketProcess.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -902,7 +902,7 @@ sub _RenderAjax {
 
     push @JSONCollector, @DynamicFieldAJAX;
 
-    # update ticket body and attachements if needed.
+    # update ticket body and attachments if needed.
     if ( $ActivateStandardTemplates && $ChangedElements{StandardTemplateID} ) {
         my @TicketAttachments;
         my $TemplateText;
@@ -948,7 +948,7 @@ sub _RenderAjax {
                 );
             }
 
-            # send a list of attachments in the upload cache back to the clientside JavaScript
+            # send a list of attachments in the upload cache back to the client-side JavaScript
             # which renders then the list of currently uploaded attachments
             @TicketAttachments = $UploadCacheObject->FormIDGetAllFilesMeta(
                 FormID => $Self->{FormID},

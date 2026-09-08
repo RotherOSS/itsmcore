@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - b4ce183271e1526614219126933f204c0196ab34 - Kernel/Modules/AgentTicketActionCommon.pm
+# $origin: otobo - 389ee794db2207caaba34c91b1186b504c1c63d5 - Kernel/Modules/AgentTicketActionCommon.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -30,7 +30,6 @@ use List::Util qw(any first);
 # CPAN modules
 
 # OTOBO modules
-use Kernel::System::EmailParser   ();
 use Kernel::System::VariableCheck qw(:all);
 use Kernel::Language              qw(Translatable);
 

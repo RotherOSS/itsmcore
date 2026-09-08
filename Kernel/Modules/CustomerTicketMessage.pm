@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 581e36fb3affc2a387dd70824e309f45163545fe - Kernel/Modules/CustomerTicketMessage.pm
+# $origin: otobo - bd638ceea3f14f40393fe4cc6aea7091eb59b889 - Kernel/Modules/CustomerTicketMessage.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
