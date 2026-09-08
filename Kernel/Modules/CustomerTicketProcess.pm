@@ -24,6 +24,7 @@ use strict;
 use warnings;
 
 # core modules
+use List::Util qw(any);
 
 # CPAN modules
 
@@ -153,7 +154,7 @@ sub Run {
         LayoutObject => $LayoutObject,
     );
 
-    # if invalid process is detected on a ActivityDilog popup screen show an error message
+    # if invalid process is detected on a ActivityDialog popup screen show an error message
     if (
         $Self->{Subaction} eq 'DisplayActivityDialog'
         && !$FollowupProcessList->{$ProcessEntityID}
@@ -294,12 +295,12 @@ sub _RenderAjax {
     # some fields should be skipped for the customer interface
     my $SkipFields = [ 'Owner', 'Responsible', 'Lock', 'PendingTime', 'CustomerID' ];
 
-    # Get the activity dialog's Submit Param's or Config Params
+    # Get the activity dialog's Submit Params or Config Params
     DIALOGFIELD:
     for my $CurrentField ( @{ $ActivityDialog->{FieldOrder} } ) {
 
         # some fields should be skipped for the customer interface
-        next DIALOGFIELD if ( grep { $_ eq $CurrentField } @{$SkipFields} );
+        next DIALOGFIELD if ( any { $_ eq $CurrentField } @{$SkipFields} );
 
         # Skip if we're working on a field that was already done with or without ID
         if (
@@ -673,12 +674,12 @@ sub _GetParam {
     # some fields should be skipped for the customer interface
     my $SkipFields = [ 'Owner', 'Responsible', 'Lock', 'PendingTime', 'CustomerID' ];
 
-    # Get the activitydialogs's Submit Param's or Config Params
+    # Get the activitydialogs's Submit Params or Config Params
     DIALOGFIELD:
     for my $CurrentField ( @{ $ActivityDialog->{FieldOrder} } ) {
 
         # some fields should be skipped for the customer interface
-        next DIALOGFIELD if ( grep { $_ eq $CurrentField } @{$SkipFields} );
+        next DIALOGFIELD if ( any { $_ eq $CurrentField } @{$SkipFields} );
 
         # Skip if we're working on a field that was already done with or without ID
         if ( $Self->{NameToID}{$CurrentField} && $ValuesGotten{ $Self->{NameToID}{$CurrentField} } )
@@ -721,7 +722,7 @@ sub _GetParam {
             next DIALOGFIELD;
         }
 
-        # if no Submitted nor Ticket Param get ActivityDialog Config's Param
+        # if no Submitted nor Ticket Param get ActivityDialog Config Param
         $Value = $ActivityDialog->{Fields}{$CurrentField}{DefaultValue};
 
         if ($Value) {
@@ -883,7 +884,7 @@ sub _OutputActivityDialog {
     my %Error         = ();
     my %ErrorMessages = ();
 
-    # If we had Errors, we got an Errorhash
+    # If we had Errors, we got an Error hash
     %Error         = %{ $Param{Error} }         if ( IsHashRefWithData( $Param{Error} ) );
     %ErrorMessages = %{ $Param{ErrorMessages} } if ( IsHashRefWithData( $Param{ErrorMessages} ) );
 
@@ -971,7 +972,7 @@ sub _OutputActivityDialog {
         );
     }
 
-    # Add PageHeader, Navbar, Formheader (Process/ActivityDialogHeader)
+    # Add Page Header, Nav bar, Form header (Process/ActivityDialogHeader)
     my $Output;
     my $MainBoxClass;
 
@@ -1095,6 +1096,25 @@ sub _OutputActivityDialog {
         # build hash of field configs without suffix attached to name
         my %FieldConfigsPlain = map { $_ => { $Self->{DynamicField}{$_}->%*, Name => $_ } } keys $Self->{DynamicField}->%*;
 
+        # pre-filling cache for reference field - necessary for ACL calculation of lens fields
+        DYNAMICFIELDNAME:
+        for my $DynamicFieldName ( keys $Self->{DynamicField}->%* ) {
+            my $DynamicFieldConfig = $Self->{DynamicField}{$DynamicFieldName};
+            my $IsReferenceField   = $DynamicFieldBackendObject->HasBehavior(
+                Behavior           => 'IsReferenceField',
+                DynamicFieldConfig => $DynamicFieldConfig,
+            );
+
+            next DYNAMICFIELDNAME unless $IsReferenceField;
+
+            $Kernel::OM->Get('Kernel::System::Web::FormCache')->SetFormData(
+                LayoutObject => $LayoutObject,
+                FormID       => $Self->{FormID},
+                Key          => 'PossibleValues_DynamicField_' . $DynamicFieldConfig->{Name},
+                Value        => $Param{GetParam}{DynamicField}{"DynamicField_$DynamicFieldName"},
+            );
+        }
+
         # get values and visibility of dynamic fields
         my %DynFieldStates = $FieldRestrictionsObject->GetFieldStates(
             TicketObject              => $TicketObject,
@@ -1145,7 +1165,7 @@ sub _OutputActivityDialog {
     for my $CurrentField ( @{ $ActivityDialog->{FieldOrder} } ) {
 
         # some fields should be skipped for the customer interface
-        next DIALOGFIELD if ( grep { $_ eq $CurrentField } @{$SkipFields} );
+        next DIALOGFIELD if ( any { $_ eq $CurrentField } @{$SkipFields} );
 
         if ( !IsHashRefWithData( $ActivityDialog->{Fields}{$CurrentField} ) ) {
             my $Message = $LayoutObject->{LanguageObject}->Translate(
@@ -2861,7 +2881,7 @@ sub _StoreActivityDialog {
     for my $CurrentField ( @{ $ActivityDialog->{FieldOrder} } ) {
 
         # some fields should be skipped for the customer interface
-        next DIALOGFIELD if ( grep { $_ eq $CurrentField } @{$SkipFields} );
+        next DIALOGFIELD if ( any { $_ eq $CurrentField } @{$SkipFields} );
 
         # handle dynamic fields separately
         next DIALOGFIELD if $CurrentField =~ m{^DynamicField_(.*)}xms;
@@ -3072,7 +3092,7 @@ sub _StoreActivityDialog {
 
         $DynamicFieldPossibleValues{ 'DynamicField_' . $DynamicFieldName } = $PossibleValuesFilter;
 
-        # if we have an invisible field, use config's default value
+        # if we have an invisible field, use config default value
         if ( $ActivityDialog->{Fields}->{ 'DynamicField_' . $DynamicFieldName } && $ActivityDialog->{Fields}->{ 'DynamicField_' . $DynamicFieldName }->{Display} == 0 )
         {
             if (
@@ -3229,7 +3249,7 @@ sub _StoreActivityDialog {
     for my $CurrentField ( @{ $ActivityDialog->{FieldOrder} } ) {
 
         # some fields should be skipped for the customer interface
-        next DIALOGFIELD if ( grep { $_ eq $CurrentField } @{$SkipFields} );
+        next DIALOGFIELD if ( any { $_ eq $CurrentField } @{$SkipFields} );
 
         if ( !IsHashRefWithData( $ActivityDialog->{Fields}->{$CurrentField} ) ) {
             $LayoutObject->CustomerFatalError(
