@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-07 14:14+0000\n"
-"PO-Revision-Date: 2026-10-05 04:41+0000\n"
+"PO-Revision-Date: 2026-10-05 06:41+0000\n"
 "Last-Translator: Kozo Sakurai <sakurai@io-architect.com>\n"
 "Language-Team: Japanese <http://translate.otobo.org/projects/otobo-11-1/"
 "addons/manuals/itsmcore-documentation/ja/>\n"
@@ -23,101 +23,103 @@ msgstr ""
 
 #: ../content/index.rst:5
 msgid "Contents"
-msgstr ""
+msgstr "目次"
 
 #: ../content/index.rst:10
 msgid "Description"
-msgstr ""
+msgstr "説明"
 
 #: ../content/index.rst:11
 msgid "The OTOBO::ITSM Core package."
-msgstr ""
+msgstr "OTOBO::ITSM Core パッケージ。"
 
 #: ../content/index.rst:14
 msgid "System requirements"
-msgstr ""
+msgstr "システム要件"
 
 #: ../content/index.rst:17
 msgid "Framework"
-msgstr ""
+msgstr "フレームワーク"
 
 #: ../content/index.rst:18
 msgid "OTOBO 11.1.x"
-msgstr ""
+msgstr "OTOBO 11.1.x"
 
 #: ../content/index.rst:21
 msgid "Packages"
-msgstr ""
+msgstr "パッケージ"
 
 #: ../content/index.rst:22
 msgid "GeneralCatalog 11.1.0"
-msgstr ""
+msgstr "GeneralCatalog 11.1.0"
 
 #: ../content/index.rst:25
 msgid "Third-party software"
-msgstr ""
+msgstr "サードパーティ製ソフトウェア"
 
 #: ../content/index.rst:26
 msgid "\\-"
-msgstr ""
+msgstr "\\-"
 
 #: ../content/index.rst:29
 msgid "Usage"
-msgstr ""
+msgstr "使い方"
 
 #: ../content/index.rst:32
 msgid "Setup"
-msgstr ""
+msgstr "セットアップ"
 
 #: ../content/index.rst:35
 msgid "Configuration Reference"
-msgstr ""
+msgstr "設定リファレンス"
 
 #: ../content/index.rst:38
 msgid "Core"
-msgstr ""
+msgstr "Core"
 
 #: ../content/index.rst:41
 msgid "ProductName"
-msgstr ""
+msgstr "ProductName"
 
 #: ../content/index.rst:42
 msgid ""
 "Defines the name of the application, shown in the web interface, tabs and "
 "title bar of the web browser."
 msgstr ""
+"Web インタフェース、タブ、Web ブラウザーのタイトルバーに表示される"
+"アプリケーション名を定義します。"
 
 #: ../content/index.rst:45
 msgid "Core::DynamicFields::DriverRegistration"
-msgstr ""
+msgstr "Core::DynamicFields::DriverRegistration"
 
 #: ../content/index.rst:48
 msgid "DynamicFields::Driver###Service"
-msgstr ""
+msgstr "DynamicFields::Driver###Service"
 
 #: ../content/index.rst:49
 msgid "DynamicField backend registration."
-msgstr ""
+msgstr "ダイナミックフィールドのバックエンドの登録。"
 
 #: ../content/index.rst:52
 msgid "Core::GeneralCatalog"
-msgstr ""
+msgstr "Core::GeneralCatalog"
 
 #: ../content/index.rst:55
 msgid "GeneralCatalogPreferences###IncidentStates"
-msgstr ""
+msgstr "GeneralCatalogPreferences###IncidentStates"
 
 #: ../content/index.rst:56
 msgid "Parameters for the incident states in the preference view."
-msgstr ""
+msgstr "個人設定ビューにおけるインシデント状況のパラメータ。"
 
 #: ../content/index.rst:59
 msgid "Core::ITSMCore"
-msgstr ""
+msgstr "Core::ITSMCore"
 
 #: ../content/index.rst:62
 msgid "ITSM::Core::IncidentLinkTypeDirection"
-msgstr ""
+msgstr "ITSM::Core::IncidentLinkTypeDirection"
 
 #: ../content/index.rst:63
 msgid ""
@@ -135,10 +137,22 @@ msgid ""
 "bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL "
 "INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!"
 msgstr ""
+"インシデント状況の計算に使用するリンクのタイプと方向を設定します。キーは"
+"リンクタイプ名（LinkObject::Type で定義されたもの）、値はインシデント状況を計"
+"算する際にたどる IncidentLinkType の方向です。例えば、IncidentLinkType が "
+"'DependsOn'、Direction が 'Source' に設定されている場合、インシデント状況の計"
+"算には 'Depends on' リンクのみがたどられます（逆方向の 'Required for' リンク"
+"はたどられません）。'Includes' と方向 'Target' のように、リンクタイプと方向は"
+"自由に追加できます。システム設定オプション LinkObject::Type で定義されたすべ"
+"てのリンクタイプを使用でき、方向には 'Source'、'Target'、'Both' を指定できま"
+"す。重要: このシステム設定オプションを変更した後は、新しい設定に基づいてすべ"
+"てのインシデント状況が再計算されるよう、コンソールコマンド bin/"
+"otobo.Console.pl Admin::ITSM::IncidentState::Recalculate を実行する必要があり"
+"ます！"
 
 #: ../content/index.rst:66
 msgid "ITSM::Frontend::CIPAllocationDefault"
-msgstr ""
+msgstr "ITSM::Frontend::CIPAllocationDefault"
 
 #: ../content/index.rst:67
 msgid ""
@@ -146,254 +160,304 @@ msgid ""
 "Criticality and Impact. Can be overruled by frontend specific PriorityByCIP "
 "settings."
 msgstr ""
+"重要度と影響度に基づく、フロントエンドでの優先度割り当てのデフォルトの動作。"
+"フロントエンドごとの PriorityByCIP 設定で上書きできます。"
 
 #: ../content/index.rst:70
 msgid "Core::LinkObject"
-msgstr ""
+msgstr "Core::LinkObject"
 
 #: ../content/index.rst:73
 msgid "LinkObject::PossibleLink###3200"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3200"
 
 #: ../content/index.rst:74
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'AlternativeTo' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'AlternativeTo' リンクタイプで他"
+"の 'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:77
 msgid "LinkObject::PossibleLink###3201"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3201"
 
 #: ../content/index.rst:78
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'ConnectedTo' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'ConnectedTo' リンクタイプで他の "
+"'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:81
 msgid "LinkObject::PossibleLink###3202"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3202"
 
 #: ../content/index.rst:82
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'DependsOn' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'DependsOn' リンクタイプで他の "
+"'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:85
 msgid "LinkObject::PossibleLink###3203"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3203"
 
 #: ../content/index.rst:86
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'Includes' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'Includes' リンクタイプで他の "
+"'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:89
 msgid "LinkObject::PossibleLink###3204"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3204"
 
 #: ../content/index.rst:90
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'RelevantTo' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'RelevantTo' リンクタイプで他の "
+"'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:93
 msgid "LinkObject::PossibleLink###3205"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3205"
 
 #: ../content/index.rst:94
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'LocationOf' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'LocationOf' リンクタイプで他の "
+"'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:97
 msgid "LinkObject::PossibleLink###3220"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3220"
 
 #: ../content/index.rst:98
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Ticket' objects using the 'AlternativeTo' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'AlternativeTo' リンクタイプ"
+"で'Ticket' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:101
 msgid "LinkObject::PossibleLink###3221"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3221"
 
 #: ../content/index.rst:102
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Ticket' objects using the 'DependsOn' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'DependsOn' リンクタイプ"
+"で'Ticket' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:105
 msgid "LinkObject::PossibleLink###3222"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3222"
 
 #: ../content/index.rst:106
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Ticket' objects using the 'RelevantTo' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'RelevantTo' リンクタイプ"
+"で'Ticket' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:109
 msgid "LinkObject::PossibleLink###3240"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3240"
 
 #: ../content/index.rst:110
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Service' objects using the 'AlternativeTo' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'AlternativeTo' リンクタイプ"
+"で'Service' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:113
 msgid "LinkObject::PossibleLink###3241"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3241"
 
 #: ../content/index.rst:114
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Service' objects using the 'DependsOn' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'DependsOn' リンクタイプ"
+"で'Service' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:117
 msgid "LinkObject::PossibleLink###3242"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3242"
 
 #: ../content/index.rst:118
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Service' objects using the 'RelevantTo' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'RelevantTo' リンクタイプ"
+"で'Service' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:121
 msgid "LinkObject::PossibleLink###3260"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3260"
 
 #: ../content/index.rst:122
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' "
 "objects using the 'Normal' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'Normal' リンクタイプで'FAQ' "
+"オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:125
 msgid "LinkObject::PossibleLink###3261"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3261"
 
 #: ../content/index.rst:126
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' "
 "objects using the 'ParentChild' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'ParentChild' リンクタイプ"
+"で'FAQ' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:129
 msgid "LinkObject::PossibleLink###3262"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3262"
 
 #: ../content/index.rst:130
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' "
 "objects using the 'RelevantTo' link type."
 msgstr ""
+"この設定は、'ITSMConfigItem' オブジェクトを 'RelevantTo' リンクタイプで'FAQ' "
+"オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:133
 msgid "LinkObject::PossibleLink###3280"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3280"
 
 #: ../content/index.rst:134
 msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'Normal' link type."
 msgstr ""
+"この設定は、'Service' オブジェクトを 'Normal' リンクタイプで'FAQ' "
+"オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:137
 msgid "LinkObject::PossibleLink###3281"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3281"
 
 #: ../content/index.rst:138
 msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'ParentChild' link type."
 msgstr ""
+"この設定は、'Service' オブジェクトを 'ParentChild' リンクタイプで'FAQ' "
+"オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:141
 msgid "LinkObject::PossibleLink###3282"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3282"
 
 #: ../content/index.rst:142
 msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'RelevantTo' link type."
 msgstr ""
+"この設定は、'Service' オブジェクトを 'RelevantTo' リンクタイプで'FAQ' "
+"オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:145
 msgid "LinkObject::PossibleLink###3400"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3400"
 
 #: ../content/index.rst:146
 msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'Service' objects using the 'Normal' link type."
 msgstr ""
+"この設定は、'ITSMWorkOrder' オブジェクトを 'Normal' リンクタイプで'Service' "
+"オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:149
 msgid "LinkObject::PossibleLink###3401"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3401"
 
 #: ../content/index.rst:150
 msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'Service' objects using the 'DependsOn' link type."
 msgstr ""
+"この設定は、'ITSMWorkOrder' オブジェクトを 'DependsOn' リンクタイプ"
+"で'Service' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:153
 msgid "LinkObject::PossibleLink###3410"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3410"
 
 #: ../content/index.rst:154
 msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'ITSMConfigItem' objects using the 'Normal' link type."
 msgstr ""
+"この設定は、'ITSMWorkOrder' オブジェクトを 'Normal' リンクタイプ"
+"で'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:157
 msgid "LinkObject::PossibleLink###3411"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3411"
 
 #: ../content/index.rst:158
 msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'ITSMConfigItem' objects using the 'DependsOn' link type."
 msgstr ""
+"この設定は、'ITSMWorkOrder' オブジェクトを 'DependsOn' リンクタイプ"
+"で'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:161
 msgid "LinkObject::PossibleLink###3412"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3412"
 
 #: ../content/index.rst:162
 msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'Ticket' objects using the 'Normal' link type."
 msgstr ""
+"この設定は、'ITSMWorkOrder' オブジェクトを 'Normal' リンクタイプで'Ticket' "
+"オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:165
 msgid "LinkObject::PossibleLink###3420"
-msgstr ""
+msgstr "LinkObject::PossibleLink###3420"
 
 #: ../content/index.rst:166
 msgid ""
 "This setting defines that a 'ITSMChange' object can be linked with 'Ticket' "
 "objects using the 'Normal' link type."
 msgstr ""
+"この設定は、'ITSMChange' オブジェクトを 'Normal' リンクタイプで'Ticket' "
+"オブジェクトとリンクできるようにします。"
 
 #: ../content/index.rst:169
 msgid "LinkObject::Type###AlternativeTo"
-msgstr ""
+msgstr "LinkObject::Type###AlternativeTo"
 
 #: ../content/index.rst:170
 msgid ""
@@ -402,10 +466,13 @@ msgid ""
 "directional one. If the values are different, the resulting link is a "
 "directional link."
 msgstr ""
+"この設定は、リンクタイプ 'AlternativeTo' を定義します。ソース名とターゲット名"
+"が同じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合"
+"は、方向のあるリンクになります。"
 
 #: ../content/index.rst:173
 msgid "LinkObject::Type###ConnectedTo"
-msgstr ""
+msgstr "LinkObject::Type###ConnectedTo"
 
 #: ../content/index.rst:174
 msgid ""
@@ -413,10 +480,13 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
+"この設定は、リンクタイプ 'ConnectedTo' を定義します。ソース名とターゲット名が"
+"同じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は"
+"、方向のあるリンクになります。"
 
 #: ../content/index.rst:177
 msgid "LinkObject::Type###DependsOn"
-msgstr ""
+msgstr "LinkObject::Type###DependsOn"
 
 #: ../content/index.rst:178
 msgid ""
@@ -424,10 +494,13 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
+"この設定は、リンクタイプ 'DependsOn' を定義します。ソース名とターゲット名が同"
+"じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は、"
+"方向のあるリンクになります。"
 
 #: ../content/index.rst:181
 msgid "LinkObject::Type###Includes"
-msgstr ""
+msgstr "LinkObject::Type###Includes"
 
 #: ../content/index.rst:182
 msgid ""
@@ -435,10 +508,13 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
+"この設定は、リンクタイプ 'Includes' を定義します。ソース名とターゲット名が同"
+"じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は、"
+"方向のあるリンクになります。"
 
 #: ../content/index.rst:185
 msgid "LinkObject::Type###LocationOf"
-msgstr ""
+msgstr "LinkObject::Type###LocationOf"
 
 #: ../content/index.rst:186
 msgid ""
@@ -446,10 +522,13 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
+"この設定は、リンクタイプ 'LocationOf' を定義します。ソース名とターゲット名が"
+"同じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は"
+"、方向のあるリンクになります。"
 
 #: ../content/index.rst:189
 msgid "LinkObject::Type###RelevantTo"
-msgstr ""
+msgstr "LinkObject::Type###RelevantTo"
 
 #: ../content/index.rst:190
 msgid ""
@@ -457,22 +536,25 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
+"この設定は、リンクタイプ 'RelevantTo' を定義します。ソース名とターゲット名が"
+"同じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は"
+"、方向のあるリンクになります。"
 
 #: ../content/index.rst:193
 msgid "LinkObject::ViewMode"
-msgstr ""
+msgstr "LinkObject::ViewMode"
 
 #: ../content/index.rst:194
 msgid "Determines the way the linked objects are displayed in each zoom mask."
-msgstr ""
+msgstr "各ズーム画面でのリンクオブジェクトの表示方法を決定します。"
 
 #: ../content/index.rst:197
 msgid "Core::Package"
-msgstr ""
+msgstr "Core::Package"
 
 #: ../content/index.rst:200
 msgid "Package::RepositoryList"
-msgstr ""
+msgstr "Package::RepositoryList"
 
 #: ../content/index.rst:201
 msgid ""
@@ -480,14 +562,17 @@ msgid ""
 "repository, for example: Key=\"http://example.com/otobo/public.pl?"
 "Action=PublicRepository;File=\" and Content=\"Some Name\"."
 msgstr ""
+"オンラインリポジトリの一覧を定義します。別のインストール環境をリポジトリとし"
+"て使用することもできます。例: Key=\"http://example.com/otobo/"
+"public.pl?Action=PublicRepository;File=\" および Content=\"Some Name\"。"
 
 #: ../content/index.rst:204
 msgid "Core::Ticket"
-msgstr ""
+msgstr "Core::Ticket"
 
 #: ../content/index.rst:207
 msgid "Ticket::Service"
-msgstr ""
+msgstr "Ticket::Service"
 
 #: ../content/index.rst:208
 msgid ""
@@ -495,53 +580,56 @@ msgid ""
 "network, ...), and escalation attributes for SLAs (if ticket service/SLA "
 "feature is enabled)."
 msgstr ""
+"チケットのサービスと SLA（例: メール、デスクトップ、ネットワークなど）、およ"
+"び SLA のエスカレーション属性を定義できるようにします（チケットのサービス／"
+"SLA 機能が有効な場合）。"
 
 #: ../content/index.rst:211
 msgid "Frontend::Admin::ModuleRegistration"
-msgstr ""
+msgstr "Frontend::Admin::ModuleRegistration"
 
 #: ../content/index.rst:214
 msgid "Frontend::Module###AdminITSMCIPAllocate"
-msgstr ""
+msgstr "Frontend::Module###AdminITSMCIPAllocate"
 
 #: ../content/index.rst:215
 msgid ""
 "Frontend module registration for the AdminITSMCIPAllocate configuration in "
 "the admin area."
-msgstr ""
+msgstr "管理画面の AdminITSMCIPAllocate 設定用のフロントエンドモジュールの登録。"
 
 #: ../content/index.rst:218
 msgid "Frontend::Admin::ModuleRegistration::AdminOverview"
-msgstr ""
+msgstr "Frontend::Admin::ModuleRegistration::AdminOverview"
 
 #: ../content/index.rst:221
 msgid "Frontend::NavigationModule###AdminITSMCIPAllocate"
-msgstr ""
+msgstr "Frontend::NavigationModule###AdminITSMCIPAllocate"
 
 #: ../content/index.rst:222
 msgid "Admin area navigation for the agent interface."
-msgstr ""
+msgstr "担当者インタフェースの管理画面のナビゲーション。"
 
 #: ../content/index.rst:225
 msgid "Frontend::Admin::ModuleRegistration::Loader"
-msgstr ""
+msgstr "Frontend::Admin::ModuleRegistration::Loader"
 
 #: ../content/index.rst:228
 msgid "Loader::Module::AdminITSMCIPAllocate###003-ITSMCore"
-msgstr ""
+msgstr "Loader::Module::AdminITSMCIPAllocate###003-ITSMCore"
 
 #: ../content/index.rst:229 ../content/index.rst:314 ../content/index.rst:318
 #: ../content/index.rst:322 ../content/index.rst:326
 msgid "Loader module registration for the agent interface."
-msgstr ""
+msgstr "担当者インタフェース用のローダーモジュールの登録。"
 
 #: ../content/index.rst:232
 msgid "Frontend::Admin::ModuleRegistration::MainMenu"
-msgstr ""
+msgstr "Frontend::Admin::ModuleRegistration::MainMenu"
 
 #: ../content/index.rst:235
 msgid "Frontend::Navigation###AdminITSMCIPAllocate###003-ITSMCore"
-msgstr ""
+msgstr "Frontend::Navigation###AdminITSMCIPAllocate###003-ITSMCore"
 
 #: ../content/index.rst:236 ../content/index.rst:333 ../content/index.rst:337
 msgid "Main menu item registration."
@@ -549,71 +637,71 @@ msgstr "メインメニュー項目の登録。"
 
 #: ../content/index.rst:239
 msgid "Frontend::Agent"
-msgstr ""
+msgstr "Frontend::Agent"
 
 #: ../content/index.rst:242
 msgid "ITSM::Frontend::TextArea"
-msgstr ""
+msgstr "ITSM::Frontend::TextArea"
 
 #: ../content/index.rst:243
 msgid "Width of ITSM textareas."
-msgstr ""
+msgstr "ITSM のテキストエリアの幅。"
 
 #: ../content/index.rst:246
 msgid "Frontend::Agent::ITSMSLA::MenuModule"
-msgstr ""
+msgstr "Frontend::Agent::ITSMSLA::MenuModule"
 
 #: ../content/index.rst:249
 msgid "ITSMSLA::Frontend::MenuModule###000-Back"
-msgstr ""
+msgstr "ITSMSLA::Frontend::MenuModule###000-Back"
 
 #: ../content/index.rst:250
 msgid "Module to show the Back menu item in SLA menu."
-msgstr ""
+msgstr "SLA メニューに「戻る」メニュー項目を表示するモジュール。"
 
 #: ../content/index.rst:253
 msgid "ITSMSLA::Frontend::MenuModule###100-Print"
-msgstr ""
+msgstr "ITSMSLA::Frontend::MenuModule###100-Print"
 
 #: ../content/index.rst:254
 msgid "Module to show the Print menu item in SLA menu."
-msgstr ""
+msgstr "SLA メニューに「印刷」メニュー項目を表示するモジュール。"
 
 #: ../content/index.rst:257
 msgid "Frontend::Agent::ITSMService::MenuModule"
-msgstr ""
+msgstr "Frontend::Agent::ITSMService::MenuModule"
 
 #: ../content/index.rst:260
 msgid "ITSMService::Frontend::MenuModule###000-Back"
-msgstr ""
+msgstr "ITSMService::Frontend::MenuModule###000-Back"
 
 #: ../content/index.rst:261
 msgid "Module to show the Back menu item in service menu."
-msgstr ""
+msgstr "サービスメニューに「戻る」メニュー項目を表示するモジュール。"
 
 #: ../content/index.rst:264
 msgid "ITSMService::Frontend::MenuModule###100-Print"
-msgstr ""
+msgstr "ITSMService::Frontend::MenuModule###100-Print"
 
 #: ../content/index.rst:265
 msgid "Module to show the Print menu item in service menu."
-msgstr ""
+msgstr "サービスメニューに「印刷」メニュー項目を表示するモジュール。"
 
 #: ../content/index.rst:268
 msgid "ITSMService::Frontend::MenuModule###200-Link"
-msgstr ""
+msgstr "ITSMService::Frontend::MenuModule###200-Link"
 
 #: ../content/index.rst:269
 msgid "Module to show the Link menu item in service menu."
-msgstr ""
+msgstr "サービスメニューに「リンク」メニュー項目を表示するモジュール。"
 
 #: ../content/index.rst:272
 msgid "Frontend::Agent::LinkObject"
-msgstr ""
+msgstr "Frontend::Agent::LinkObject"
 
 #: ../content/index.rst:275
 msgid "LinkObject::ComplexTable###Service"
-msgstr ""
+msgstr "LinkObject::ComplexTable###Service"
 
 #: ../content/index.rst:276
 msgid ""
@@ -622,10 +710,13 @@ msgid ""
 "allowed for DefaultColumns. Possible settings: 0 = Disabled, 1 = Available, "
 "2 = Enabled by default."
 msgstr ""
+"リンクされたサービスウィジェット（LinkObject::ViewMode = \"complex\"）に表示"
+"する列を定義します。注意: DefaultColumns に使用できるのはサービス属性のみです"
+"。設定可能な値: 0 = 無効、1 = 利用可能、2 = デフォルトで有効。"
 
 #: ../content/index.rst:279
 msgid "LinkObject::ComplexTable::SettingsVisibility###Service"
-msgstr ""
+msgstr "LinkObject::ComplexTable::SettingsVisibility###Service"
 
 #: ../content/index.rst:280
 msgid ""
@@ -635,110 +726,127 @@ msgid ""
 "Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, "
 "Core.Agent.TableFilters.js and Core.Agent.LinkObject.js."
 msgstr ""
+"リンクオブジェクト・ウィジェット（LinkObject::ViewMode = \"complex\"）で設定"
+"ボタンを使用できるアクションを定義します。これらのアクションには、次の JS お"
+"よび CSS ファイルが登録されている必要があります: Core.AllocationList.css、"
+"Core.UI.AllocationList.js、Core.UI.Table.Sort.js、Core.Agent.TableFilters.js"
+"、Core.Agent.LinkObject.js。"
 
 #: ../content/index.rst:283
 msgid "Frontend::Agent::ModuleRegistration"
-msgstr ""
+msgstr "Frontend::Agent::ModuleRegistration"
 
 #: ../content/index.rst:286
 msgid "Frontend::Module###AgentITSMSLA"
-msgstr ""
+msgstr "Frontend::Module###AgentITSMSLA"
 
 #: ../content/index.rst:287
 msgid ""
 "Frontend module registration for the AgentITSMSLA object in the agent "
 "interface."
 msgstr ""
+"担当者インタフェースの AgentITSMSLA オブジェクト用のフロントエンドモジュール"
+"の登録。"
 
 #: ../content/index.rst:290
 msgid "Frontend::Module###AgentITSMSLAPrint"
-msgstr ""
+msgstr "Frontend::Module###AgentITSMSLAPrint"
 
 #: ../content/index.rst:291
 msgid ""
 "Frontend module registration for the AgentITSMSLAPrint object in the agent "
 "interface."
 msgstr ""
+"担当者インタフェースの AgentITSMSLAPrint オブジェクト用の"
+"フロントエンドモジュールの登録。"
 
 #: ../content/index.rst:294
 msgid "Frontend::Module###AgentITSMSLAZoom"
-msgstr ""
+msgstr "Frontend::Module###AgentITSMSLAZoom"
 
 #: ../content/index.rst:295
 msgid ""
 "Frontend module registration for the AgentITSMSLAZoom object in the agent "
 "interface."
 msgstr ""
+"担当者インタフェースの AgentITSMSLAZoom オブジェクト用の"
+"フロントエンドモジュールの登録。"
 
 #: ../content/index.rst:298
 msgid "Frontend::Module###AgentITSMService"
-msgstr ""
+msgstr "Frontend::Module###AgentITSMService"
 
 #: ../content/index.rst:299
 msgid ""
 "Frontend module registration for the AgentITSMService object in the agent "
 "interface."
 msgstr ""
+"担当者インタフェースの AgentITSMService オブジェクト用の"
+"フロントエンドモジュールの登録。"
 
 #: ../content/index.rst:302
 msgid "Frontend::Module###AgentITSMServicePrint"
-msgstr ""
+msgstr "Frontend::Module###AgentITSMServicePrint"
 
 #: ../content/index.rst:303
 msgid ""
 "Frontend module registration for the AgentITSMServicePrint object in the "
 "agent interface."
 msgstr ""
+"担当者インタフェースの AgentITSMServicePrint オブジェクト用の"
+"フロントエンドモジュールの登録。"
 
 #: ../content/index.rst:306
 msgid "Frontend::Module###AgentITSMServiceZoom"
-msgstr ""
+msgstr "Frontend::Module###AgentITSMServiceZoom"
 
 #: ../content/index.rst:307
 msgid ""
 "Frontend module registration for the AgentITSMServiceZoom object in the "
 "agent interface."
 msgstr ""
+"担当者インタフェースの AgentITSMServiceZoom オブジェクト用の"
+"フロントエンドモジュールの登録。"
 
 #: ../content/index.rst:310
 msgid "Frontend::Agent::ModuleRegistration::Loader"
-msgstr ""
+msgstr "Frontend::Agent::ModuleRegistration::Loader"
 
 #: ../content/index.rst:313
 msgid "Loader::Module::AgentITSMSLA###003-ITSMService"
-msgstr ""
+msgstr "Loader::Module::AgentITSMSLA###003-ITSMService"
 
 #: ../content/index.rst:317
 msgid "Loader::Module::AgentITSMSLAZoom###003-ITSMService"
-msgstr ""
+msgstr "Loader::Module::AgentITSMSLAZoom###003-ITSMService"
 
 #: ../content/index.rst:321
 msgid "Loader::Module::AgentITSMService###003-ITSMService"
-msgstr ""
+msgstr "Loader::Module::AgentITSMService###003-ITSMService"
 
 #: ../content/index.rst:325
 msgid "Loader::Module::AgentITSMServiceZoom###003-ITSMService"
-msgstr ""
+msgstr "Loader::Module::AgentITSMServiceZoom###003-ITSMService"
 
 #: ../content/index.rst:329
 msgid "Frontend::Agent::ModuleRegistration::MainMenu"
-msgstr ""
+msgstr "Frontend::Agent::ModuleRegistration::MainMenu"
 
 #: ../content/index.rst:332
 msgid "Frontend::Navigation###AgentITSMSLA###003-ITSMService"
-msgstr ""
+msgstr "Frontend::Navigation###AgentITSMSLA###003-ITSMService"
 
 #: ../content/index.rst:336
 msgid "Frontend::Navigation###AgentITSMService###003-ITSMService"
-msgstr ""
+msgstr "Frontend::Navigation###AgentITSMService###003-ITSMService"
 
 #: ../content/index.rst:340
 msgid "Frontend::Agent::View::TicketEmailNew"
-msgstr ""
+msgstr "Frontend::Agent::View::TicketEmailNew"
 
 #: ../content/index.rst:343
 msgid "Ticket::Frontend::AgentTicketEmail###PriorityByCIP"
-msgstr ""
+msgstr "Ticket::Frontend::AgentTicketEmail###PriorityByCIP"
 
 #: ../content/index.rst:344 ../content/index.rst:351 ../content/index.rst:358
 #: ../content/index.rst:383
@@ -746,90 +854,94 @@ msgid ""
 "CIPAllocation: Overwrite priority based on Criticality and Impact. Default "
 "fallback: Frontend::CIPAllocationDefault."
 msgstr ""
+"CIPAllocation: 重要度と影響度に基づいて優先度を上書きします。デフォルトの"
+"フォールバック: Frontend::CIPAllocationDefault。"
 
 #: ../content/index.rst:347
 msgid "Frontend::Agent::View::TicketFreeText"
-msgstr ""
+msgstr "Frontend::Agent::View::TicketFreeText"
 
 #: ../content/index.rst:350
 msgid "Ticket::Frontend::AgentTicketFreeText###PriorityByCIP"
-msgstr ""
+msgstr "Ticket::Frontend::AgentTicketFreeText###PriorityByCIP"
 
 #: ../content/index.rst:354
 msgid "Frontend::Agent::View::TicketPhoneNew"
-msgstr ""
+msgstr "Frontend::Agent::View::TicketPhoneNew"
 
 #: ../content/index.rst:357
 msgid "Ticket::Frontend::AgentTicketPhone###PriorityByCIP"
-msgstr ""
+msgstr "Ticket::Frontend::AgentTicketPhone###PriorityByCIP"
 
 #: ../content/index.rst:361
 msgid "Frontend::Agent::View::TicketZoom"
-msgstr ""
+msgstr "Frontend::Agent::View::TicketZoom"
 
 #: ../content/index.rst:364
 msgid "Ticket::Frontend::AgentTicketZoom###ServiceInciStateSignal"
-msgstr ""
+msgstr "Ticket::Frontend::AgentTicketZoom###ServiceInciStateSignal"
 
 #: ../content/index.rst:365
 msgid ""
 "Show the current service incident state signal in the ticket information."
-msgstr ""
+msgstr "チケット情報に、現在のサービス・インシデント状況のシグナルを表示します。"
 
 #: ../content/index.rst:368
 msgid "Frontend::Base::Loader"
-msgstr ""
+msgstr "Frontend::Base::Loader"
 
 #: ../content/index.rst:371
 msgid "Loader::Agent::CommonCSS###100-ITSM"
-msgstr ""
+msgstr "Loader::Agent::CommonCSS###100-ITSM"
 
 #: ../content/index.rst:372
 msgid "List of CSS files to always be loaded for the agent interface."
-msgstr ""
+msgstr "担当者インタフェースで常に読み込む CSS ファイルの一覧。"
 
 #: ../content/index.rst:375
 msgid "Loader::Agent::CommonJS###100-ITSM"
-msgstr ""
+msgstr "Loader::Agent::CommonJS###100-ITSM"
 
 #: ../content/index.rst:376
 msgid "List of JS files to always be loaded for the agent interface."
-msgstr ""
+msgstr "担当者インタフェースで常に読み込む JS ファイルの一覧。"
 
 #: ../content/index.rst:379
 msgid "Frontend::Customer::View::TicketMessage"
-msgstr ""
+msgstr "Frontend::Customer::View::TicketMessage"
 
 #: ../content/index.rst:382
 msgid "Ticket::Frontend::CustomerTicketMessage###PriorityByCIP"
-msgstr ""
+msgstr "Ticket::Frontend::CustomerTicketMessage###PriorityByCIP"
 
 #: ../content/index.rst:386
 msgid "About"
-msgstr ""
+msgstr "概要"
 
 #: ../content/index.rst:389
 msgid "Contact"
-msgstr ""
+msgstr "連絡先"
 
 #: ../content/index.rst:390
 msgid "Rother OSS GmbH"
-msgstr ""
+msgstr "Rother OSS GmbH"
 
 #: ../content/index.rst:391
 msgid "Email: hello@otobo.io"
-msgstr ""
+msgstr "メール: hello@otobo.io"
 
 #: ../content/index.rst:392
 msgid "Web: https://otobo.io"
-msgstr ""
+msgstr "Web: https://otobo.io"
 
 #: ../content/index.rst:395
 msgid "Version"
-msgstr ""
+msgstr "バージョン"
 
 #: ../content/index.rst:396
 msgid ""
 "Author: |doc-vendor| / Version: |doc-version| / Date of release: |doc-"
 "datestamp|"
 msgstr ""
+"作成者: |doc-vendor| / バージョン: |doc-version| / リリース日: |doc-"
+"datestamp|"
