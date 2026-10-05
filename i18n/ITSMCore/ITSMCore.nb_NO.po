@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
-"POT-Creation-Date: 2026-06-03 15:16+0000\n"
+"POT-Creation-Date: 2026-09-15 14:37+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,6 +94,10 @@ msgstr ""
 msgid "incident"
 msgstr ""
 
+#. Perl Module: Kernel/Modules/AgentITSMSLAZoom.pm
+msgid "unknown"
+msgstr ""
+
 #. Perl Module: Kernel/Modules/AgentITSMServicePrint.pm
 msgid "No ServiceID is given!"
 msgstr ""
@@ -112,6 +116,16 @@ msgstr "Hendelsestilstand"
 
 #. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
 msgid "External-source key"
+msgstr ""
+
+#. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
+#, fuzzy
+#| msgid "Service Information"
+msgid "Service restrictions"
+msgstr "Informasjon om Tjeneste"
+
+#. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
+msgid "Select one or more Services to restrict selectable Services by"
 msgstr ""
 
 #. Database XML / SOPM Definition: ITSMCore.sopm

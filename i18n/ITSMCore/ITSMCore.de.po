@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
-"POT-Creation-Date: 2026-06-03 15:16+0000\n"
+"POT-Creation-Date: 2026-09-15 14:37+0000\n"
 "PO-Revision-Date: 2026-06-24 13:00+0000\n"
 "Last-Translator: Stefan Abel <sta@rother-oss.com>\n"
 "Language-Team: German <http://translate.otobo.org/projects/otobo-11-1/addons/"
@@ -99,6 +99,10 @@ msgstr "Warnung"
 msgid "incident"
 msgstr "Vorfall"
 
+#. Perl Module: Kernel/Modules/AgentITSMSLAZoom.pm
+msgid "unknown"
+msgstr ""
+
 #. Perl Module: Kernel/Modules/AgentITSMServicePrint.pm
 msgid "No ServiceID is given!"
 msgstr "Keine ServiceID vorhanden!"
@@ -118,6 +122,16 @@ msgstr "Vorfallstatus"
 #. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
 msgid "External-source key"
 msgstr "Schlüssel der externen Quelle"
+
+#. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
+#, fuzzy
+#| msgid "Service Information"
+msgid "Service restrictions"
+msgstr "Service-Informationen"
+
+#. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
+msgid "Select one or more Services to restrict selectable Services by"
+msgstr ""
 
 #. Database XML / SOPM Definition: ITSMCore.sopm
 msgid "Operational"
@@ -251,8 +265,8 @@ msgid ""
 "Action=PublicRepository;File=\" and Content=\"Some Name\"."
 msgstr ""
 "Definiert eine Liste von Online-Quellen. Andere Installationen können als "
-"Quelle genutzt werden z.B. Key=\"http://example.com/otobo/"
-"public.pl?Action=PublicRepository;File=\" und Content=\"Irgendein Name\"."
+"Quelle genutzt werden z.B. Key=\"http://example.com/otobo/public.pl?"
+"Action=PublicRepository;File=\" und Content=\"Irgendein Name\"."
 
 #. SysConfig
 msgid "Depends on"

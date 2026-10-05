@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
-"POT-Creation-Date: 2026-06-03 15:16+0000\n"
+"POT-Creation-Date: 2026-09-15 14:37+0000\n"
 "PO-Revision-Date: 2026-07-14 12:21+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/otobo-11-1/"
@@ -97,6 +97,10 @@ msgstr "figyelmeztetés"
 msgid "incident"
 msgstr "incidens"
 
+#. Perl Module: Kernel/Modules/AgentITSMSLAZoom.pm
+msgid "unknown"
+msgstr ""
+
 #. Perl Module: Kernel/Modules/AgentITSMServicePrint.pm
 msgid "No ServiceID is given!"
 msgstr "Nincs szolgáltatásazonosító megadva!"
@@ -116,6 +120,16 @@ msgstr "Incidensállapot"
 #. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
 msgid "External-source key"
 msgstr "Külső forrás kulcsa"
+
+#. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
+#, fuzzy
+#| msgid "Service Information"
+msgid "Service restrictions"
+msgstr "Szolgáltatásinformációk"
+
+#. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
+msgid "Select one or more Services to restrict selectable Services by"
+msgstr ""
 
 #. Database XML / SOPM Definition: ITSMCore.sopm
 msgid "Operational"
@@ -250,8 +264,8 @@ msgid ""
 "Action=PublicRepository;File=\" and Content=\"Some Name\"."
 msgstr ""
 "Meghatározza az interneten lévő tárolók listáját. Egy másik telepítés is "
-"használható tárolóként, például: Kulcs=„http://example.com/otobo/"
-"public.pl?Action=PublicRepository;File=” és Tartalom=„Valamilyen név”."
+"használható tárolóként, például: Kulcs=„http://example.com/otobo/public.pl?"
+"Action=PublicRepository;File=” és Tartalom=„Valamilyen név”."
 
 #. SysConfig
 msgid "Depends on"
@@ -368,7 +382,8 @@ msgstr "Egy modul a Nyomtatás menüpont megjelenítéséhez az SLA menüben."
 
 #. SysConfig
 msgid "Module to show the Print menu item in service menu."
-msgstr "Egy modul a Nyomtatás menüpont megjelenítéséhez a szolgáltatás menüben."
+msgstr ""
+"Egy modul a Nyomtatás menüpont megjelenítéséhez a szolgáltatás menüben."
 
 #. SysConfig
 msgid "Off"
@@ -654,24 +669,24 @@ msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'Normal' link type."
 msgstr ""
-"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a „"
-"FAQ” objektumokkal a „Normal” hivatkozástípus használatával."
+"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a "
+"„FAQ” objektumokkal a „Normal” hivatkozástípus használatával."
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'ParentChild' link type."
 msgstr ""
-"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a „"
-"FAQ” objektumokkal a „ParentChild” hivatkozástípus használatával."
+"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a "
+"„FAQ” objektumokkal a „ParentChild” hivatkozástípus használatával."
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'RelevantTo' link type."
 msgstr ""
-"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a „"
-"FAQ” objektumokkal a „RelevantTo” hivatkozástípus használatával."
+"Ez a beállítás határozza meg, hogy egy „Service” objektum összeköthető-e a "
+"„FAQ” objektumokkal a „RelevantTo” hivatkozástípus használatával."
 
 #. SysConfig
 msgid ""
