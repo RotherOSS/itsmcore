@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-06-08 07:40+0000\n"
-"PO-Revision-Date: 2026-10-05 04:41+0000\n"
+"PO-Revision-Date: 2026-10-05 04:42+0000\n"
 "Last-Translator: Kozo Sakurai <sakurai@io-architect.com>\n"
 "Language-Team: Japanese <http://translate.otobo.org/projects/otobo-11-0/"
 "addons/manuals/itsmcore-documentation/ja/>\n"
@@ -208,7 +208,6 @@ msgid "LinkObject::PossibleLink###3205"
 msgstr ""
 
 #: ../content/index.rst:94
-#, fuzzy
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'LocationOf' link type."
@@ -446,7 +445,6 @@ msgid "LinkObject::Type###LocationOf"
 msgstr ""
 
 #: ../content/index.rst:186
-#, fuzzy
 msgid ""
 "This setting defines the link type 'LocationOf'. If the source name and the "
 "target name contain the same value, the resulting link is a non-directional "
