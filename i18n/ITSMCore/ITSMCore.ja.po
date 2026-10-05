@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
 "POT-Creation-Date: 2026-06-24 13:48+0000\n"
-"PO-Revision-Date: 2026-10-05 04:59+0000\n"
+"PO-Revision-Date: 2026-10-05 06:41+0000\n"
 "Last-Translator: Kozo Sakurai <sakurai@io-architect.com>\n"
 "Language-Team: Japanese <http://translate.otobo.org/projects/otobo-11-0/"
 "addons/itsmcore/ja/>\n"
@@ -35,7 +35,7 @@ msgstr "重要度"
 
 #. Template: AgentITSMSLAZoom
 msgid "SLA Information"
-msgstr "SLA情報"
+msgstr "SLA 情報"
 
 #. Template: AgentITSMSLAZoom
 msgid "Last changed"
@@ -55,11 +55,11 @@ msgstr "サービス情報"
 
 #. Template: AgentITSMServiceZoom
 msgid "Current incident state"
-msgstr "インシデントの状態"
+msgstr "現在のインシデント状況"
 
 #. Template: AgentITSMServiceZoom
 msgid "Associated SLAs"
-msgstr "関連するSLA"
+msgstr "関連する SLA"
 
 #. Template: TicketInformation
 msgid "Service Incident State"
@@ -87,7 +87,7 @@ msgstr "カレンダー・デフォルト"
 
 #. Perl Module: Kernel/Modules/AgentITSMSLAZoom.pm
 msgid "operational"
-msgstr "通常運用"
+msgstr "稼働中"
 
 #. Perl Module: Kernel/Modules/AgentITSMSLAZoom.pm
 msgid "warning"
@@ -99,11 +99,11 @@ msgstr "インシデント"
 
 #. Perl Module: Kernel/Modules/AgentITSMServicePrint.pm
 msgid "No ServiceID is given!"
-msgstr "ServiceIDは指定されていません！"
+msgstr "ServiceID が指定されていません！"
 
 #. Perl Module: Kernel/Modules/AgentITSMServicePrint.pm
 msgid "ServiceID %s not found in database!"
-msgstr "ServiceID %s はデータベースにありません！"
+msgstr "ServiceID %s がデータベースに見つかりません！"
 
 #. Perl Module: Kernel/Modules/AgentITSMServicePrint.pm
 msgid "Current Incident State"
@@ -226,11 +226,11 @@ msgid ""
 "Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, "
 "Core.Agent.TableFilters.js and Core.Agent.LinkObject.js."
 msgstr ""
-"リンクされたオブジェクト ウィジェット (LinkObject::ViewMode = \"complex\") で"
-"設定ボタンが使用できるアクションを定義します。これらのアクションには、"
-"Core.AllocationList.css、Core.UI.AllocationList.js、Core.UI.Table.Sort.js、"
-"Core.Agent.TableFilters.js、および Core.Agent.LinkObject.js の JS および CSS "
-"ファイルが登録されている必要があることに注意してください。"
+"リンクオブジェクト・ウィジェット（LinkObject::ViewMode = \"complex\"）で設定"
+"ボタンを使用できるアクションを定義します。これらのアクションには、次の JS お"
+"よび CSS ファイルが登録されている必要があります: Core.AllocationList.css、"
+"Core.UI.AllocationList.js、Core.UI.Table.Sort.js、Core.Agent.TableFilters.js"
+"、Core.Agent.LinkObject.js。"
 
 #. SysConfig
 msgid ""
@@ -239,9 +239,9 @@ msgid ""
 "allowed for DefaultColumns. Possible settings: 0 = Disabled, 1 = Available, "
 "2 = Enabled by default."
 msgstr ""
-"リンクされたサービスウィジェットに表示される列を定義します（LinkObject :: "
-"ViewMode = \"complex\"）。 注：DefaultColumnsにはサービス属性のみが許可されて"
-"います。 可能な設定：0 =使用不可、1 =使用可能、2 =デフォルトで使用可能。"
+"リンクされたサービスウィジェット（LinkObject::ViewMode = \"complex\"）に表示"
+"する列を定義します。注意: DefaultColumns に使用できるのはサービス属性のみです"
+"。設定可能な値: 0 = 無効、1 = 利用可能、2 = デフォルトで有効。"
 
 #. SysConfig
 msgid ""
@@ -265,56 +265,55 @@ msgstr "強制"
 msgid ""
 "Frontend module registration for the AdminITSMCIPAllocate configuration in "
 "the admin area."
-msgstr ""
-"管理エリアでのAdminITSMCIPAllocateのフロントエンドモジュールの登録します。"
+msgstr "管理画面の AdminITSMCIPAllocate 設定用のフロントエンドモジュールの登録。"
 
 #. SysConfig
 msgid ""
 "Frontend module registration for the AgentITSMSLA object in the agent "
 "interface."
 msgstr ""
-"担当者インタフェースのAgentITSMSLAオブジェクト　フロントエンド・モジュールの"
-"登録です。"
+"担当者インタフェースの AgentITSMSLA オブジェクト用のフロントエンドモジュール"
+"の登録。"
 
 #. SysConfig
 msgid ""
 "Frontend module registration for the AgentITSMSLAPrint object in the agent "
 "interface."
 msgstr ""
-"担当者インタフェースのAgentITSMSLAPrintオブジェクト　フロントエンド・モジュー"
-"ルの登録です。"
+"担当者インタフェースの AgentITSMSLAPrint オブジェクト用の"
+"フロントエンドモジュールの登録。"
 
 #. SysConfig
 msgid ""
 "Frontend module registration for the AgentITSMSLAZoom object in the agent "
 "interface."
 msgstr ""
-"担当者インタフェースのAgentITSMSLAZoomオブジェクト　フロントエンド・モジュー"
-"ルの登録です。"
+"担当者インタフェースの AgentITSMSLAZoom オブジェクト用の"
+"フロントエンドモジュールの登録。"
 
 #. SysConfig
 msgid ""
 "Frontend module registration for the AgentITSMService object in the agent "
 "interface."
 msgstr ""
-"担当者インタフェースのAgentITSMServiceオブジェクト　フロントエンド・モジュー"
-"ルの登録です。"
+"担当者インタフェースの AgentITSMService オブジェクト用の"
+"フロントエンドモジュールの登録。"
 
 #. SysConfig
 msgid ""
 "Frontend module registration for the AgentITSMServicePrint object in the "
 "agent interface."
 msgstr ""
-"担当者インタフェースのAgentITSMServicePrintオブジェクト　フロントエンド・モ"
-"ジュールの登録です。"
+"担当者インタフェースの AgentITSMServicePrint オブジェクト用の"
+"フロントエンドモジュールの登録。"
 
 #. SysConfig
 msgid ""
 "Frontend module registration for the AgentITSMServiceZoom object in the "
 "agent interface."
 msgstr ""
-"担当者インタフェースのAgentITSMServiceZoomオブジェクト　フロントエンド・モ"
-"ジュールの登録です。"
+"担当者インタフェースの AgentITSMServiceZoom オブジェクト用の"
+"フロントエンドモジュールの登録。"
 
 #. SysConfig
 msgid "ITSM SLA Overview."
@@ -350,23 +349,23 @@ msgstr "重要度↔影響度↔優先度の関連性を管理します。"
 
 #. SysConfig
 msgid "Module to show the Back menu item in SLA menu."
-msgstr "SLAメニューに戻るメニュー項目を表示するモジュールです。"
+msgstr "SLA メニューに「戻る」メニュー項目を表示するモジュール。"
 
 #. SysConfig
 msgid "Module to show the Back menu item in service menu."
-msgstr "サービスメニューに戻るメニュー項目を表示するモジュールです。"
+msgstr "サービスメニューに「戻る」メニュー項目を表示するモジュール。"
 
 #. SysConfig
 msgid "Module to show the Link menu item in service menu."
-msgstr "サービスメニューにリンクメニュー項目を表示するモジュールです。"
+msgstr "サービスメニューに「リンク」メニュー項目を表示するモジュール。"
 
 #. SysConfig
 msgid "Module to show the Print menu item in SLA menu."
-msgstr "SLAメニューに印刷メニュー項目を表示するモジュールです。"
+msgstr "SLA メニューに「印刷」メニュー項目を表示するモジュール。"
 
 #. SysConfig
 msgid "Module to show the Print menu item in service menu."
-msgstr "サービスメニューに印刷メニュー項目を表示するモジュールです。"
+msgstr "サービスメニューに「印刷」メニュー項目を表示するモジュール。"
 
 #. SysConfig
 msgid "Off"
@@ -374,7 +373,7 @@ msgstr "オフ"
 
 #. SysConfig
 msgid "Parameters for the incident states in the preference view."
-msgstr "設定ビューでのインシデントステータスのパラメーターです。"
+msgstr "個人設定ビューにおけるインシデント状況のパラメータ。"
 
 #. SysConfig
 msgid "Part of"
@@ -432,18 +431,18 @@ msgid ""
 "bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL "
 "INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!"
 msgstr ""
-"インシデント状態の計算に使用するリンクのタイプと方向を設定します。 キーはリン"
-"クタイプの名前（LinkObject :: Typeで定義されている）であり、値はインシデント"
-"ステータスを計算するために従うべきIncidentLinkTypeの方向です。 たとえば、"
-"IncidentLinkTypeが 'DependsOn'に設定されており、Directionが 'Source'の場合、"
-"インシデントのステータスを計算するために、 '依存する'リンクのみが表示されます"
-"（反対のリンクは 'Required for'ではありません）。 広告タイプのリンクタイプを"
-"追加できます（例： 方向 'Target'を含む 'Includes'。 sysconfigオプション"
-"LinkObject :: Typeで定義されているすべてのリンクタイプが可能で、方向は "
-"'Source'、 'Target'、または 'Both'です。 重要：このSYSCONFIGオプションに変更"
-"を加えたら、コンソールコマンドbin/otobo.Console.plを実行する必要があります。"
-"Admin :: ITSM :: IncidentState :: Recalculateしたがって、すべての事態は新しい"
-"設定に基づいて再計算されます！"
+"インシデント状況の計算に使用するリンクのタイプと方向を設定します。キーは"
+"リンクタイプ名（LinkObject::Type で定義されたもの）、値はインシデント状況を計"
+"算する際にたどる IncidentLinkType の方向です。例えば、IncidentLinkType が "
+"'DependsOn'、Direction が 'Source' に設定されている場合、インシデント状況の計"
+"算には 'Depends on' リンクのみがたどられます（逆方向の 'Required for' リンク"
+"はたどられません）。'Includes' と方向 'Target' のように、リンクタイプと方向は"
+"自由に追加できます。システム設定オプション LinkObject::Type で定義されたすべ"
+"てのリンクタイプを使用でき、方向には 'Source'、'Target'、'Both' を指定できま"
+"す。重要: このシステム設定オプションを変更した後は、新しい設定に基づいてすべ"
+"てのインシデント状況が再計算されるよう、コンソールコマンド bin/"
+"otobo.Console.pl Admin::ITSM::IncidentState::Recalculate を実行する必要があり"
+"ます！"
 
 #. SysConfig
 msgid ""
@@ -463,116 +462,112 @@ msgid ""
 "This setting defines that a 'ITSMChange' object can be linked with 'Ticket' "
 "objects using the 'Normal' link type."
 msgstr ""
-"‘Normal’リンク・タイプを使用して、‘ITSMChange’オブジェクトが他の‘Ticket’オブ"
-"ジェクトとリンクされるように、定義します。"
+"この設定は、'ITSMChange' オブジェクトを 'Normal' リンクタイプで'Ticket' "
+"オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' "
 "objects using the 'Normal' link type."
 msgstr ""
-"‘Normal’リンク・タイプを使用して、‘ITSMChange’オブジェクトが‘FAQ’オブジェクト"
-"とリンクされるように、定義します。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'Normal' リンクタイプで'FAQ' "
+"オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' "
 "objects using the 'ParentChild' link type."
 msgstr ""
-"‘親子’リンク・タイプを使用して、‘ITSMChange’オブジェクトが‘FAQ’オブジェクトと"
-"リンクされるように、定義します。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'ParentChild' リンクタイプ"
+"で'FAQ' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with 'FAQ' "
 "objects using the 'RelevantTo' link type."
 msgstr ""
-"‘関連した’リンク・タイプを使用して、‘ITSMChange’オブジェクトが‘FAQ’オブジェク"
-"トとリンクされるように、定義します。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'RelevantTo' リンクタイプで'FAQ' "
+"オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Service' objects using the 'AlternativeTo' link type."
 msgstr ""
-"この設定は、「ITSMConfigItem」オブジェクトが「AlternativeTo/~の代替」リンクタ"
-"イプを使用して、「サービス」オブジェクトとリンクできることを定義します。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'AlternativeTo' リンクタイプ"
+"で'Service' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Service' objects using the 'DependsOn' link type."
 msgstr ""
-"この設定は、「ITSMConfigItem」オブジェクトが「DependsOn/~に依存する」リンクタ"
-"イプを使用して、「サービス」オブジェクトとリンクできることを定義します。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'DependsOn' リンクタイプ"
+"で'Service' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Service' objects using the 'RelevantTo' link type."
 msgstr ""
-"この設定は、「ITSMConfigItem」オブジェクトが「RelevantTo/~と関連する」リンク"
-"タイプを使用して、「サービス」オブジェクトとリンクできることを定義します。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'RelevantTo' リンクタイプ"
+"で'Service' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Ticket' objects using the 'AlternativeTo' link type."
 msgstr ""
-"この設定は、「ITSMConfigItem」オブジェクトが「AlternativeTo/~の代替」リンクタ"
-"イプを使用して、「チケット」オブジェクトとリンクできることを定義します。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'AlternativeTo' リンクタイプ"
+"で'Ticket' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Ticket' objects using the 'DependsOn' link type."
 msgstr ""
-"この設定は、「ITSMConfigItem」オブジェクトが「DependsOn/~に依存する」リンクタ"
-"イプを使用して、「チケット」オブジェクトとリンクできることを定義します。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'DependsOn' リンクタイプ"
+"で'Ticket' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with "
 "'Ticket' objects using the 'RelevantTo' link type."
 msgstr ""
-"この設定は、「ITSMConfigItem」オブジェクトが「RelevantTo/~と関連する」リンク"
-"タイプを使用して、「チケット」オブジェクトとリンクできることを定義します。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'RelevantTo' リンクタイプ"
+"で'Ticket' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'AlternativeTo' link type."
 msgstr ""
-"この設定は、「ITSMConfigItem」オブジェクトが「AlternativeTo/~の代替」リンクタ"
-"イプを使用して、他の「ITSMConfigItem」オブジェクトとリンクできることを定義し"
-"ます。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'AlternativeTo' リンクタイプで他"
+"の 'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'ConnectedTo' link type."
 msgstr ""
-"この設定は、「ITSMConfigItem」オブジェクトが「ConnectedTo/~とつながっている」"
-"リンクタイプを使用して、他の「ITSMConfigItem」オブジェクトとリンクできること"
-"を定義します。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'ConnectedTo' リンクタイプで他の "
+"'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'DependsOn' link type."
 msgstr ""
-"この設定は、「ITSMConfigItem」オブジェクトが「DependsOn/~に依存する」リンクタ"
-"イプを使用して、他の「ITSMConfigItem」オブジェクトとリンクできることを定義し"
-"ます。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'DependsOn' リンクタイプで他の "
+"'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'Includes' link type."
 msgstr ""
-"この設定は、「ITSMConfigItem」オブジェクトが「Includes/~を含む」リンクタイプ"
-"を使用して、他の「ITSMConfigItem」オブジェクトとリンクできることを定義しま"
-"す。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'Includes' リンクタイプで他の "
+"'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
@@ -587,74 +582,72 @@ msgid ""
 "This setting defines that a 'ITSMConfigItem' object can be linked with other "
 "'ITSMConfigItem' objects using the 'RelevantTo' link type."
 msgstr ""
-"この設定は、「ITSMConfigItem」オブジェクトが「RelevantTo/~と関連する」リンク"
-"タイプを使用して、他の「ITSMConfigItem」オブジェクトとリンクできることを定義"
-"します。"
+"この設定は、'ITSMConfigItem' オブジェクトを 'RelevantTo' リンクタイプで他の "
+"'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'ITSMConfigItem' objects using the 'DependsOn' link type."
 msgstr ""
-"この設定は、「ITSMWorkOrder」オブジェクトが「DependsOn/~に依存する」リンクタ"
-"イプを使用して、「ITSMConfigItem」オブジェクトとリンクできることを定義しま"
-"す。"
+"この設定は、'ITSMWorkOrder' オブジェクトを 'DependsOn' リンクタイプ"
+"で'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'ITSMConfigItem' objects using the 'Normal' link type."
 msgstr ""
-"この設定は、「ITSMWorkOrder」オブジェクトが「Normal/通常」リンクタイプを使用"
-"して、「ITSMConfigItem」オブジェクトとリンクできることを定義します。"
+"この設定は、'ITSMWorkOrder' オブジェクトを 'Normal' リンクタイプ"
+"で'ITSMConfigItem' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'Service' objects using the 'DependsOn' link type."
 msgstr ""
-"この設定は、「ITSMWorkOrder」オブジェクトが「DependsOn/~に依存する」リンクタ"
-"イプを使用して、「Service」オブジェクトとリンクできることを定義します。"
+"この設定は、'ITSMWorkOrder' オブジェクトを 'DependsOn' リンクタイプ"
+"で'Service' オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'Service' objects using the 'Normal' link type."
 msgstr ""
-"この設定は、「ITSMWorkOrder」オブジェクトが「Normal/通常」リンクタイプを使用"
-"して、「Service」オブジェクトとリンクできることを定義します。"
+"この設定は、'ITSMWorkOrder' オブジェクトを 'Normal' リンクタイプで'Service' "
+"オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'ITSMWorkOrder' object can be linked with "
 "'Ticket' objects using the 'Normal' link type."
 msgstr ""
-"この設定は、「ITSMWorkOrder」オブジェクトが「Normal/通常」リンクタイプを使用"
-"して、「Ticket」オブジェクトとリンクできることを定義します。"
+"この設定は、'ITSMWorkOrder' オブジェクトを 'Normal' リンクタイプで'Ticket' "
+"オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'Normal' link type."
 msgstr ""
-"この設定は、「Service」オブジェクトが「Normal/通常」リンクタイプを使用して、"
-"「FAQ」オブジェクトとリンクできることを定義します。"
+"この設定は、'Service' オブジェクトを 'Normal' リンクタイプで'FAQ' "
+"オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'ParentChild' link type."
 msgstr ""
-"この設定は、「Service」オブジェクトが「ParentChild/親子」リンクタイプを使用し"
-"て、「FAQ」オブジェクトとリンクできることを定義します。"
+"この設定は、'Service' オブジェクトを 'ParentChild' リンクタイプで'FAQ' "
+"オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
 "This setting defines that a 'Service' object can be linked with 'FAQ' "
 "objects using the 'RelevantTo' link type."
 msgstr ""
-"この設定は、「Service」オブジェクトが「RelevantTo/~と関連する」リンクタイプを"
-"使用して、「FAQ」オブジェクトとリンクできることを定義します。"
+"この設定は、'Service' オブジェクトを 'RelevantTo' リンクタイプで'FAQ' "
+"オブジェクトとリンクできるようにします。"
 
 #. SysConfig
 msgid ""
@@ -663,9 +656,9 @@ msgid ""
 "directional one. If the values are different, the resulting link is a "
 "directional link."
 msgstr ""
-"リンク・タイプ'AlternativeTo'の定義です。もしソース名およびターゲット名が同じ"
-"値を含んでいる場合、結果のリンクは非直接リンクになり、そうでない結果は直接リ"
-"ンクになります。"
+"この設定は、リンクタイプ 'AlternativeTo' を定義します。ソース名とターゲット名"
+"が同じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合"
+"は、方向のあるリンクになります。"
 
 #. SysConfig
 msgid ""
@@ -673,9 +666,9 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
-"リンク・タイプ'ConnectedTo'の定義です。もしソース名およびターゲット名が同じ値"
-"を含んでいる場合、結果のリンクは非直接リンクになり、そうでない結果は直接リン"
-"クになります。"
+"この設定は、リンクタイプ 'ConnectedTo' を定義します。ソース名とターゲット名が"
+"同じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は"
+"、方向のあるリンクになります。"
 
 #. SysConfig
 msgid ""
@@ -683,9 +676,9 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
-"リンク・タイプ'DependsOn'の定義です。もしソース名およびターゲット名が同じ値を"
-"含んでいる場合、結果のリンクは非直接リンクになり、そうでない結果は直接リンク"
-"になります。"
+"この設定は、リンクタイプ 'DependsOn' を定義します。ソース名とターゲット名が同"
+"じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は、"
+"方向のあるリンクになります。"
 
 #. SysConfig
 msgid ""
@@ -693,9 +686,9 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
-"リンク・タイプ'Includes'の定義です。もしソース名およびターゲット名が同じ値を"
-"含んでいる場合、結果のリンクは非直接リンクになり、そうでない結果は直接リンク"
-"になります。"
+"この設定は、リンクタイプ 'Includes' を定義します。ソース名とターゲット名が同"
+"じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は、"
+"方向のあるリンクになります。"
 
 #. SysConfig
 msgid ""
@@ -713,10 +706,10 @@ msgid ""
 "target name contain the same value, the resulting link is a non-directional "
 "one. If the values are different, the resulting link is a directional link."
 msgstr ""
-"リンク・タイプ'RelevantTo'の定義です。もしソース名およびターゲット名が同じ値"
-"を含んでいる場合、結果のリンクは非直接リンクになり、そうでない結果は直接リン"
-"クになります。"
+"この設定は、リンクタイプ 'RelevantTo' を定義します。ソース名とターゲット名が"
+"同じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は"
+"、方向のあるリンクになります。"
 
 #. SysConfig
 msgid "Width of ITSM textareas."
-msgstr "ITSM テキストエリア幅です。"
+msgstr "ITSM のテキストエリアの幅。"
