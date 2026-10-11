@@ -236,7 +236,7 @@ sub ObjectDescriptionGet {
 
     # create description
     return (
-        Normal => $ServiceData{NameShort},
+        Normal => $ServiceData{Name},
         Long   => $ServiceData{Name},
         Link   => $Link,
     );
