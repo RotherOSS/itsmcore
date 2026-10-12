@@ -679,7 +679,7 @@ sub _RenderAjax {
 
             if ( $CIPCalculate && $Param{GetParam}{DynamicField}{DynamicField_ITSMImpact} ) {
                 # get the criticality either from the manually set dynamic field, or the service
-                my $Criticality = $Param{GetParam}{DynamicField_ITSMCriticality};
+                my $Criticality = $Param{GetParam}{DynamicField}{DynamicField_ITSMCriticality};
 
                 if ( !$Criticality && $Param{GetParam}{ServiceID} ) {
                     my %Service = $Kernel::OM->Get('Kernel::System::Service')->ServiceGet(
@@ -4272,7 +4272,7 @@ sub _RenderPriority {
 
     if ( $CIPCalculate && $Param{GetParam}{DynamicField}{DynamicField_ITSMImpact} ) {
         # get the criticality either from the manually set dynamic field, or the service
-        my $Criticality = $Param{GetParam}{DynamicField_ITSMCriticality};
+        my $Criticality = $Param{GetParam}{DynamicField}{DynamicField_ITSMCriticality};
 
         if ( !$Criticality && $Param{GetParam}{ServiceID} ) {
             my %Service = $Kernel::OM->Get('Kernel::System::Service')->ServiceGet(
@@ -4939,7 +4939,7 @@ sub _StoreActivityDialog {
                 if ( $CIPCalculate && $CIPCalculate == 2 && $Param{GetParam}{DynamicField}{DynamicField_ITSMImpact} ) {
 
                     # get the criticality either from the manually set dynamic field, or the service
-                    my $Criticality = $Param{GetParam}{DynamicField_ITSMCriticality};
+                    my $Criticality = $Param{GetParam}{DynamicField}{DynamicField_ITSMCriticality};
 
                     if ( !$Criticality && $Param{GetParam}{ServiceID} ) {
                         my %Service = $Kernel::OM->Get('Kernel::System::Service')->ServiceGet(
