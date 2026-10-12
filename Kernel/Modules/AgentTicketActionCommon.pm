@@ -905,7 +905,7 @@ sub Run {
         if ( $CIPCalculate && $CIPCalculate == 2 && $GetParam{DynamicField}{DynamicField_ITSMImpact} && $Config->{Priority} ) {
 
             # get the criticality either from the manually set dynamic field, or the service
-            my $Criticality = $GetParam{DynamicField_ITSMCriticality};
+            my $Criticality = $GetParam{DynamicField}{DynamicField_ITSMCriticality};
 
             if ( !$Criticality && $GetParam{ServiceID} ) {
                 my %Service = $ServiceObject->ServiceGet(
@@ -1741,7 +1741,7 @@ sub Run {
                     elsif ( $Field->{FieldID} eq 'PriorityID' && $CIPCalculate && $GetParam{DynamicField}{DynamicField_ITSMImpact} ) {
 
                         # get the criticality either from the manually set dynamic field, or the service
-                        my $Criticality = $GetParam{DynamicField_ITSMCriticality};
+                        my $Criticality = $GetParam{DynamicField}{DynamicField_ITSMCriticality};
 
                         if ( !$Criticality && $GetParam{ServiceID} ) {
                             my %Service = $ServiceObject->ServiceGet(
@@ -2353,7 +2353,7 @@ sub Run {
                     elsif ( $Field->{FieldID} eq 'PriorityID' && $CIPCalculate && $GetParam{DynamicField}{DynamicField_ITSMImpact} ) {
 
                         # get the criticality either from the manually set dynamic field, or the service
-                        my $Criticality = $GetParam{DynamicField_ITSMCriticality};
+                        my $Criticality = $GetParam{DynamicField}{DynamicField_ITSMCriticality};
 
                         if ( !$Criticality && $GetParam{ServiceID} ) {
                             my %Service = $ServiceObject->ServiceGet(
