@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
 "POT-Creation-Date: 2026-09-15 14:37+0000\n"
-"PO-Revision-Date: 2026-10-13 14:41+0000\n"
+"PO-Revision-Date: 2026-10-13 16:41+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/otobo-11-1/"
 "addons/itsm-core/hu/>\n"
@@ -122,14 +122,14 @@ msgid "External-source key"
 msgstr "Külső forrás kulcsa"
 
 #. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
-#, fuzzy
-#| msgid "Service Information"
 msgid "Service restrictions"
-msgstr "Szolgáltatásinformációk"
+msgstr "Szolgáltatáskorlátozások"
 
 #. Perl Module: Kernel/System/DynamicField/Driver/Service.pm
 msgid "Select one or more Services to restrict selectable Services by"
 msgstr ""
+"Egy vagy több szolgáltatás kiválasztása a kiválasztható szolgáltatások "
+"korlátozásához"
 
 #. Database XML / SOPM Definition: ITSMCore.sopm
 msgid "Operational"
