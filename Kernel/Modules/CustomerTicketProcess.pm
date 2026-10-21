@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - 967533807ff4664ef1d2bf81179fca89cfb51b53 - Kernel/Modules/CustomerTicketProcess.pm
+# $origin: otobo - c532e96e95ff56ae62fb4f10d507b494da29aeaf - Kernel/Modules/CustomerTicketProcess.pm
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -288,14 +288,15 @@ sub _RenderAjax {
     my $Services;
 
     # get needed objects
-    my $ConfigObject = $Kernel::OM->Get('Kernel::Config');
-    my $ParamObject  = $Kernel::OM->Get('Kernel::System::Web::Request');
-    my $TicketObject = $Kernel::OM->Get('Kernel::System::Ticket');
+    my $ConfigObject            = $Kernel::OM->Get('Kernel::Config');
+    my $FieldRestrictionsObject = $Kernel::OM->Get('Kernel::System::Ticket::FieldRestrictions');
+    my $TicketObject            = $Kernel::OM->Get('Kernel::System::Ticket');
 
     # some fields should be skipped for the customer interface
     my $SkipFields = [ 'Owner', 'Responsible', 'Lock', 'PendingTime', 'CustomerID' ];
 
     # Get the activity dialog's Submit Params or Config Params
+    my $Autoselect = $ConfigObject->Get('TicketACL::Autoselect') || undef;
     DIALOGFIELD:
     for my $CurrentField ( @{ $ActivityDialog->{FieldOrder} } ) {
 
@@ -320,6 +321,13 @@ sub _RenderAjax {
                 %{ $Param{GetParam} },
             );
 
+            # autoselect
+            if ( !$Param{GetParam}{ $Self->{NameToID}{$CurrentField} } && $Autoselect && $Autoselect->{Dest} ) {
+                $Param{GetParam}{ $Self->{NameToID}{$CurrentField} } = $FieldRestrictionsObject->Autoselect(
+                    PossibleValues => $Data,
+                ) || '';
+            }
+
             # add Queue to the JSONCollector
             push(
                 @JSONCollector,
@@ -343,6 +351,13 @@ sub _RenderAjax {
                 %{ $Param{GetParam} },
             );
 
+            # autoselect
+            if ( !$Param{GetParam}{ $Self->{NameToID}{$CurrentField} } && $Autoselect && $Autoselect->{NextStateID} ) {
+                $Param{GetParam}{ $Self->{NameToID}{$CurrentField} } = $FieldRestrictionsObject->Autoselect(
+                    PossibleValues => $Data,
+                ) || '';
+            }
+
             # add State to the JSONCollector
             push(
                 @JSONCollector,
@@ -362,6 +377,13 @@ sub _RenderAjax {
             my $Data = $Self->_GetPriorities(
                 %{ $Param{GetParam} },
             );
+
+            # autoselect
+            if ( !$Param{GetParam}{ $Self->{NameToID}{$CurrentField} } && $Autoselect && $Autoselect->{ $Self->{NameToID}{$CurrentField} } ) {
+                $Param{GetParam}{ $Self->{NameToID}{$CurrentField} } = $FieldRestrictionsObject->Autoselect(
+                    PossibleValues => $Data,
+                ) || '';
+            }
 
 # Rother OSS / ITSMCore - calculate Priority via CIP matrix
             # note: Implementing this here will lead to a wrong result if e.g. an update of the impact df leads
@@ -425,13 +447,20 @@ sub _RenderAjax {
             );
             $Services = $Data;
 
+            # autoselect
+            if ( !$Param{GetParam}{ $Self->{NameToID}{$CurrentField} } && $Autoselect && $Autoselect->{ $Self->{NameToID}{$CurrentField} } ) {
+                $Param{GetParam}{ $Self->{NameToID}{$CurrentField} } = $FieldRestrictionsObject->Autoselect(
+                    PossibleValues => $Data,
+                ) || '';
+            }
+
             # add Service to the JSONCollector (Use ServiceID from web request)
             push(
                 @JSONCollector,
                 {
                     Name         => $Self->{NameToID}{$CurrentField} . $Self->{IDSuffix},
                     Data         => $Data,
-                    SelectedID   => $ParamObject->GetParam( Param => 'ServiceID' ) || '',
+                    SelectedID   => $Param{GetParam}{ $Self->{NameToID}{$CurrentField} },
                     PossibleNone => 1,
                     Translation  => $TreeView,
                     TreeView     => $TreeView,
@@ -454,8 +483,15 @@ sub _RenderAjax {
             my $Data = $Self->_GetSLAs(
                 %{ $Param{GetParam} },
                 Services  => $Services,
-                ServiceID => $ParamObject->GetParam( Param => 'ServiceID' ) || '',
+                ServiceID => $Param{GetParam}{ $Self->{NameToID}{Service} },
             );
+
+            # autoselect
+            if ( !$Param{GetParam}{ $Self->{NameToID}{$CurrentField} } && $Autoselect && $Autoselect->{ $Self->{NameToID}{$CurrentField} } ) {
+                $Param{GetParam}{ $Self->{NameToID}{$CurrentField} } = $FieldRestrictionsObject->Autoselect(
+                    PossibleValues => $Data,
+                ) || '';
+            }
 
             # add SLA to the JSONCollector (Use SelectedID from web request)
             push(
@@ -463,7 +499,7 @@ sub _RenderAjax {
                 {
                     Name         => $Self->{NameToID}{$CurrentField} . $Self->{IDSuffix},
                     Data         => $Data,
-                    SelectedID   => $ParamObject->GetParam( Param => 'SLAID' ) || '',
+                    SelectedID   => $Param{GetParam}{ $Self->{NameToID}{$CurrentField} },
                     PossibleNone => 1,
                     Translation  => 1,
                     Max          => 100,
@@ -478,13 +514,20 @@ sub _RenderAjax {
                 %{ $Param{GetParam} },
             );
 
+            # autoselect
+            if ( !$Param{GetParam}{ $Self->{NameToID}{$CurrentField} } && $Autoselect && $Autoselect->{ $Self->{NameToID}{$CurrentField} } ) {
+                $Param{GetParam}{ $Self->{NameToID}{$CurrentField} } = $FieldRestrictionsObject->Autoselect(
+                    PossibleValues => $Data,
+                ) || '';
+            }
+
             # Add Type to the JSONCollector (Use SelectedID from web request).
             push(
                 @JSONCollector,
                 {
                     Name         => $Self->{NameToID}{$CurrentField} . $Self->{IDSuffix},
                     Data         => $Data,
-                    SelectedID   => $ParamObject->GetParam( Param => 'TypeID' ) || '',
+                    SelectedID   => $Param{GetParam}{ $Self->{NameToID}{$CurrentField} },
                     PossibleNone => 1,
                     Translation  => 1,
                     Max          => 100,
@@ -495,7 +538,6 @@ sub _RenderAjax {
     }
 
     my $DynamicFieldBackendObject = $Kernel::OM->Get('Kernel::System::DynamicField::Backend');
-    my $FieldRestrictionsObject   = $Kernel::OM->Get('Kernel::System::Ticket::FieldRestrictions');
 
     # retrieve field restrictions for dynamic fields
     my $ACLPreselection;
@@ -512,7 +554,6 @@ sub _RenderAjax {
         }
     }
 
-    my $Autoselect      = $ConfigObject->Get('TicketACL::Autoselect') || undef;
     my $LoopProtection  = 100;
     my %ChangedElements = $Param{GetParam}{ElementChanged} ? ( $Param{GetParam}{ElementChanged} => 1 ) : ();
 
@@ -1328,7 +1369,25 @@ sub _OutputActivityDialog {
             }
         }
 
-        my $Autoselect     = $ConfigObject->Get('TicketACL::Autoselect') || undef;
+        my $Autoselect = $ConfigObject->Get('TicketACL::Autoselect') || undef;
+
+        # gather fields which are supposed to be hidden when autoselected
+        my $HideAutoselectedJSON;
+        if ($Autoselect) {
+            my @HideAutoselected = grep { !ref( $Autoselect->{$_} ) && $Autoselect->{$_} == 2 } keys %{$Autoselect};
+            if ( $Autoselect->{DynamicField} ) {
+                push @HideAutoselected,
+                    map { "DynamicField_" . $_ }
+                    ( grep { $Autoselect->{DynamicField}{$_} == 2 } keys %{ $Autoselect->{DynamicField} } );
+            }
+
+            if (@HideAutoselected) {
+                my $JSONObject = $Kernel::OM->Get('Kernel::System::JSON');
+                $HideAutoselectedJSON = $JSONObject->Encode(
+                    Data => \@HideAutoselected,
+                );
+            }
+        }
         my $LoopProtection = 100;
 
         # build hash of field configs without suffix attached to name
@@ -1371,6 +1430,25 @@ sub _OutputActivityDialog {
 
         %DFPossibleValues = map { 'DynamicField_' . $_ => $DynFieldStates{Fields}{$_}{PossibleValues} } keys $Self->{DynamicField}->%*;
         %Visibility       = $DynFieldStates{Visibility}->%*;
+
+        # set new values
+        $Param{GetParam}{DynamicField} //= {};
+        $Param{GetParam}{DynamicField} = {
+            $Param{GetParam}{DynamicField}->%*,
+            $DynFieldStates{NewValues}->%*,
+        };
+        $Param{GetParam} = {
+            $Param{GetParam}->%*,
+            $DynFieldStates{NewValues}->%*,
+        };
+
+        if ($HideAutoselectedJSON) {
+
+            # add Autoselect JS
+            $LayoutObject->AddJSOnDocumentComplete(
+                Code => "Core.Form.InitHideAutoselected({ FieldIDs: $HideAutoselectedJSON });",
+            );
+        }
     }
 
     # Parse definition if present
@@ -2327,6 +2405,15 @@ sub _RenderSLA {
         $ServerError = 'ServerError';
     }
 
+    # autoselect
+    my $Autoselect = $Kernel::OM->Get('Kernel::Config')->Get('TicketACL::Autoselect') || undef;
+    if ( !$SelectedValue && $Autoselect && $Autoselect->{SLAID} ) {
+        my $AutoselectedID = $Kernel::OM->Get('Kernel::System::Ticket::FieldRestrictions')->Autoselect(
+            PossibleValues => $SLAs,
+        ) || '';
+        $SelectedValue = $SLAs->{$AutoselectedID};
+    }
+
     # build SLA string
     $Data{Content} = $LayoutObject->BuildSelection(
         Data          => $SLAs,
@@ -2480,6 +2567,15 @@ sub _RenderService {
     my $TreeView = 0;
     if ( $Kernel::OM->Get('Kernel::Config')->Get('Ticket::Frontend::ListType') eq 'tree' ) {
         $TreeView = 1;
+    }
+
+    # autoselect
+    my $Autoselect = $Kernel::OM->Get('Kernel::Config')->Get('TicketACL::Autoselect') || undef;
+    if ( !$SelectedValue && $Autoselect && $Autoselect->{ServiceID} ) {
+        my $AutoselectedID = $Kernel::OM->Get('Kernel::System::Ticket::FieldRestrictions')->Autoselect(
+            PossibleValues => $Services,
+        ) || '';
+        $SelectedValue = $Services->{$AutoselectedID};
     }
 
     # build Service string
@@ -2657,6 +2753,15 @@ sub _RenderPriority {
         $ServerError = 'ServerError';
     }
 
+    # autoselect
+    my $Autoselect = $Kernel::OM->Get('Kernel::Config')->Get('TicketACL::Autoselect') || undef;
+    if ( !$SelectedValue && $Autoselect && $Autoselect->{PriorityID} ) {
+        my $AutoselectedID = $Kernel::OM->Get('Kernel::System::Ticket::FieldRestrictions')->Autoselect(
+            PossibleValues => $Priorities,
+        ) || '';
+        $SelectedValue = $Priorities->{$AutoselectedID};
+    }
+
     # build next Priorities string
     $Data{Content} = $LayoutObject->BuildSelection(
         Data          => $Priorities,
@@ -2797,6 +2902,15 @@ sub _RenderQueue {
         $TreeView = 1;
     }
 
+    # autoselect
+    my $Autoselect = $Kernel::OM->Get('Kernel::Config')->Get('TicketACL::Autoselect') || undef;
+    if ( !$SelectedValue && $Autoselect && $Autoselect->{Dest} ) {
+        my $AutoselectedID = $Kernel::OM->Get('Kernel::System::Ticket::FieldRestrictions')->Autoselect(
+            PossibleValues => $Queues,
+        ) || '';
+        $SelectedValue = $Queues->{$AutoselectedID};
+    }
+
     # build next queues string
     $Data{Content} = $LayoutObject->BuildSelection(
         Data          => $Queues,
@@ -2927,6 +3041,15 @@ sub _RenderState {
     my $ServerError = '';
     if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'StateID'} ) {
         $ServerError = 'ServerError';
+    }
+
+    # autoselect
+    my $Autoselect = $Kernel::OM->Get('Kernel::Config')->Get('TicketACL::Autoselect') || undef;
+    if ( !$SelectedValue && $Autoselect && $Autoselect->{NextStateID} ) {
+        my $AutoselectedID = $Kernel::OM->Get('Kernel::System::Ticket::FieldRestrictions')->Autoselect(
+            PossibleValues => $States,
+        ) || '';
+        $SelectedValue = $States->{$AutoselectedID};
     }
 
     # build next states string
@@ -3073,6 +3196,15 @@ sub _RenderType {
     my $ServerError = '';
     if ( IsHashRefWithData( $Param{Error} ) && $Param{Error}->{'TypeID'} ) {
         $ServerError = 'ServerError';
+    }
+
+    # autoselect
+    my $Autoselect = $Kernel::OM->Get('Kernel::Config')->Get('TicketACL::Autoselect') || undef;
+    if ( !$SelectedValue && $Autoselect && $Autoselect->{TypeID} ) {
+        my $AutoselectedID = $Kernel::OM->Get('Kernel::System::Ticket::FieldRestrictions')->Autoselect(
+            PossibleValues => $Types,
+        ) || '';
+        $SelectedValue = $Types->{$AutoselectedID};
     }
 
     # build Service string
