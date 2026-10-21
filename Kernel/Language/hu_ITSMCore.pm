@@ -62,7 +62,7 @@ sub Data {
     $Self->{Translation}->{'operational'} = 'üzemképes';
     $Self->{Translation}->{'warning'} = 'figyelmeztetés';
     $Self->{Translation}->{'incident'} = 'incidens';
-    $Self->{Translation}->{'unknown'} = '';
+    $Self->{Translation}->{'unknown'} = 'ismeretlen';
 
     # Perl Module: Kernel/Modules/AgentITSMServicePrint.pm
     $Self->{Translation}->{'No ServiceID is given!'} = 'Nincs szolgáltatásazonosító megadva!';
@@ -74,9 +74,9 @@ sub Data {
 
     # Perl Module: Kernel/System/DynamicField/Driver/Service.pm
     $Self->{Translation}->{'External-source key'} = 'Külső forrás kulcsa';
-    $Self->{Translation}->{'Service restrictions'} = '';
+    $Self->{Translation}->{'Service restrictions'} = 'Szolgáltatáskorlátozások';
     $Self->{Translation}->{'Select one or more Services to restrict selectable Services by'} =
-        '';
+        'Egy vagy több szolgáltatás kiválasztása a kiválasztható szolgáltatások korlátozásához';
 
     # Database XML / SOPM Definition: ITSMCore.sopm
     $Self->{Translation}->{'Operational'} = 'Üzemképes';
@@ -85,7 +85,7 @@ sub Data {
     $Self->{Translation}->{'Front End'} = 'Előtétprogram';
     $Self->{Translation}->{'Back End'} = 'Háttérprogram';
     $Self->{Translation}->{'IT Management'} = 'IT menedzsment';
-    $Self->{Translation}->{'Reporting'} = 'Jelentés';
+    $Self->{Translation}->{'Reporting'} = 'Jelentéskészítés';
     $Self->{Translation}->{'IT Operational'} = 'IT üzemeltetés';
     $Self->{Translation}->{'Demonstration'} = 'Bemutató';
     $Self->{Translation}->{'Project'} = 'Projekt';
