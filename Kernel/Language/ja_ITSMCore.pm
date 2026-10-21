@@ -36,19 +36,19 @@ sub Data {
     $Self->{Translation}->{'Criticality'} = '重要度';
 
     # Template: AgentITSMSLAZoom
-    $Self->{Translation}->{'SLA Information'} = 'SLA情報';
+    $Self->{Translation}->{'SLA Information'} = 'SLA 情報';
     $Self->{Translation}->{'Last changed'} = '最終更新日時';
     $Self->{Translation}->{'Last changed by'} = '最終更新者';
     $Self->{Translation}->{'Associated Services'} = '関連するサービス';
 
     # Template: AgentITSMServiceZoom
     $Self->{Translation}->{'Service Information'} = 'サービス情報';
-    $Self->{Translation}->{'Current incident state'} = 'インシデントの状態';
-    $Self->{Translation}->{'Associated SLAs'} = '関連するSLA';
+    $Self->{Translation}->{'Current incident state'} = '現在のインシデント状況';
+    $Self->{Translation}->{'Associated SLAs'} = '関連する SLA';
 
     # Template: TicketInformation
-    $Self->{Translation}->{'Service Incident State'} = '';
-    $Self->{Translation}->{'Service Criticality'} = '';
+    $Self->{Translation}->{'Service Incident State'} = 'サービス・インシデント状況';
+    $Self->{Translation}->{'Service Criticality'} = 'サービスの重要度';
 
     # Perl Module: Kernel/Modules/AdminITSMCIPAllocate.pm
     $Self->{Translation}->{'Impact'} = '影響度';
@@ -59,20 +59,20 @@ sub Data {
     $Self->{Translation}->{'Calendar Default'} = 'カレンダー・デフォルト';
 
     # Perl Module: Kernel/Modules/AgentITSMSLAZoom.pm
-    $Self->{Translation}->{'operational'} = '通常運用';
+    $Self->{Translation}->{'operational'} = '稼働中';
     $Self->{Translation}->{'warning'} = '警告';
     $Self->{Translation}->{'incident'} = 'インシデント';
 
     # Perl Module: Kernel/Modules/AgentITSMServicePrint.pm
-    $Self->{Translation}->{'No ServiceID is given!'} = 'ServiceIDは指定されていません！';
-    $Self->{Translation}->{'ServiceID %s not found in database!'} = 'ServiceID %s はデータベースにありません！';
+    $Self->{Translation}->{'No ServiceID is given!'} = 'ServiceID が指定されていません！';
+    $Self->{Translation}->{'ServiceID %s not found in database!'} = 'ServiceID %s がデータベースに見つかりません！';
     $Self->{Translation}->{'Current Incident State'} = '現在のインシデントのステータス';
 
     # Perl Module: Kernel/Output/HTML/LinkObject/Service.pm
     $Self->{Translation}->{'Incident State'} = 'インシデントのステータス';
 
     # Perl Module: Kernel/System/DynamicField/Driver/Service.pm
-    $Self->{Translation}->{'External-source key'} = '';
+    $Self->{Translation}->{'External-source key'} = '外部ソースのキー';
 
     # Database XML / SOPM Definition: ITSMCore.sopm
     $Self->{Translation}->{'Operational'} = '通常運用';
@@ -98,47 +98,47 @@ sub Data {
     $Self->{Translation}->{'Alternative to'} = '代替：';
     $Self->{Translation}->{'Both'} = '両方';
     $Self->{Translation}->{'CIPAllocation: Overwrite priority based on Criticality and Impact. Default fallback: Frontend::CIPAllocationDefault.'} =
-        '';
+        'CIPAllocation: 重要度と影響度に基づいて優先度を上書きします。デフォルトのフォールバック: Frontend::CIPAllocationDefault。';
     $Self->{Translation}->{'Connected to'} = '接続：';
     $Self->{Translation}->{'Default behavior of priority allocation in the frontends based on Criticality and Impact. Can be overruled by frontend specific PriorityByCIP settings.'} =
-        '';
+        '重要度と影響度に基づく、フロントエンドでの優先度割り当てのデフォルトの動作。フロントエンドごとの PriorityByCIP 設定で上書きできます。';
     $Self->{Translation}->{'Define Actions where a settings button is available in the linked objects widget (LinkObject::ViewMode = "complex"). Please note that these Actions must have registered the following JS and CSS files: Core.AllocationList.css, Core.UI.AllocationList.js, Core.UI.Table.Sort.js, Core.Agent.TableFilters.js and Core.Agent.LinkObject.js.'} =
-        'リンクされたオブジェクト ウィジェット (LinkObject::ViewMode = "complex") で設定ボタンが使用できるアクションを定義します。これらのアクションには、Core.AllocationList.css、Core.UI.AllocationList.js、Core.UI.Table.Sort.js、Core.Agent.TableFilters.js、および Core.Agent.LinkObject.js の JS および CSS ファイルが登録されている必要があることに注意してください。';
+        'リンクオブジェクト・ウィジェット（LinkObject::ViewMode = "complex"）で設定ボタンを使用できるアクションを定義します。これらのアクションには、次の JS および CSS ファイルが登録されている必要があります: Core.AllocationList.css、Core.UI.AllocationList.js、Core.UI.Table.Sort.js、Core.Agent.TableFilters.js、Core.Agent.LinkObject.js。';
     $Self->{Translation}->{'Define which columns are shown in the linked Services widget (LinkObject::ViewMode = "complex"). Note: Only Service attributes are allowed for DefaultColumns. Possible settings: 0 = Disabled, 1 = Available, 2 = Enabled by default.'} =
-        'リンクされたサービスウィジェットに表示される列を定義します（LinkObject :: ViewMode = "complex"）。 注：DefaultColumnsにはサービス属性のみが許可されています。 可能な設定：0 =使用不可、1 =使用可能、2 =デフォルトで使用可能。';
+        'リンクされたサービスウィジェット（LinkObject::ViewMode = "complex"）に表示する列を定義します。注意: DefaultColumns に使用できるのはサービス属性のみです。設定可能な値: 0 = 無効、1 = 利用可能、2 = デフォルトで有効。';
     $Self->{Translation}->{'Defines the list of online repositories. Another installation can be used as repository, for example: Key="http://example.com/otobo/public.pl?Action=PublicRepository;File=" and Content="Some Name".'} =
-        '';
+        'オンラインリポジトリの一覧を定義します。別のインストール環境をリポジトリとして使用することもできます。例: Key="http://example.com/otobo/public.pl?Action=PublicRepository;File=" および Content="Some Name"。';
     $Self->{Translation}->{'Depends on'} = '依存：';
-    $Self->{Translation}->{'Enforce'} = '';
+    $Self->{Translation}->{'Enforce'} = '強制';
     $Self->{Translation}->{'Frontend module registration for the AdminITSMCIPAllocate configuration in the admin area.'} =
-        '管理エリアでのAdminITSMCIPAllocateのフロントエンドモジュールの登録します。';
+        '管理画面の AdminITSMCIPAllocate 設定用のフロントエンドモジュールの登録。';
     $Self->{Translation}->{'Frontend module registration for the AgentITSMSLA object in the agent interface.'} =
-        '担当者インタフェースのAgentITSMSLAオブジェクト　フロントエンド・モジュールの登録です。';
+        '担当者インタフェースの AgentITSMSLA オブジェクト用のフロントエンドモジュールの登録。';
     $Self->{Translation}->{'Frontend module registration for the AgentITSMSLAPrint object in the agent interface.'} =
-        '担当者インタフェースのAgentITSMSLAPrintオブジェクト　フロントエンド・モジュールの登録です。';
+        '担当者インタフェースの AgentITSMSLAPrint オブジェクト用のフロントエンドモジュールの登録。';
     $Self->{Translation}->{'Frontend module registration for the AgentITSMSLAZoom object in the agent interface.'} =
-        '担当者インタフェースのAgentITSMSLAZoomオブジェクト　フロントエンド・モジュールの登録です。';
+        '担当者インタフェースの AgentITSMSLAZoom オブジェクト用のフロントエンドモジュールの登録。';
     $Self->{Translation}->{'Frontend module registration for the AgentITSMService object in the agent interface.'} =
-        '担当者インタフェースのAgentITSMServiceオブジェクト　フロントエンド・モジュールの登録です。';
+        '担当者インタフェースの AgentITSMService オブジェクト用のフロントエンドモジュールの登録。';
     $Self->{Translation}->{'Frontend module registration for the AgentITSMServicePrint object in the agent interface.'} =
-        '担当者インタフェースのAgentITSMServicePrintオブジェクト　フロントエンド・モジュールの登録です。';
+        '担当者インタフェースの AgentITSMServicePrint オブジェクト用のフロントエンドモジュールの登録。';
     $Self->{Translation}->{'Frontend module registration for the AgentITSMServiceZoom object in the agent interface.'} =
-        '担当者インタフェースのAgentITSMServiceZoomオブジェクト　フロントエンド・モジュールの登録です。';
+        '担当者インタフェースの AgentITSMServiceZoom オブジェクト用のフロントエンドモジュールの登録。';
     $Self->{Translation}->{'ITSM SLA Overview.'} = 'ITSM SLA の一覧です。';
     $Self->{Translation}->{'ITSM Service Overview.'} = 'ITSM サービスの一覧です。';
     $Self->{Translation}->{'Incident State Type'} = 'インシデント状態のタイプ';
     $Self->{Translation}->{'Includes'} = '含む：';
-    $Self->{Translation}->{'Located in'} = '';
-    $Self->{Translation}->{'Location of'} = '';
+    $Self->{Translation}->{'Located in'} = '設置場所';
+    $Self->{Translation}->{'Location of'} = '設置先';
     $Self->{Translation}->{'Manage priority matrix.'} = '優先度の関連性を管理します。';
     $Self->{Translation}->{'Manage the criticality - impact - priority matrix.'} = '重要度↔影響度↔優先度の関連性を管理します。';
-    $Self->{Translation}->{'Module to show the Back menu item in SLA menu.'} = 'SLAメニューに戻るメニュー項目を表示するモジュールです。';
-    $Self->{Translation}->{'Module to show the Back menu item in service menu.'} = 'サービスメニューに戻るメニュー項目を表示するモジュールです。';
-    $Self->{Translation}->{'Module to show the Link menu item in service menu.'} = 'サービスメニューにリンクメニュー項目を表示するモジュールです。';
-    $Self->{Translation}->{'Module to show the Print menu item in SLA menu.'} = 'SLAメニューに印刷メニュー項目を表示するモジュールです。';
-    $Self->{Translation}->{'Module to show the Print menu item in service menu.'} = 'サービスメニューに印刷メニュー項目を表示するモジュールです。';
-    $Self->{Translation}->{'Off'} = '';
-    $Self->{Translation}->{'Parameters for the incident states in the preference view.'} = '設定ビューでのインシデントステータスのパラメーターです。';
+    $Self->{Translation}->{'Module to show the Back menu item in SLA menu.'} = 'SLA メニューに「戻る」メニュー項目を表示するモジュール。';
+    $Self->{Translation}->{'Module to show the Back menu item in service menu.'} = 'サービスメニューに「戻る」メニュー項目を表示するモジュール。';
+    $Self->{Translation}->{'Module to show the Link menu item in service menu.'} = 'サービスメニューに「リンク」メニュー項目を表示するモジュール。';
+    $Self->{Translation}->{'Module to show the Print menu item in SLA menu.'} = 'SLA メニューに「印刷」メニュー項目を表示するモジュール。';
+    $Self->{Translation}->{'Module to show the Print menu item in service menu.'} = 'サービスメニューに「印刷」メニュー項目を表示するモジュール。';
+    $Self->{Translation}->{'Off'} = 'オフ';
+    $Self->{Translation}->{'Parameters for the incident states in the preference view.'} = '個人設定ビューにおけるインシデント状況のパラメータ。';
     $Self->{Translation}->{'Part of'} = '一部：';
     $Self->{Translation}->{'Relevant to'} = '関連項目：';
     $Self->{Translation}->{'Required for'} = '必須：';
@@ -150,72 +150,72 @@ sub Data {
     $Self->{Translation}->{'Service Zoom.'} = 'サービス・ズームです。';
     $Self->{Translation}->{'Service-Area'} = 'サービス・エリア';
     $Self->{Translation}->{'Set the type and direction of links to be used to calculate the incident state. The key is the name of the link type (as defined in LinkObject::Type), and the value is the direction of the IncidentLinkType that should be followed to calculate the incident state. For example if the IncidentLinkType is set to \'DependsOn\', and the Direction is \'Source\', only \'Depends on\' links will be followed (and not the opposite link \'Required for\') to calculate the incident state. You can add more link types ad directions as you like, e.g. \'Includes\' with the direction \'Target\'. All link types defined in the sysconfig options LinkObject::Type are possible and the direction can be \'Source\', \'Target\', or \'Both\'. IMPORTANT: AFTER YOU MAKE CHANGES TO THIS SYSCONFIG OPTION YOU NEED TO RUN THE CONSOLE COMMAND bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate SO THAT ALL INCIDENT STATES WILL BE RECALCULATED BASED ON THE NEW SETTINGS!'} =
-        'インシデント状態の計算に使用するリンクのタイプと方向を設定します。 キーはリンクタイプの名前（LinkObject :: Typeで定義されている）であり、値はインシデントステータスを計算するために従うべきIncidentLinkTypeの方向です。 たとえば、IncidentLinkTypeが \'DependsOn\'に設定されており、Directionが \'Source\'の場合、インシデントのステータスを計算するために、 \'依存する\'リンクのみが表示されます（反対のリンクは \'Required for\'ではありません）。 広告タイプのリンクタイプを追加できます（例： 方向 \'Target\'を含む \'Includes\'。 sysconfigオプションLinkObject :: Typeで定義されているすべてのリンクタイプが可能で、方向は \'Source\'、 \'Target\'、または \'Both\'です。 重要：このSYSCONFIGオプションに変更を加えたら、コンソールコマンドbin/otobo.Console.plを実行する必要があります。Admin :: ITSM :: IncidentState :: Recalculateしたがって、すべての事態は新しい設定に基づいて再計算されます！';
+        'インシデント状況の計算に使用するリンクのタイプと方向を設定します。キーはリンクタイプ名（LinkObject::Type で定義されたもの）、値はインシデント状況を計算する際にたどる IncidentLinkType の方向です。例えば、IncidentLinkType が \'DependsOn\'、Direction が \'Source\' に設定されている場合、インシデント状況の計算には \'Depends on\' リンクのみがたどられます（逆方向の \'Required for\' リンクはたどられません）。\'Includes\' と方向 \'Target\' のように、リンクタイプと方向は自由に追加できます。システム設定オプション LinkObject::Type で定義されたすべてのリンクタイプを使用でき、方向には \'Source\'、\'Target\'、\'Both\' を指定できます。重要: このシステム設定オプションを変更した後は、新しい設定に基づいてすべてのインシデント状況が再計算されるよう、コンソールコマンド bin/otobo.Console.pl Admin::ITSM::IncidentState::Recalculate を実行する必要があります！';
     $Self->{Translation}->{'Show the current service incident state signal in the ticket information.'} =
-        '';
+        'チケット情報に、現在のサービス・インシデント状況のシグナルを表示します。';
     $Self->{Translation}->{'Source'} = 'ソース';
-    $Self->{Translation}->{'Suggest'} = '';
+    $Self->{Translation}->{'Suggest'} = '提案';
     $Self->{Translation}->{'This setting defines that a \'ITSMChange\' object can be linked with \'Ticket\' objects using the \'Normal\' link type.'} =
-        '‘Normal’リンク・タイプを使用して、‘ITSMChange’オブジェクトが他の‘Ticket’オブジェクトとリンクされるように、定義します。';
+        'この設定は、\'ITSMChange\' オブジェクトを \'Normal\' リンクタイプで\'Ticket\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with \'FAQ\' objects using the \'Normal\' link type.'} =
-        '‘Normal’リンク・タイプを使用して、‘ITSMChange’オブジェクトが‘FAQ’オブジェクトとリンクされるように、定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'Normal\' リンクタイプで\'FAQ\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with \'FAQ\' objects using the \'ParentChild\' link type.'} =
-        '‘親子’リンク・タイプを使用して、‘ITSMChange’オブジェクトが‘FAQ’オブジェクトとリンクされるように、定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'ParentChild\' リンクタイプで\'FAQ\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with \'FAQ\' objects using the \'RelevantTo\' link type.'} =
-        '‘関連した’リンク・タイプを使用して、‘ITSMChange’オブジェクトが‘FAQ’オブジェクトとリンクされるように、定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'RelevantTo\' リンクタイプで\'FAQ\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with \'Service\' objects using the \'AlternativeTo\' link type.'} =
-        'この設定は、「ITSMConfigItem」オブジェクトが「AlternativeTo/~の代替」リンクタイプを使用して、「サービス」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'AlternativeTo\' リンクタイプで\'Service\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with \'Service\' objects using the \'DependsOn\' link type.'} =
-        'この設定は、「ITSMConfigItem」オブジェクトが「DependsOn/~に依存する」リンクタイプを使用して、「サービス」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'DependsOn\' リンクタイプで\'Service\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with \'Service\' objects using the \'RelevantTo\' link type.'} =
-        'この設定は、「ITSMConfigItem」オブジェクトが「RelevantTo/~と関連する」リンクタイプを使用して、「サービス」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'RelevantTo\' リンクタイプで\'Service\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with \'Ticket\' objects using the \'AlternativeTo\' link type.'} =
-        'この設定は、「ITSMConfigItem」オブジェクトが「AlternativeTo/~の代替」リンクタイプを使用して、「チケット」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'AlternativeTo\' リンクタイプで\'Ticket\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with \'Ticket\' objects using the \'DependsOn\' link type.'} =
-        'この設定は、「ITSMConfigItem」オブジェクトが「DependsOn/~に依存する」リンクタイプを使用して、「チケット」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'DependsOn\' リンクタイプで\'Ticket\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with \'Ticket\' objects using the \'RelevantTo\' link type.'} =
-        'この設定は、「ITSMConfigItem」オブジェクトが「RelevantTo/~と関連する」リンクタイプを使用して、「チケット」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'RelevantTo\' リンクタイプで\'Ticket\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with other \'ITSMConfigItem\' objects using the \'AlternativeTo\' link type.'} =
-        'この設定は、「ITSMConfigItem」オブジェクトが「AlternativeTo/~の代替」リンクタイプを使用して、他の「ITSMConfigItem」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'AlternativeTo\' リンクタイプで他の \'ITSMConfigItem\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with other \'ITSMConfigItem\' objects using the \'ConnectedTo\' link type.'} =
-        'この設定は、「ITSMConfigItem」オブジェクトが「ConnectedTo/~とつながっている」リンクタイプを使用して、他の「ITSMConfigItem」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'ConnectedTo\' リンクタイプで他の \'ITSMConfigItem\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with other \'ITSMConfigItem\' objects using the \'DependsOn\' link type.'} =
-        'この設定は、「ITSMConfigItem」オブジェクトが「DependsOn/~に依存する」リンクタイプを使用して、他の「ITSMConfigItem」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'DependsOn\' リンクタイプで他の \'ITSMConfigItem\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with other \'ITSMConfigItem\' objects using the \'Includes\' link type.'} =
-        'この設定は、「ITSMConfigItem」オブジェクトが「Includes/~を含む」リンクタイプを使用して、他の「ITSMConfigItem」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'Includes\' リンクタイプで他の \'ITSMConfigItem\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with other \'ITSMConfigItem\' objects using the \'LocationOf\' link type.'} =
-        '';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'LocationOf\' リンクタイプで他の \'ITSMConfigItem\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMConfigItem\' object can be linked with other \'ITSMConfigItem\' objects using the \'RelevantTo\' link type.'} =
-        'この設定は、「ITSMConfigItem」オブジェクトが「RelevantTo/~と関連する」リンクタイプを使用して、他の「ITSMConfigItem」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMConfigItem\' オブジェクトを \'RelevantTo\' リンクタイプで他の \'ITSMConfigItem\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMWorkOrder\' object can be linked with \'ITSMConfigItem\' objects using the \'DependsOn\' link type.'} =
-        'この設定は、「ITSMWorkOrder」オブジェクトが「DependsOn/~に依存する」リンクタイプを使用して、「ITSMConfigItem」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMWorkOrder\' オブジェクトを \'DependsOn\' リンクタイプで\'ITSMConfigItem\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMWorkOrder\' object can be linked with \'ITSMConfigItem\' objects using the \'Normal\' link type.'} =
-        'この設定は、「ITSMWorkOrder」オブジェクトが「Normal/通常」リンクタイプを使用して、「ITSMConfigItem」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMWorkOrder\' オブジェクトを \'Normal\' リンクタイプで\'ITSMConfigItem\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMWorkOrder\' object can be linked with \'Service\' objects using the \'DependsOn\' link type.'} =
-        'この設定は、「ITSMWorkOrder」オブジェクトが「DependsOn/~に依存する」リンクタイプを使用して、「Service」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMWorkOrder\' オブジェクトを \'DependsOn\' リンクタイプで\'Service\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMWorkOrder\' object can be linked with \'Service\' objects using the \'Normal\' link type.'} =
-        'この設定は、「ITSMWorkOrder」オブジェクトが「Normal/通常」リンクタイプを使用して、「Service」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMWorkOrder\' オブジェクトを \'Normal\' リンクタイプで\'Service\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'ITSMWorkOrder\' object can be linked with \'Ticket\' objects using the \'Normal\' link type.'} =
-        'この設定は、「ITSMWorkOrder」オブジェクトが「Normal/通常」リンクタイプを使用して、「Ticket」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'ITSMWorkOrder\' オブジェクトを \'Normal\' リンクタイプで\'Ticket\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'Service\' object can be linked with \'FAQ\' objects using the \'Normal\' link type.'} =
-        'この設定は、「Service」オブジェクトが「Normal/通常」リンクタイプを使用して、「FAQ」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'Service\' オブジェクトを \'Normal\' リンクタイプで\'FAQ\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'Service\' object can be linked with \'FAQ\' objects using the \'ParentChild\' link type.'} =
-        'この設定は、「Service」オブジェクトが「ParentChild/親子」リンクタイプを使用して、「FAQ」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'Service\' オブジェクトを \'ParentChild\' リンクタイプで\'FAQ\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines that a \'Service\' object can be linked with \'FAQ\' objects using the \'RelevantTo\' link type.'} =
-        'この設定は、「Service」オブジェクトが「RelevantTo/~と関連する」リンクタイプを使用して、「FAQ」オブジェクトとリンクできることを定義します。';
+        'この設定は、\'Service\' オブジェクトを \'RelevantTo\' リンクタイプで\'FAQ\' オブジェクトとリンクできるようにします。';
     $Self->{Translation}->{'This setting defines the link type \'AlternativeTo\'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link.'} =
-        'リンク・タイプ\'AlternativeTo\'の定義です。もしソース名およびターゲット名が同じ値を含んでいる場合、結果のリンクは非直接リンクになり、そうでない結果は直接リンクになります。';
+        'この設定は、リンクタイプ \'AlternativeTo\' を定義します。ソース名とターゲット名が同じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は、方向のあるリンクになります。';
     $Self->{Translation}->{'This setting defines the link type \'ConnectedTo\'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link.'} =
-        'リンク・タイプ\'ConnectedTo\'の定義です。もしソース名およびターゲット名が同じ値を含んでいる場合、結果のリンクは非直接リンクになり、そうでない結果は直接リンクになります。';
+        'この設定は、リンクタイプ \'ConnectedTo\' を定義します。ソース名とターゲット名が同じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は、方向のあるリンクになります。';
     $Self->{Translation}->{'This setting defines the link type \'DependsOn\'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link.'} =
-        'リンク・タイプ\'DependsOn\'の定義です。もしソース名およびターゲット名が同じ値を含んでいる場合、結果のリンクは非直接リンクになり、そうでない結果は直接リンクになります。';
+        'この設定は、リンクタイプ \'DependsOn\' を定義します。ソース名とターゲット名が同じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は、方向のあるリンクになります。';
     $Self->{Translation}->{'This setting defines the link type \'Includes\'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link.'} =
-        'リンク・タイプ\'Includes\'の定義です。もしソース名およびターゲット名が同じ値を含んでいる場合、結果のリンクは非直接リンクになり、そうでない結果は直接リンクになります。';
+        'この設定は、リンクタイプ \'Includes\' を定義します。ソース名とターゲット名が同じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は、方向のあるリンクになります。';
     $Self->{Translation}->{'This setting defines the link type \'LocationOf\'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link.'} =
-        '';
+        'この設定は、リンクタイプ \'LocationOf\' を定義します。ソース名とターゲット名が同じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は、方向のあるリンクになります。';
     $Self->{Translation}->{'This setting defines the link type \'RelevantTo\'. If the source name and the target name contain the same value, the resulting link is a non-directional one. If the values are different, the resulting link is a directional link.'} =
-        'リンク・タイプ\'RelevantTo\'の定義です。もしソース名およびターゲット名が同じ値を含んでいる場合、結果のリンクは非直接リンクになり、そうでない結果は直接リンクになります。';
-    $Self->{Translation}->{'Width of ITSM textareas.'} = 'ITSM テキストエリア幅です。';
+        'この設定は、リンクタイプ \'RelevantTo\' を定義します。ソース名とターゲット名が同じ値の場合、作成されるリンクは方向のないリンクになります。値が異なる場合は、方向のあるリンクになります。';
+    $Self->{Translation}->{'Width of ITSM textareas.'} = 'ITSM のテキストエリアの幅。';
 
 
     push @{ $Self->{JavaScriptStrings} // [] }, (
