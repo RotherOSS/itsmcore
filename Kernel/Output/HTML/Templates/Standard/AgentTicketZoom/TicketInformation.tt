@@ -4,7 +4,7 @@
 # Copyright (C) 2001-2020 OTRS AG, https://otrs.com/
 # Copyright (C) 2019-2026 Rother OSS GmbH, https://otobo.io/
 # --
-# $origin: otobo - deb99d60daf212ae73ec7feb78074f3f7ae563f8 - Kernel/Output/HTML/Templates/Standard/AgentTicketZoom/TicketInformation.tt
+# $origin: otobo - 01ada840798f24ec731c0ca74bd47ff76c48090f - Kernel/Output/HTML/Templates/Standard/AgentTicketZoom/TicketInformation.tt
 # --
 # This program is free software: you can redistribute it and/or modify it under
 # the terms of the GNU General Public License as published by the Free Software
@@ -231,7 +231,12 @@
                         <label>[% Translate(Data.Label) | html %]:</label>
                         <p class="Value">
 [% RenderBlockStart("TicketDynamicFieldLink") %]
+[% RenderBlockStart("ValueItemLink") %]
                             <span title="[% Data.Title %]"><a href="[% Data.Link | Interpolate %]"[% IF Data.LinkPreview %] data-trigger="floater" data-floater-url="[% Data.LinkPreview | Interpolate %]"[% END %] target="_blank" class="DynamicFieldLink">[% Data.Value %]</a></span>
+[% RenderBlockStart("MultivalueSeparatorLink") %]
+                            </br>
+[% RenderBlockEnd("MultivalueSeparatorLink") %]
+[% RenderBlockEnd("ValueItemLink") %]
 [% RenderBlockEnd("TicketDynamicFieldLink") %]
 [% RenderBlockStart("TicketDynamicFieldPlain") %]
                             <span title="[% Data.Title %]">[% Data.Value %]</span>
