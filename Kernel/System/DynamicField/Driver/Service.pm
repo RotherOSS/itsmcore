@@ -493,8 +493,8 @@ sub ImportExportPrepareConfig {
     my %Return;
     my %AttributeLookup = (
         AllowedServiceIDs => {
-            Import => sub { return $Kernel::OM->Get('Kernel::System::Service')->ServiceLookup( ServiceID => pop @_ ) },
-            Export => sub { return $Kernel::OM->Get('Kernel::System::Service')->ServiceLookup( Name      => pop @_ ) },
+            Import => sub { return $Kernel::OM->Get('Kernel::System::Service')->ServiceLookup( Name      => pop @_ ) },
+            Export => sub { return $Kernel::OM->Get('Kernel::System::Service')->ServiceLookup( ServiceID => pop @_ ) },
         },
     );
 
