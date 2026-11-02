@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ITSMCore\n"
 "POT-Creation-Date: 2026-09-15 14:37+0000\n"
-"PO-Revision-Date: 2026-10-21 14:41+0000\n"
+"PO-Revision-Date: 2026-11-02 16:41+0000\n"
 "Last-Translator: Balázs Úr <balazs@urbalazs.hu>\n"
 "Language-Team: Hungarian <http://translate.otobo.org/projects/otobo-11-1/"
 "addons/itsm-core/hu/>\n"
@@ -63,7 +63,7 @@ msgstr "Hozzárendelt SLA-k"
 
 #. Template: TicketInformation
 msgid "Service Incident State"
-msgstr "Szolgáltatás incidensállapota"
+msgstr "Szolgáltatás incidensállapot"
 
 #. Template: TicketInformation
 msgid "Service Criticality"
