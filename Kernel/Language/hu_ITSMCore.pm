@@ -27,7 +27,7 @@ sub Data {
     $Self->{Translation}->{'Criticality ↔ Impact ↔ Priority'} = 'Kritikusság ↔ Hatás ↔ Prioritás';
     $Self->{Translation}->{'Manage the priority result of combinating Criticality ↔ Impact.'} =
         'A Kritikusság ↔ Hatás összetétel prioritás eredményének kezelése.';
-    $Self->{Translation}->{'Priority allocation'} = 'Prioritáslefoglalás';
+    $Self->{Translation}->{'Priority allocation'} = 'Prioritás lefoglalás';
 
     # Template: AdminSLA
     $Self->{Translation}->{'Minimum Time Between Incidents'} = 'Az incidensek közti legkisebb idő';
@@ -81,7 +81,7 @@ sub Data {
     $Self->{Translation}->{'Front End'} = 'Előtétprogram';
     $Self->{Translation}->{'Back End'} = 'Háttérprogram';
     $Self->{Translation}->{'IT Management'} = 'IT menedzsment';
-    $Self->{Translation}->{'Reporting'} = 'Jelentés';
+    $Self->{Translation}->{'Reporting'} = 'Jelentéskészítés';
     $Self->{Translation}->{'IT Operational'} = 'IT üzemeltetés';
     $Self->{Translation}->{'Demonstration'} = 'Bemutató';
     $Self->{Translation}->{'Project'} = 'Projekt';
