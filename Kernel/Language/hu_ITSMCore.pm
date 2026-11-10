@@ -47,7 +47,7 @@ sub Data {
     $Self->{Translation}->{'Associated SLAs'} = 'Hozzárendelt SLA-k';
 
     # Template: TicketInformation
-    $Self->{Translation}->{'Service Incident State'} = 'Szolgáltatás incidensállapota';
+    $Self->{Translation}->{'Service Incident State'} = 'Szolgáltatás incidensállapot';
     $Self->{Translation}->{'Service Criticality'} = 'Szolgáltatás kritikussága';
 
     # Perl Module: Kernel/Modules/AdminITSMCIPAllocate.pm
