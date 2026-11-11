@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-07 14:14+0000\n"
-"PO-Revision-Date: 2026-11-11 11:00+0000\n"
+"PO-Revision-Date: 2026-11-11 14:00+0000\n"
 "Last-Translator: Jasmin Hammes <jasmin.hammes@rother-oss.com>\n"
 "Language-Team: German <http://translate.otobo.org/projects/otobo-11-1/addons/"
 "manuals/itsmcore-documentation/de/>\n"
@@ -798,6 +798,8 @@ msgstr ""
 #: ../content/index.rst:372
 msgid "List of CSS files to always be loaded for the agent interface."
 msgstr ""
+"Liste der CSS-Dateien, die für die Agentenoberfläche immer geladen werden "
+"sollen."
 
 #: ../content/index.rst:375
 msgid "Loader::Agent::CommonJS###100-ITSM"
