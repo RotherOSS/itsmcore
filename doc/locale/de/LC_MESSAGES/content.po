@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: OTOBO Installation Guide rel-11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-07-07 14:14+0000\n"
-"PO-Revision-Date: 2026-11-11 09:00+0000\n"
+"PO-Revision-Date: 2026-11-11 11:00+0000\n"
 "Last-Translator: Jasmin Hammes <jasmin.hammes@rother-oss.com>\n"
 "Language-Team: German <http://translate.otobo.org/projects/otobo-11-1/addons/"
 "manuals/itsmcore-documentation/de/>\n"
@@ -91,7 +91,7 @@ msgstr ""
 
 #: ../content/index.rst:45
 msgid "Core::DynamicFields::DriverRegistration"
-msgstr ""
+msgstr "Core::DynamicFields::DriverRegistration"
 
 #: ../content/index.rst:48
 msgid "DynamicFields::Driver###Service"
@@ -99,7 +99,7 @@ msgstr ""
 
 #: ../content/index.rst:49
 msgid "DynamicField backend registration."
-msgstr ""
+msgstr "Backend-Registrierung der dynamischen Felder."
 
 #: ../content/index.rst:52
 msgid "Core::GeneralCatalog"
@@ -503,7 +503,7 @@ msgstr ""
 
 #: ../content/index.rst:211
 msgid "Frontend::Admin::ModuleRegistration"
-msgstr ""
+msgstr "Frontend::Admin::ModuleRegistration"
 
 #: ../content/index.rst:214
 msgid "Frontend::Module###AdminITSMCIPAllocate"
@@ -529,7 +529,7 @@ msgstr ""
 
 #: ../content/index.rst:225
 msgid "Frontend::Admin::ModuleRegistration::Loader"
-msgstr ""
+msgstr "Frontend::Admin::ModuleRegistration::Loader"
 
 #: ../content/index.rst:228
 msgid "Loader::Module::AdminITSMCIPAllocate###003-ITSMCore"
@@ -538,7 +538,7 @@ msgstr ""
 #: ../content/index.rst:229 ../content/index.rst:314 ../content/index.rst:318
 #: ../content/index.rst:322 ../content/index.rst:326
 msgid "Loader module registration for the agent interface."
-msgstr ""
+msgstr "Registrierung des Loader-Moduls für die Agentenoberfläche."
 
 #: ../content/index.rst:232
 msgid "Frontend::Admin::ModuleRegistration::MainMenu"
@@ -649,7 +649,7 @@ msgstr ""
 
 #: ../content/index.rst:283
 msgid "Frontend::Agent::ModuleRegistration"
-msgstr ""
+msgstr "Frontend::Agent::ModuleRegistration"
 
 #: ../content/index.rst:286
 msgid "Frontend::Module###AgentITSMSLA"
@@ -713,7 +713,7 @@ msgstr ""
 
 #: ../content/index.rst:310
 msgid "Frontend::Agent::ModuleRegistration::Loader"
-msgstr ""
+msgstr "Frontend::Agent::ModuleRegistration::Loader"
 
 #: ../content/index.rst:313
 msgid "Loader::Module::AgentITSMSLA###003-ITSMService"
@@ -789,7 +789,7 @@ msgstr ""
 
 #: ../content/index.rst:368
 msgid "Frontend::Base::Loader"
-msgstr ""
+msgstr "Frontend::Base::Loader"
 
 #: ../content/index.rst:371
 msgid "Loader::Agent::CommonCSS###100-ITSM"
@@ -806,6 +806,8 @@ msgstr ""
 #: ../content/index.rst:376
 msgid "List of JS files to always be loaded for the agent interface."
 msgstr ""
+"Liste der JS-Dateien, die für die Agentenoberfläche immer geladen werden "
+"sollen."
 
 #: ../content/index.rst:379
 msgid "Frontend::Customer::View::TicketMessage"
